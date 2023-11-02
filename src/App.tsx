@@ -55,19 +55,28 @@ function GetVenues() {
       <h2>Our venues:</h2>
       <ul>
         {data.map((venue) => (
-          <li key={venue.id}>
-            {Array.isArray(venue.media) ? (
-              venue.media.map((imgUrl, index) => (
-                <img key={index} src={imgUrl} alt={venue.name} />
-              ))
-            ) : (
-              <img src={venue.media} alt={venue.name} />
-            )}
-            <h3 className="text-xl font-bold">{venue.name}</h3>
-            <p>Max guests: {venue.maxGuests}</p>
-            <p>{venue.description}</p>
-            <button>Read more</button>
-          </li>
+          <div key={venue.id}>
+            <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 bg-white-pink">
+              {Array.isArray(venue.media) ? (
+                venue.media.map((imgUrl, index) => (
+                  <img
+                    className="h-72 w-full object-cover rounded-xl"
+                    key={index}
+                    src={imgUrl}
+                    alt={venue.name}
+                  />
+                ))
+              ) : (
+                <img src={venue.media} alt={venue.name} />
+              )}
+              <h3 className="text-xl font-bold">{venue.name}</h3>
+              <p>Max guests: {venue.maxGuests}</p>
+              <p>{venue.description}</p>
+              <button className="bg-light-pink w-full py-3 my-4 rounded-xl font-bold">
+                Read more
+              </button>
+            </li>
+          </div>
         ))}
       </ul>
     </>
