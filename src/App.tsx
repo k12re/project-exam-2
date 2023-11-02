@@ -55,9 +55,9 @@ function GetVenues() {
   return (
     <>
       <div className="max-w-md mx-auto">
-        <span className="flex px-4">
+        <span className="flex px-4 my-3">
           <Link to={`/`}>
-            <img src={HomeIcon} alt="Back arrow" className="w-6" />
+            <img src={HomeIcon} alt="Home icon" className="h-8 w-8" />
           </Link>
           <h1 className="text-2xl font-bold px-4">Our venues</h1>
         </span>

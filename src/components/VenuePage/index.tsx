@@ -62,9 +62,9 @@ function VenuePage() {
 
   return (
     <div className="max-w-md mx-auto">
-      <span className="flex px-4">
+      <span className="flex px-4 my-3">
         <Link to={`/`}>
-          <img src={LeftArrow} alt="Back arrow" className="w-5" />
+          <img src={LeftArrow} alt="Back arrow" className="h-10 w-10" />
         </Link>
         <h1 className="text-2xl font-bold px-4">{venue.name}</h1>
       </span>
@@ -85,7 +85,7 @@ function VenuePage() {
         <p>Max guests: {venue.maxGuests}</p>
         <p>{venue.description}</p>
         <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-          <Link to={`/venue/${venue.id}`}>Read more</Link>
+          Read more
         </button>
       </div>
     </div>
