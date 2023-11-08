@@ -74,6 +74,7 @@ function LoginUserForm() {
             Email:{" "}
           </label>
           <input
+            autoComplete="name"
             type="text"
             id="email"
             {...register("email")}
