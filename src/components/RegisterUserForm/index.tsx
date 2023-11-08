@@ -69,6 +69,7 @@ function RegisterUserForm() {
             Name:{" "}
           </label>
           <input
+            autoComplete="name"
             type="text"
             id="name"
             {...register("name")}
@@ -78,6 +79,7 @@ function RegisterUserForm() {
             Email:{" "}
           </label>
           <input
+            autoComplete="name"
             type="text"
             id="email"
             {...register("email")}
@@ -101,7 +103,7 @@ function RegisterUserForm() {
             {...register("avatarUrl")}
             className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
           />
-          <label htmlFor="manager" className="block">
+          <label htmlFor="venueManager" className="block">
             Manager
           </label>
           <input
