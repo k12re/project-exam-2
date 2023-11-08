@@ -27,7 +27,6 @@ function useLoginUserAPI() {
       body: JSON.stringify(profile),
     };
     const registerUrl = url + authEndpoint + action;
-    console.log(registerUrl);
     console.log(profile);
 
     try {
@@ -47,16 +46,16 @@ function useLoginUserAPI() {
     }
   };
 
-  return { loginUser };
+  return { loginUser, profileData };
 }
 
 function LoginUserForm() {
   const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
   const { loginUser } = useLoginUserAPI();
 
-  function onSubmit(profile: object) {
-    console.log(profile);
-    loginUser(profile);
+  function onSubmit(profileData: object) {
+    console.log(profileData);
+    loginUser(profileData);
   }
 
   return (
