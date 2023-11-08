@@ -1,13 +1,15 @@
 import HomeIcon from "../src/assets/home-fill.svg";
 import { useEffect, useState } from "react";
 import "./App.css";
-import { Outlet, Link, Route, Routes } from "react-router-dom";
+import { Outlet, Link, Route, Routes, NavLink } from "react-router-dom";
 import VenuePage from "./components/VenuePage";
+import RegisterUserForm from "./components/RegisterUserForm";
+import LoginUserForm from "./components/LoginUser";
 
 export const venuesUrl: string = "/venues";
 export const url: string = "https://api.noroff.dev/api/v1/holidaze";
 
-interface Venue {
+export interface Venue {
   id: string;
   name: string;
   description: string;
@@ -148,20 +150,26 @@ function Nav() {
     <nav className="flex justify-between bg-white-pink">
       <Logo />
       <ul className="flex flex-row flex-wrap mx-auto">
+        <li key={"home"} className="m-3 p-3 active:bg-pink hover:bg-light-pink">
+          <NavLink to="/"> Venues</NavLink>
+        </li>
         <li
-          key={"home"}
-          className="m-3 p-3 active: bg-pink hover:bg-light-pink"
+          key={"bookings"}
+          className="m-3 p-3 active:bg-pink hover:bg-light-pink"
         >
-          <Link to="/"> Venues</Link>
+          <NavLink to="/"> Bookings</NavLink>
         </li>
-        <li key={"bookings"} className="m-3 p-3 hover:bg-light-pink">
-          <Link to="/"> Bookings</Link>
+        <li
+          key={"profile"}
+          className="m-3 p-3 active:bg-pink hover:bg-light-pink"
+        >
+          <NavLink to="/"> Profile</NavLink>
         </li>
-        <li key={"profile"} className="m-3 p-3 hover:bg-light-pink">
-          <Link to="/"> Profile</Link>
-        </li>
-        <li key={"logout"} className="m-3 p-3 hover:bg-light-pink">
-          <Link to="/"> Logout</Link>
+        <li
+          key={"register"}
+          className="m-3 p-3 active:bg-pink hover:bg-light-pink"
+        >
+          <NavLink to="/register"> Login</NavLink>
         </li>
       </ul>
       <LightDarkMode />
@@ -193,7 +201,8 @@ function App() {
             <Route path="venues/:id" element={<VenuePage />}></Route>
             <Route path="bookings"></Route>
             <Route path="profile"></Route>
-            <Route path="logout"></Route>
+            <Route path="register" element={<RegisterUserForm />}></Route>
+            <Route path="login" element={<LoginUserForm />}></Route>
           </Route>
           {/* <h1 className="text-2xl font-bold underline">Venues</h1> */}
         </Routes>

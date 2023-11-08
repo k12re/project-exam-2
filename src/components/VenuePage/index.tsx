@@ -2,36 +2,10 @@ import LeftArrow from "../../assets/angle-left.svg";
 import { useEffect, useState } from "react";
 import { url, venuesUrl } from "../../App";
 import { useParams, Link } from "react-router-dom";
-
-// interface Venue {
-//   id: string;
-//   name: string;
-//   description: string;
-//   price: number;
-//   maxGuests: number;
-//   rating?: number;
-//   created: string;
-//   updated?: string;
-//   media?: string[];
-//   meta?: {
-//     wifi: boolean;
-//     parking: boolean;
-//     breakfast: boolean;
-//     pets: boolean;
-//   };
-//   location?: {
-//     address?: string;
-//     city?: string;
-//     zip?: string;
-//     country?: string;
-//     continent?: string;
-//     lat?: number;
-//     lng?: number;
-//   };
-// }
+import { Venue } from "../../App";
 
 function VenuePage() {
-  const [venue, setVenue] = useState(null);
+  const [venue, setVenue] = useState<Venue | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   let { id } = useParams();
 
@@ -52,13 +26,13 @@ function VenuePage() {
     getData(`${url}${venuesUrl}/${id}`);
   }, [id]);
 
-  if (isLoading) {
+  if (isLoading || venue === null) {
     return <div>Loading...</div>;
   }
 
-  if (venue === null) {
-    return null;
-  }
+  //   if (venue === null) {
+  //     return null;
+  //   }
 
   return (
     <div className="max-w-md mx-auto">

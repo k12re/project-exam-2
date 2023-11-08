@@ -1,24 +1,26 @@
-import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { url } from "../../App";
 import { Link } from "react-router-dom";
-import { save } from "../Storage";
 
 const schema = yup.object({
+  name: yup.string().required(),
   email: yup.string().required(),
   password: yup.string().required(),
+  avatarUrl: yup.string(),
+  venueManager: yup.boolean(),
 });
 
 const authEndpoint = "/auth";
-const action = "/login";
+const action = "/register";
 const methodPOST = "POST";
 
-function useLoginUserAPI() {
+function useRegisterUserAPI() {
   const [profileData, setProfileData] = useState(null);
 
-  const loginUser = async (profile: object) => {
+  const registerUser = async (profile: object) => {
     const postData = {
       method: methodPOST,
       headers: {
@@ -35,28 +37,21 @@ function useLoginUserAPI() {
       const json = await response.json();
       setProfileData(json);
       console.log(json);
-
-      if (response.ok) {
-        const accessToken = json.accessToken;
-        save("accessToken", accessToken);
-        delete json.accessToken;
-        save("profile", json);
-      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { loginUser };
+  return { registerUser };
 }
 
-function LoginUserForm() {
+function RegisterUserForm() {
   const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
-  const { loginUser } = useLoginUserAPI();
+  const { registerUser } = useRegisterUserAPI();
 
   function onSubmit(profile: object) {
     console.log(profile);
-    loginUser(profile);
+    registerUser(profile);
   }
 
   return (
@@ -71,6 +66,15 @@ function LoginUserForm() {
       </span>
       <form id="registerform" onSubmit={handleSubmit(onSubmit)}>
         <label className="block">
+          <label htmlFor="name" className="block">
+            Name:{" "}
+          </label>
+          <input
+            type="text"
+            id="name"
+            {...register("name")}
+            className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+          />
           <label htmlFor="email" className="block">
             Email:{" "}
           </label>
@@ -89,9 +93,25 @@ function LoginUserForm() {
             {...register("password")}
             className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
           />
-
+          <label htmlFor="avatar" className="block">
+            Avatar URL
+          </label>
+          <input
+            type="text"
+            id="avatar"
+            {...register("avatarUrl")}
+            className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+          />
+          <label htmlFor="manager" className="block">
+            Manager
+          </label>
+          <input
+            type="checkbox"
+            id="venueManager"
+            {...register("venueManager")}
+          ></input>
           <button className="mt-2 mx-auto block bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-            Login
+            Register
           </button>
         </label>
       </form>
@@ -99,4 +119,4 @@ function LoginUserForm() {
   );
 }
 
-export default LoginUserForm;
+export default RegisterUserForm;
