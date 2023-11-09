@@ -5,6 +5,8 @@ import { Outlet, Link, Route, Routes, NavLink } from "react-router-dom";
 import VenuePage from "./components/VenuePage";
 import RegisterUserForm from "./components/RegisterUserForm";
 import LoginUserForm from "./components/LoginUser";
+import ProfilePage from "./components/EditProfile";
+import BookingPage from "./components/CreateBookingUser";
 
 export const venuesUrl: string = "/venues";
 export const url: string = "https://api.noroff.dev/api/v1/holidaze";
@@ -38,13 +40,38 @@ export interface Venue {
 
 function GetVenues() {
   const [data, setData] = useState<Venue[]>([]);
+  const [totalResults, setTotalResults] = useState(0);
+  const [queryOffset, setQueryOffset] = useState(0);
+  const [reachedLastPage, setReachedLastPage] = useState(false);
+
+  const offset = `?offset=${queryOffset}`;
+
+  function addOffset() {
+    if (!reachedLastPage) {
+      setQueryOffset(queryOffset + 100);
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function decreaseOffset() {
+    setQueryOffset(Math.max(queryOffset - 100, 0));
+    window.scrollTo(0, 0);
+    setReachedLastPage(false);
+  }
+
+  console.log(queryOffset);
+  console.log(totalResults);
 
   useEffect(() => {
     async function getData() {
       try {
-        const response = await fetch(`${url}${venuesUrl}`);
+        const response = await fetch(`${url}${venuesUrl}${offset}`);
         const json = await response.json();
+
         setData(json);
+        if (json.length < 100) {
+          setReachedLastPage(true);
+        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -52,7 +79,7 @@ function GetVenues() {
       }
     }
     getData();
-  }, []);
+  }, [queryOffset]);
 
   return (
     <>
@@ -89,6 +116,14 @@ function GetVenues() {
             </div>
           ))}
         </ul>
+        <div>
+          <button onClick={decreaseOffset} disabled={queryOffset === 0}>
+            Previous results
+          </button>
+          <button onClick={addOffset} disabled={reachedLastPage === true}>
+            Next results
+          </button>
+        </div>
       </div>
     </>
   );
@@ -157,13 +192,13 @@ function Nav() {
           key={"bookings"}
           className="m-3 p-3 active:bg-pink hover:bg-light-pink"
         >
-          <NavLink to="/"> Bookings</NavLink>
+          <NavLink to="/bookings"> Bookings</NavLink>
         </li>
         <li
           key={"profile"}
           className="m-3 p-3 active:bg-pink hover:bg-light-pink"
         >
-          <NavLink to="/"> Profile</NavLink>
+          <NavLink to="/profile"> Profile</NavLink>
         </li>
         <li
           key={"register"}
@@ -199,8 +234,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<GetVenues />}></Route>
             <Route path="venues/:id" element={<VenuePage />}></Route>
-            <Route path="bookings"></Route>
-            <Route path="profile"></Route>
+            <Route path="bookings" element={<BookingPage />}></Route>
+            <Route path="profile" element={<ProfilePage />}></Route>
             <Route path="register" element={<RegisterUserForm />}></Route>
             <Route path="login" element={<LoginUserForm />}></Route>
           </Route>
