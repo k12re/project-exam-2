@@ -3,6 +3,12 @@
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
+  /* background-color: #022626;
+  background-image: url(../src/assets/background-dark.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-blend-mode: overlay;
+  min-height: 100vh; */
 }
 
 .logo {

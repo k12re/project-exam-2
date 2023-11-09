@@ -1,4 +1,5 @@
 import LeftArrow from "../../assets/angle-left.svg";
+import DefaultProfile from "../../assets/profile-circle.svg";
 import { useEffect, useState } from "react";
 import { url, venuesUrl } from "../../App";
 import { useParams, Link } from "react-router-dom";
@@ -23,44 +24,76 @@ function VenuePage() {
       }
     }
 
-    getData(`${url}${venuesUrl}/${id}`);
+    getData(`${url}${venuesUrl}/${id}/?_owner=true&_bookings=true`);
   }, [id]);
+
+  console.log(venue);
 
   if (isLoading || venue === null) {
     return <div>Loading...</div>;
   }
 
-  //   if (venue === null) {
-  //     return null;
-  //   }
-
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto ">
       <span className="flex px-4 my-3">
         <Link to={`/`}>
           <img src={LeftArrow} alt="Back arrow" className="h-10 w-10" />
         </Link>
         <h1 className="text-2xl font-bold px-4">{venue.name}</h1>
       </span>
-      <div className="max-w-md mx-auto mb-4 rounded-2xl p-4 bg-white-pink">
-        {Array.isArray(venue.media) ? (
-          venue.media.map((imgUrl, index) => (
-            <img
-              className="h-72 w-full object-cover rounded-xl"
-              key={index}
-              src={imgUrl}
-              alt={venue.name}
-            />
-          ))
-        ) : (
-          <img src={venue.media} alt={venue.name} />
-        )}
-        <h3 className="text-xl font-bold">{venue.name}</h3>
-        <p>Max guests: {venue.maxGuests}</p>
-        <p>{venue.description}</p>
-        <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-          Read more
-        </button>
+      <div>
+        <div className="max-w-md mx-auto mb-4 rounded-2xl p-4 bg-white-pink">
+          <img
+            className="object-cover rounded-xl h-72 w-full mb-4"
+            src={venue.media[0]}
+            alt={venue.name}
+          />
+          <div className="flex flex-row gap-x-4 ">
+            {venue.media?.slice(1).map((imgUrl, index) => (
+              <img
+                className="h-32 object-cover rounded-xl flex-grow"
+                key={index}
+                src={imgUrl}
+                alt={venue.name}
+              />
+            ))}
+          </div>
+          <div>
+            <h3 className="text-xl font-bold">Venue name: {venue.name}</h3>
+            <p>Description: {venue.description}</p>
+            <p>Max guests: {venue.maxGuests}</p>
+            <p>Price: {venue.price}</p>
+            <p>Rating: {venue.rating}</p>
+          </div>
+          <div>
+            <h2 className="text-l font-bold">Location:</h2>
+            <p>Country: {venue.location?.country}</p>
+            <p>City: {venue.location?.city}</p>
+            <p>Address: {venue.location?.address}</p>
+            <p>Continent: {venue.location?.continent}</p>
+          </div>
+          <Link to={`/profiles/${venue.owner?.name}`}>
+            <div className="flex flex-row">
+              {(venue.owner.avatar === "" || venue.owner.avatar === null) |
+              null ? (
+                <img
+                  className="h-6 w-6 rounded-full flex-none"
+                  src={DefaultProfile}
+                />
+              ) : (
+                <img
+                  className="h-6 w-6 rounded-full"
+                  src={venue.owner.avatar}
+                />
+              )}
+              <p className="flex-auto">Owner: {venue.owner.name}</p>
+              <p className="flex-auto">Email: {venue.owner.email}</p>
+            </div>
+          </Link>
+          <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+            See availability
+          </button>
+        </div>
       </div>
     </div>
   );

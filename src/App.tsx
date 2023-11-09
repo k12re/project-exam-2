@@ -5,8 +5,9 @@ import { Outlet, Link, Route, Routes, NavLink } from "react-router-dom";
 import VenuePage from "./components/VenuePage";
 import RegisterUserForm from "./components/RegisterUserForm";
 import LoginUserForm from "./components/LoginUser";
-import ProfilePage from "./components/EditProfile";
+import ProfilePage from "./components/ProfilePage";
 import BookingPage from "./components/CreateBookingUser";
+import GetProfiles from "./components/Profiles";
 
 export const venuesUrl: string = "/venues";
 export const url: string = "https://api.noroff.dev/api/v1/holidaze";
@@ -36,11 +37,15 @@ export interface Venue {
     lat?: number;
     lng?: number;
   };
+  owner?: {
+    avatar?: string;
+    email: string;
+    name: string;
+  };
 }
 
 function GetVenues() {
   const [data, setData] = useState<Venue[]>([]);
-  const [totalResults, setTotalResults] = useState(0);
   const [queryOffset, setQueryOffset] = useState(0);
   const [reachedLastPage, setReachedLastPage] = useState(false);
 
@@ -58,9 +63,6 @@ function GetVenues() {
     window.scrollTo(0, 0);
     setReachedLastPage(false);
   }
-
-  console.log(queryOffset);
-  console.log(totalResults);
 
   useEffect(() => {
     async function getData() {
@@ -94,7 +96,7 @@ function GetVenues() {
           {data.map((venue) => (
             <div key={venue.id}>
               <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 bg-white-pink">
-                {Array.isArray(venue.media) ? (
+                {/* {Array.isArray(venue.media) ? (
                   venue.media.map((imgUrl, index) => (
                     <img
                       className="h-72 w-full object-cover rounded-xl"
@@ -104,8 +106,13 @@ function GetVenues() {
                     />
                   ))
                 ) : (
-                  <img src={venue.media} alt={venue.name} />
-                )}
+                  <img src={venue.media} alt={venue.name}  />
+                )} */}
+                <img
+                  src={venue.media}
+                  alt={venue.name}
+                  className="h-72 w-full object-cover rounded-xl"
+                />
                 <h3 className="text-xl font-bold">{venue.name}</h3>
                 <p>Max guests: {venue.maxGuests}</p>
                 <p>{venue.description}</p>
@@ -195,10 +202,10 @@ function Nav() {
           <NavLink to="/bookings"> Bookings</NavLink>
         </li>
         <li
-          key={"profile"}
+          key={"profiles"}
           className="m-3 p-3 active:bg-pink hover:bg-light-pink"
         >
-          <NavLink to="/profile"> Profile</NavLink>
+          <NavLink to="/profiles"> Profiles</NavLink>
         </li>
         <li
           key={"register"}
@@ -235,7 +242,8 @@ function App() {
             <Route index element={<GetVenues />}></Route>
             <Route path="venues/:id" element={<VenuePage />}></Route>
             <Route path="bookings" element={<BookingPage />}></Route>
-            <Route path="profile" element={<ProfilePage />}></Route>
+            <Route path="profiles" element={<GetProfiles />}></Route>
+            <Route path="profiles/:name" element={<ProfilePage />}></Route>
             <Route path="register" element={<RegisterUserForm />}></Route>
             <Route path="login" element={<LoginUserForm />}></Route>
           </Route>
