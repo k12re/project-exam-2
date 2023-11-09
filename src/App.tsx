@@ -90,7 +90,9 @@ function GetVenues() {
           <Link to={`/`}>
             <img src={HomeIcon} alt="Home icon" className="h-8 w-8" />
           </Link>
-          <h1 className="text-2xl font-bold px-4">Our venues</h1>
+          <h1 className="text-2xl font-bold px-4 text-white-pink">
+            Our venues
+          </h1>
         </span>
         <ul>
           {data.map((venue) => (
@@ -137,7 +139,11 @@ function GetVenues() {
 }
 
 function Logo() {
-  return <h2 className="font-bold m-3 p-3 w-40">Holidaze</h2>;
+  return (
+    <h2 className="text-light-pink text-2xl font-bold m-3 p-3 w-40">
+      Holidaze
+    </h2>
+  );
 }
 
 function Header() {
@@ -189,29 +195,44 @@ function LightDarkMode() {
 
 function Nav() {
   return (
-    <nav className="flex justify-between bg-white-pink">
+    <nav className="flex justify-between backdrop-blur-lg backdrop-brightness-50 bg-white/30">
       <Logo />
       <ul className="flex flex-row flex-wrap mx-auto">
-        <li key={"home"} className="m-3 p-3 active:bg-pink hover:bg-light-pink">
-          <NavLink to="/"> Venues</NavLink>
+        <li key={"home"} className="group m-3 p-3 active:bg-pink ">
+          <NavLink
+            to="/"
+            className="m-3 p-3 text-light-pink hover:bg-light-pink hover:text-dark-green"
+          >
+            {" "}
+            Venues
+          </NavLink>
         </li>
-        <li
-          key={"bookings"}
-          className="m-3 p-3 active:bg-pink hover:bg-light-pink"
-        >
-          <NavLink to="/bookings"> Bookings</NavLink>
+        <li key={"bookings"} className="group m-3 p-3 active:bg-pink">
+          <NavLink
+            to="/bookings"
+            className="m-3 p-3 text-light-pink hover:bg-light-pink hover:text-dark-green"
+          >
+            {" "}
+            Bookings
+          </NavLink>
         </li>
-        <li
-          key={"profiles"}
-          className="m-3 p-3 active:bg-pink hover:bg-light-pink"
-        >
-          <NavLink to="/profiles"> Profiles</NavLink>
+        <li key={"profiles"} className="group m-3 p-3 active:bg-pink">
+          <NavLink
+            to="/profiles"
+            className="m-3 p-3 text-light-pink hover:bg-light-pink hover:text-dark-green"
+          >
+            {" "}
+            Profiles
+          </NavLink>
         </li>
-        <li
-          key={"register"}
-          className="m-3 p-3 active:bg-pink hover:bg-light-pink"
-        >
-          <NavLink to="/register"> Login</NavLink>
+        <li key={"register"} className="group m-3 p-3 active:bg-pink">
+          <NavLink
+            to="/register"
+            className="m-3 p-3 text-light-pink hover:bg-light-pink hover:text-dark-green"
+          >
+            {" "}
+            Login
+          </NavLink>
         </li>
       </ul>
       <LightDarkMode />
@@ -220,7 +241,11 @@ function Nav() {
 }
 
 function Footer() {
-  return <footer>Ken Thore Bjerke Bøeng 2023</footer>;
+  return (
+    <footer className="text-white-pink backdrop-blur-lg backdrop-brightness-50 bg-white/30 p-6">
+      Ken Thore Bjerke Bøeng 2023
+    </footer>
+  );
 }
 
 function Layout() {

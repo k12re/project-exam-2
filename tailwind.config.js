@@ -8,7 +8,7 @@ export default {
       pink: "#D97E96",
       violet: "8C5D7C",
       green: "#025E73",
-      "dark-green": "¤022626",
+      "dark-green": "#022626",
       red: "#FF4141",
       "dark-red": "#C50000",
     },
