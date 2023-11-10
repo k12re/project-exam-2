@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
 import { url } from "../../App";
 import { profilesUrl } from "../Profiles";
-import LeftArrow from "../../assets/angle-left.svg";
+import LightArrow from "../../assets/light-left.svg";
 
 function ProfilePage() {
   const [profile, setProfile] = useState(null);

@@ -1,4 +1,4 @@
-import LeftArrow from "../../assets/angle-left.svg";
+import LightArrow from "../../assets/light-left.svg";
 import DefaultProfile from "../../assets/profile-circle.svg";
 import { useEffect, useState } from "react";
 import { url, venuesUrl } from "../../App";
@@ -37,14 +37,14 @@ function VenuePage() {
     <div className="max-w-md mx-auto ">
       <span className="flex px-4 my-3">
         <Link to={`/`}>
-          <img src={LeftArrow} alt="Back arrow" className="h-10 w-10" />
+          <img src={LightArrow} alt="Back arrow" className="h-10 w-10 " />
         </Link>
-        <h1 className="text-2xl font-bold px-4 text-white-pink">
+        <h1 className="text-2xl font-bold px-4 dark:text-white-pink text-dark-green">
           {venue.name}
         </h1>
       </span>
-      <div className="flex flex-row">
-        <div className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 text-white-pink border border-green ">
+      <div className="flex flex-row ">
+        <div className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green ">
           <div className="flex flex-col">
             <img
               className="object-cover rounded-xl h-72 w-full mb-4"
@@ -96,7 +96,7 @@ function VenuePage() {
               </div>
             </Link>
           </div>
-          <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+          <button className="dark:bg-pink dark:hover:bg-light-pink bg-green text-white-pink hover:bg-dark-green w-full py-3 my-3 rounded-xl font-bold">
             See availability
           </button>
         </div>

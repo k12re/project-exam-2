@@ -120,9 +120,10 @@ function GetVenues() {
                 <h3 className="text-xl font-bold">{venue.name}</h3>
                 <p>Max guests: {venue.maxGuests}</p>
                 <p className="break-all">{venue.description}</p>
-                <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+                <button className=" dark:bg-pink dark:hover:bg-light-pink bg-green text-white-pink hover:bg-dark-green w-full py-3 my-3 rounded-xl font-bold">
                   <Link to={`/venues/${venue.id}`}>Read more</Link>
                 </button>
+                <button className="btn-primary">Test</button>
               </li>
             </div>
           ))}
@@ -142,9 +143,11 @@ function GetVenues() {
 
 function Logo() {
   return (
-    <h2 className="text-light-pink text-2xl font-bold m-3 p-3 w-40">
-      Holidaze
-    </h2>
+    <Link to={"/"}>
+      <h2 className="dark:text-pink text-green font-logo text-4xl font-bold m-3 p-3 w-40">
+        Holidaze
+      </h2>
+    </Link>
   );
 }
 
@@ -164,16 +167,38 @@ function LightDarkMode() {
     setIsChecked((prev) => !prev);
   };
 
+  const rootElement = document.getElementById("root");
+
+  if (isChecked === true) {
+    document.documentElement.classList.toggle("dark", isChecked);
+
+    if (rootElement) {
+      rootElement.style.backgroundImage =
+        "url(../src/assets/background-dark.jpg)";
+      rootElement.style.backgroundColor = "#022626";
+      rootElement.style.backgroundBlendMode = "overlay";
+    }
+  } else if (isChecked === false) {
+    document.documentElement.classList.remove("dark");
+    // rootElement.style.backgroundImage =
+    //   "url(../src/assets/background-light.jpg)";
+    rootElement.style.backgroundColor = "rgba(255, 246, 248, 0.9)";
+    rootElement.style.backgroundBlendMode = "overlay";
+  }
+
   return (
     <div className="flex p-3 m-3">
       <input
         id="lightdarkmode"
         type="checkbox"
-        className="relative peer appearance-none w-12 h-6 border-2 border-pink rounded-3xl checked:bg-light-pink"
+        className="relative peer appearance-none w-12 h-6 border-2 dark:border-pink border-green  rounded-3xl"
         checked={isChecked}
         onChange={handleSwitch}
       ></input>
-      <label htmlFor="lightdarkmode" className="ps-2 cursor-pointer w-24">
+      <label
+        htmlFor="lightdarkmode"
+        className="ps-2 cursor-pointer w-24 text-green dark:text-pink"
+      >
         {isChecked ? "Dark mode" : "Light mode "}
       </label>
       <svg
@@ -186,7 +211,7 @@ function LightDarkMode() {
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill="#ec4899"
+          fill="#D97E96"
           d="M12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
         />
       </svg>
@@ -197,13 +222,13 @@ function LightDarkMode() {
 
 function Nav() {
   return (
-    <nav className="flex justify-between backdrop-blur-lg backdrop-brightness-50 bg-white/30">
+    <nav className="flex justify-between ">
       <Logo />
       <ul className="flex flex-row flex-wrap mx-auto">
         <li key={"home"} className="group m-3 p-3 active:bg-pink ">
           <NavLink
             to="/"
-            className="m-3 p-3 text-light-pink hover:bg-light-pink hover:text-dark-green"
+            className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
           >
             {" "}
             Venues
@@ -212,7 +237,7 @@ function Nav() {
         <li key={"bookings"} className="group m-3 p-3 active:bg-pink">
           <NavLink
             to="/bookings"
-            className="m-3 p-3 text-light-pink hover:bg-light-pink hover:text-dark-green"
+            className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
           >
             {" "}
             Bookings
@@ -221,7 +246,7 @@ function Nav() {
         <li key={"profiles"} className="group m-3 p-3 active:bg-pink">
           <NavLink
             to="/profiles"
-            className="m-3 p-3 text-light-pink hover:bg-light-pink hover:text-dark-green"
+            className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
           >
             {" "}
             Profiles
@@ -230,7 +255,7 @@ function Nav() {
         <li key={"register"} className="group m-3 p-3 active:bg-pink">
           <NavLink
             to="/register"
-            className="m-3 p-3 text-light-pink hover:bg-light-pink hover:text-dark-green"
+            className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
           >
             {" "}
             Login
@@ -244,7 +269,7 @@ function Nav() {
 
 function Footer() {
   return (
-    <footer className="text-white-pink backdrop-blur-lg backdrop-brightness-50 bg-white/30 p-6">
+    <footer className="text-white-pink backdrop-blur-lg backdrop-brightness-90 bg-white/30 p-6">
       Ken Thore Bjerke Bøeng 2023
     </footer>
   );

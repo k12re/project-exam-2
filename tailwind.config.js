@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     colors: {
       "white-pink": "#FFF6F8",
@@ -12,7 +13,11 @@ export default {
       red: "#FF4141",
       "dark-red": "#C50000",
     },
+    fontFamily: {
+      logo: ["Inspiration", "cursive"],
+    },
     extend: {},
   },
+
   plugins: [],
 };
