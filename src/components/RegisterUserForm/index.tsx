@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { url } from "../../App";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const schema = yup.object({
   name: yup.string().required(),
@@ -53,69 +53,93 @@ function RegisterUserForm() {
     registerUser(profileData);
   }
 
+  const location = useLocation();
+
+  console.log(location.pathname);
+
   return (
     <div className="max-w-md mx-auto">
-      <span className="flex">
-        <Link to={`/register`}>
-          <h1 className="text-2xl font-bold px-4 mb-4">Register user</h1>
-        </Link>
-        <Link to={`/login`}>
-          <h1 className="text-2xl font-bold px-4 mb-4">Login user</h1>
-        </Link>
+      <span className="flex px-4 my-3">
+        <h1 className="text-2xl font-bold px-4 text-white-pink">
+          Fill out to register
+        </h1>
       </span>
-      <form id="registerform" onSubmit={handleSubmit(onSubmit)}>
-        <label className="block">
-          <label htmlFor="name" className="block">
-            Name:{" "}
+      <div className="mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
+        <span className="flex justify-center pt-6">
+          <Link to={`/register`}>
+            <div className="bg-white-pink rounded-l-full w-32 p-1">
+              <h1
+                className={`text-xl font-bold px-4 pb-1 ${
+                  location.pathname === "/register"
+                    ? "bg-pink rounded-full"
+                    : ""
+                }`}
+              >
+                Register
+              </h1>
+            </div>
+          </Link>
+          <Link to={`/login`}>
+            <div className="bg-white-pink rounded-r-full w-32">
+              <h1 className="text-xl font-bold mb-4 px-1 pt-1 pb-2">Login</h1>
+            </div>
+          </Link>
+        </span>
+        <form id="registerform" onSubmit={handleSubmit(onSubmit)}>
+          <label className="block text-white-pink">
+            <label htmlFor="name" className="block">
+              Name:{" "}
+            </label>
+            <input
+              autoComplete="name"
+              type="text"
+              id="name"
+              {...register("name")}
+              className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+            />
+            <label htmlFor="email" className="block">
+              Email:{" "}
+            </label>
+            <input
+              autoComplete="name"
+              type="text"
+              id="email"
+              {...register("email")}
+              className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+            />
+            <label htmlFor="password" className="block">
+              Password:{" "}
+            </label>
+            <input
+              type="password"
+              id="password"
+              {...register("password")}
+              className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+            />
+            <label htmlFor="avatar" className="block">
+              Avatar URL
+            </label>
+            <input
+              type="text"
+              id="avatar"
+              {...register("avatarUrl")}
+              className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+            />
+            <label htmlFor="venueManager" className="block">
+              Manager
+            </label>
+            <input
+              type="checkbox"
+              id="venueManager"
+              {...register("venueManager")}
+            ></input>
+
+            <button className="mt-2 mx-auto block bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+              Register
+            </button>
           </label>
-          <input
-            autoComplete="name"
-            type="text"
-            id="name"
-            {...register("name")}
-            className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
-          />
-          <label htmlFor="email" className="block">
-            Email:{" "}
-          </label>
-          <input
-            autoComplete="name"
-            type="text"
-            id="email"
-            {...register("email")}
-            className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
-          />
-          <label htmlFor="password" className="block">
-            Password:{" "}
-          </label>
-          <input
-            type="password"
-            id="password"
-            {...register("password")}
-            className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
-          />
-          <label htmlFor="avatar" className="block">
-            Avatar URL
-          </label>
-          <input
-            type="text"
-            id="avatar"
-            {...register("avatarUrl")}
-            className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
-          />
-          <label htmlFor="venueManager" className="block">
-            Manager
-          </label>
-          <input
-            type="checkbox"
-            id="venueManager"
-            {...register("venueManager")}
-          ></input>
-          <button className="mt-2 mx-auto block bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-            Register
-          </button>
-        </label>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

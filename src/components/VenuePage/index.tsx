@@ -51,10 +51,10 @@ function VenuePage() {
               src={venue.media[0]}
               alt={venue.name}
             />
-            <div className="flex flex-row gap-x-4 ">
+            <div className="flex flex-row flex-wrap gap-4 ">
               {venue.media?.slice(1).map((imgUrl, index) => (
                 <img
-                  className="h-32 object-cover rounded-xl flex-grow"
+                  className="h-24 object-cover rounded-xl flex-grow"
                   key={index}
                   src={imgUrl}
                   alt={venue.name}
@@ -64,7 +64,7 @@ function VenuePage() {
           </div>
           <div className="flex flex-col">
             <h3 className="text-xl font-bold">Venue name: {venue.name}</h3>
-            <p>Description: {venue.description}</p>
+            <p className="break-all">Description: {venue.description}</p>
             <p>Max guests: {venue.maxGuests}</p>
             <p>Price: {venue.price}</p>
             <p>Rating: {venue.rating}</p>

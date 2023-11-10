@@ -83,6 +83,8 @@ function GetVenues() {
     getData();
   }, [queryOffset]);
 
+  console.log(data);
+
   return (
     <>
       <div className="max-w-md mx-auto">
@@ -117,7 +119,7 @@ function GetVenues() {
                 />
                 <h3 className="text-xl font-bold">{venue.name}</h3>
                 <p>Max guests: {venue.maxGuests}</p>
-                <p>{venue.description}</p>
+                <p className="break-all">{venue.description}</p>
                 <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
                   <Link to={`/venues/${venue.id}`}>Read more</Link>
                 </button>
@@ -250,9 +252,11 @@ function Footer() {
 
 function Layout() {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <Outlet />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );
