@@ -68,6 +68,14 @@ button:focus-visible {
   }
 } */
 
+/* h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+p::selection {
+  background-color: pink;
+} */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -75,5 +83,15 @@ button:focus-visible {
 @layer components {
   .btn-primary {
     @apply bg-green;
+    @apply hover:bg-dark-green;
+    @apply dark:bg-pink;
+    @apply dark:hover:bg-light-pink;
+    @apply text-white-pink;
+    @apply w-48;
+    @apply py-3;
+    @apply my-3;
+    @apply rounded-xl;
+    @apply font-bold;
+    @apply font-btn;
   }
 }

@@ -96,8 +96,10 @@ function VenuePage() {
               </div>
             </Link>
           </div>
-          <button className="dark:bg-pink dark:hover:bg-light-pink bg-green text-white-pink hover:bg-dark-green w-full py-3 my-3 rounded-xl font-bold">
+
+          <button className="btn-primary">
             See availability
+            {/* <Link to={`/`}>See availability</Link> */}
           </button>
         </div>
       </div>

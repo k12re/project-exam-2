@@ -21,7 +21,7 @@ export interface Venue {
   rating?: number;
   created: string;
   updated?: string;
-  media?: string[];
+  media?: string;
   meta?: {
     wifi: boolean;
     parking: boolean;
@@ -120,10 +120,9 @@ function GetVenues() {
                 <h3 className="text-xl font-bold">{venue.name}</h3>
                 <p>Max guests: {venue.maxGuests}</p>
                 <p className="break-all">{venue.description}</p>
-                <button className=" dark:bg-pink dark:hover:bg-light-pink bg-green text-white-pink hover:bg-dark-green w-full py-3 my-3 rounded-xl font-bold">
+                <button className="btn-primary">
                   <Link to={`/venues/${venue.id}`}>Read more</Link>
                 </button>
-                <button className="btn-primary">Test</button>
               </li>
             </div>
           ))}
@@ -178,7 +177,7 @@ function LightDarkMode() {
       rootElement.style.backgroundColor = "#022626";
       rootElement.style.backgroundBlendMode = "overlay";
     }
-  } else if (isChecked === false) {
+  } else if (rootElement && isChecked === false) {
     document.documentElement.classList.remove("dark");
     rootElement.style.backgroundImage =
       "url(../src/assets/background-dark.jpg)";

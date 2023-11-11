@@ -15,6 +15,8 @@ export default {
     },
     fontFamily: {
       logo: ["Inspiration", "cursive"],
+      btn: ["Geologica"],
+      // "AR One Sans", "Anek Latin", "Geologica", "Lexend", "Signika",
     },
     extend: {},
   },

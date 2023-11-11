@@ -4,6 +4,7 @@ import { AuthFetch } from "../AuthFetch";
 import { url } from "../../App";
 import { profilesUrl } from "../Profiles";
 import LightArrow from "../../assets/light-left.svg";
+import DefaultProfile from "../../assets/profile-circle.svg";
 
 function ProfilePage() {
   const [profile, setProfile] = useState(null);
@@ -37,7 +38,7 @@ function ProfilePage() {
     <div className="max-w-md mx-auto">
       <span className="flex px-4 my-3">
         <Link to={`/profiles`}>
-          <img src={LeftArrow} alt="Back arrow" className="h-10 w-10" />
+          <img src={LightArrow} alt="Back arrow" className="h-10 w-10" />
         </Link>
         <h1 className="text-2xl font-bold px-4">{profile.name}</h1>
       </span>
