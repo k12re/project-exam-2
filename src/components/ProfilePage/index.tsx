@@ -2,14 +2,71 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
 import { url } from "../../App";
-import { profilesUrl } from "../Profiles";
+import GetProfiles, { profilesUrl } from "../Profiles";
 import LightArrow from "../../assets/light-left.svg";
+import Settings from "../../assets/settings.svg";
 import DefaultProfile from "../../assets/profile-circle.svg";
+import { load } from "../Storage";
+// import { useLocation } from "react-router-dom";
+
+// const location = useLocation();
+
+// const myProfileDetails = load("profile");
 
 function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOwnUser, setIsOwnUser] = useState();
+  const [venueManager, setVenueManager] = useState(false);
+  const [avatar, setAvatar] = useState(null);
   let { name } = useParams();
+
+  const loggedInUser = load("profile");
+  const user = loggedInUser.name;
+
+  useEffect(() => {
+    const accessToken = load("accessToken");
+    setIsLoggedIn(!!accessToken);
+
+    // if (isLoggedIn) {
+    //   const userProfile = getData(name);
+    // }
+  }, []);
+
+  const handleAvatarUrlChange = (e) => {
+    setAvatar(e.target.value);
+  };
+
+  const handleSubmitAvatar = async () => {
+    try {
+      const response = await AuthFetch(`${url}${profilesUrl}/${name}/media`, {
+        method: "PUT",
+        body: JSON.stringify({ avatar }),
+      });
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleVenueManagerChange = async () => {
+    const updatedVenueManager = !venueManager;
+    setVenueManager(updatedVenueManager);
+
+    try {
+      const response = await AuthFetch(`${url}${profilesUrl}/${name}`, {
+        method: "PUT",
+        body: JSON.stringify({ venueManager: updatedVenueManager }),
+      });
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     async function getData(url: string) {
@@ -18,6 +75,10 @@ function ProfilePage() {
         const response = await AuthFetch(url);
         const json = await response.json();
         setProfile(json);
+        // console.log(json);
+        setVenueManager(json.venueManager);
+        console.log(user);
+        setIsOwnUser(user === json.name);
       } catch (error) {
         console.log(error);
       } finally {
@@ -42,19 +103,122 @@ function ProfilePage() {
         </Link>
         <h1 className="text-2xl font-bold px-4">{profile.name}</h1>
       </span>
-      <div className="max-w-md mx-auto mb-4 rounded-2xl p-4 bg-white-pink">
-        {(profile.avatar === "" || profile.avatar === null) | null ? (
-          <img className="h-10 w-10 rounded-full" src={DefaultProfile} />
-        ) : (
-          <img className="h-10 w-10 rounded-full" src={profile.avatar} />
-        )}
+      <div className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green ">
+        <div>
+          {isLoggedIn && isOwnUser && (
+            <div className="absolute flex">
+              <img
+                src={Settings}
+                alt="Back arrow"
+                className="h-8 w-8 cover cursor-pointer"
+                onClick={() => setIsSettingsVisible(!isSettingsVisible)}
+              />
+              {isSettingsVisible && isOwnUser && (
+                <label className="flex">
+                  <input
+                    type="text"
+                    placeholder="Image url..."
+                    id="avatar"
+                    name="avatar"
+                    value={avatar}
+                    onChange={handleAvatarUrlChange}
+                    className="w-full rounded-md ml-1 px-2 py-1 bg-white border border-green focus:outline-none focus:border-green focus:ring-green focus:ring-1 dark:border-pink dark:focus:border-pink dark:focus:ring-pink"
+                  />
+                  <button
+                    onClick={handleSubmitAvatar}
+                    className=" text-white-pink bg-green rounded-md ml-2 px-3"
+                  >
+                    Submit
+                  </button>
+                </label>
+              )}
+            </div>
+          )}
+
+          <img
+            className="h-24 w-24 rounded-full object-cover"
+            alt={profile.name}
+            src={profile.avatar || DefaultProfile}
+          />
+        </div>
         <h3 className="text-xl font-bold">Name: {profile.name}</h3>
         <p>Email: {profile.email}</p>
-        <p>Venue manager: {profile.venueManager}</p>
-        <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-          Read more
-        </button>
+        {isOwnUser && (
+          <fieldset>
+            <input
+              type="radio"
+              name="status"
+              id="manager"
+              checked={venueManager}
+              onChange={handleVenueManagerChange}
+              className="peer/manager w-4 h-4 mx-2 form-radio  border-green text-green focus:ring-green dark:border-pink dark:text-pink dark:focus:ring-pink"
+            ></input>
+            <label
+              htmlFor="manager"
+              className=" peer-checked/manager:text-green dark:peer-checked/manager:text-pink"
+            >
+              Manager
+            </label>
+            <input
+              type="radio"
+              name="status"
+              id="guest"
+              checked={!venueManager}
+              onChange={handleVenueManagerChange}
+              className="peer/guest w-4 h-4 mx-2 form-radio  border-green text-green focus:ring-green dark:border-pink dark:text-pink dark:focus:ring-pink"
+            ></input>
+            <label
+              htmlFor="guest"
+              className=" peer-checked/guest:text-green dark:peer-checked/guest:text-pink "
+            >
+              Guest
+            </label>
+          </fieldset>
+        )}
+
+        {/* <button className="btn-primary">Save changes</button> */}
       </div>
+      <h3 className="text-xl font-bold px-4">Venues:</h3>
+      <ul>
+        {profile.venues.map((venues) => (
+          <li
+            key={profile.name}
+            className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+          >
+            <img
+              src={venues.media[0]}
+              alt={venues.name}
+              className="h-28 w-full object-cover rounded-xl"
+            />
+            <h3 className="text-xl font-bold">Venue: {venues.name}</h3>
+            <p>Description: {venues.description}</p>
+            {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+                <Link to={`/profiles/${profile.name}`}>Read more</Link>
+              </button> */}
+          </li>
+        ))}
+      </ul>
+      <h3 className="text-xl font-bold px-4">Bookings:</h3>
+      <ul>
+        {profile.bookings.map((bookings) => (
+          <li
+            key={profile.name}
+            className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+          >
+            <h2 className="font-bold">{bookings.venue.name}</h2>
+            <p className="font-bold">Booked from:</p>
+            <p>{bookings.dateFrom.substring(0, 10)}</p>
+            <p className="font-bold">Booked to:</p>
+            <p>{bookings.dateTo.substring(0, 10)}</p>
+            <p className="font-bold">Number of guests: </p>
+            <p>{bookings.guests}</p>
+            <p className="text-xs ">Id: {bookings.id}</p>
+            {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+                <Link to={`/profiles/${profile.name}`}>Read more</Link>
+              </button> */}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

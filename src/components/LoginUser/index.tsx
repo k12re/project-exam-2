@@ -1,4 +1,3 @@
-import LeftArrow from "../../assets/angle-left.svg";
 import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";

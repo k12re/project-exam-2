@@ -38,7 +38,7 @@ function GetProfiles() {
       <ul>
         {data.map((profile) => (
           <div key={profile.id}>
-            <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 bg-white-pink">
+            <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
               {(profile.avatar === "" || profile.avatar === null) | null ? (
                 <img className="h-10 w-10 rounded-full" src={DefaultProfile} />
               ) : (

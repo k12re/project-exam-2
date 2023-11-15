@@ -8,9 +8,13 @@ import LoginUserForm from "./components/LoginUser";
 import ProfilePage from "./components/ProfilePage";
 import BookingPage from "./components/CreateBookingUser";
 import GetProfiles from "./components/Profiles";
+import DefaultProfile from "../src/assets/profile-circle.svg";
+import { load } from "./components/Storage";
 
 export const venuesUrl: string = "/venues";
 export const url: string = "https://api.noroff.dev/api/v1/holidaze";
+
+const myProfileDetails = load("profile");
 
 export interface Venue {
   id: string;
@@ -99,7 +103,7 @@ function GetVenues() {
         <ul>
           {data.map((venue) => (
             <div key={venue.id}>
-              <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 bg-white-pink">
+              <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
                 {/* {Array.isArray(venue.media) ? (
                   venue.media.map((imgUrl, index) => (
                     <img
@@ -190,7 +194,7 @@ function LightDarkMode() {
       <input
         id="lightdarkmode"
         type="checkbox"
-        className="relative peer appearance-none w-12 h-6 border-2 dark:border-pink border-green  rounded-3xl"
+        className="relative peer appearance-none w-12 h-6 border-2 dark:border-pink border-green rounded-3xl"
         checked={isChecked}
         onChange={handleSwitch}
       ></input>
@@ -224,7 +228,7 @@ function Nav() {
     <nav className="flex justify-between ">
       <Logo />
       <ul className="flex flex-row flex-wrap mx-auto">
-        <li key={"home"} className="group m-3 p-3 active:bg-pink ">
+        <li key={"home"} className="group m-1 pt-5 active:bg-pink ">
           <NavLink
             to="/"
             className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
@@ -233,7 +237,7 @@ function Nav() {
             Venues
           </NavLink>
         </li>
-        <li key={"bookings"} className="group m-3 p-3 active:bg-pink">
+        <li key={"bookings"} className="group m-1 pt-5 active:bg-pink">
           <NavLink
             to="/bookings"
             className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
@@ -242,7 +246,7 @@ function Nav() {
             Bookings
           </NavLink>
         </li>
-        <li key={"profiles"} className="group m-3 p-3 active:bg-pink">
+        <li key={"profiles"} className="group m-1 pt-5 active:bg-pink">
           <NavLink
             to="/profiles"
             className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
@@ -251,13 +255,21 @@ function Nav() {
             Profiles
           </NavLink>
         </li>
-        <li key={"register"} className="group m-3 p-3 active:bg-pink">
+        <li key={"register"} className="group m-1 pt-5 active:bg-pink">
           <NavLink
             to="/register"
             className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
           >
             {" "}
             Login
+          </NavLink>
+        </li>
+        <li key={"profiles"} className="group m-3 p-3 active:bg-pink">
+          <NavLink to={`/profiles/${myProfileDetails.name}`} className="">
+            <img
+              src={myProfileDetails.avatar || DefaultProfile}
+              className="h-8 w-8"
+            ></img>
           </NavLink>
         </li>
       </ul>
