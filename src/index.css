@@ -81,6 +81,24 @@ p::selection {
   color: white;
 } */
 
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  /* padding: 2rem; */
+  /*  */
+  /* text-align: center; */
+  /*  */
+  /* background-color: #022626; */
+  /* background-image: url(../src/assets/background-dark.jpg); */
+  background-attachment: fixed;
+  background-position: center;
+  background-size: auto;
+  /* background-blend-mode: overlay; */
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  min-width: 100%;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,9 +116,41 @@ p::selection {
     @apply rounded-xl;
     @apply font-bold;
     @apply font-btn;
+    @apply w-full;
   }
   .react-calendar__tile--active {
     @apply bg-green;
-    @apply text-white-pink;
+    /* @apply text-white-pink; */
   }
+}
+
+.react-calendar__tile--now {
+  background: #f2bbc9;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #fff6f8;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background-color: #fff6f8;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #025e73;
+}
+
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: #fff6f8;
+}
+
+.available-date {
+  cursor: pointer;
+}
+
+.unavailable-date {
+  background-color: orange;
 }

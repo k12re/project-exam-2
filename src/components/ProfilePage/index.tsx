@@ -77,7 +77,6 @@ function ProfilePage() {
         setProfile(json);
         // console.log(json);
         setVenueManager(json.venueManager);
-        console.log(user);
         setIsOwnUser(user === json.name);
       } catch (error) {
         console.log(error);
@@ -97,16 +96,16 @@ function ProfilePage() {
 
   return (
     <div className="max-w-md mx-auto">
-      <span className="flex px-4 my-3">
+      <span className="flex my-3">
         <Link to={`/profiles`}>
           <img src={LightArrow} alt="Back arrow" className="h-10 w-10" />
         </Link>
-        <h1 className="text-2xl font-bold px-4">{profile.name}</h1>
+        <h1 className="text-2xl font-bold px-4">My profile</h1>
       </span>
       <div className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green ">
         <div>
           {isLoggedIn && isOwnUser && (
-            <div className="absolute flex">
+            <div className="absolute flex pl-2 left-20">
               <img
                 src={Settings}
                 alt="Back arrow"
@@ -178,7 +177,7 @@ function ProfilePage() {
 
         {/* <button className="btn-primary">Save changes</button> */}
       </div>
-      <h3 className="text-xl font-bold px-4">Venues:</h3>
+      <h3 className="text-xl font-bold px-4 relative left-0">Venues:</h3>
       <ul>
         {profile.venues.map((venues) => (
           <li

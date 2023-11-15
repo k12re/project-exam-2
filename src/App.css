@@ -1,20 +1,20 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
-  /* padding: 2rem; */
+  padding: 2rem;
   text-align: center;
-  /* background-color: #022626; */
-  /* background-image: url(../src/assets/background-dark.jpg); */
+  background-color: #022626;
+  background-image: url(../src/assets/background-dark.jpg);
   background-attachment: fixed;
   background-position: center;
   background-size: auto;
-  /* background-blend-mode: overlay; */
+  background-blend-mode: overlay;
   background-repeat: no-repeat;
   min-height: 100vh;
   min-width: 100%;
-}
+} */
 
-.logo {
+/* .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -25,9 +25,9 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
-}
+} */
 
-@keyframes logo-spin {
+/* @keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -48,4 +48,4 @@
 
 .read-the-docs {
   color: #888;
-}
+} */

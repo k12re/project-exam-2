@@ -31,27 +31,25 @@ function GetProfiles() {
     <>
       <div className="max-w-md mx-auto">
         <h1 className="text-2xl font-bold px-4">Profiles</h1>
-        <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-          Save changes
-        </button>
       </div>
       <ul>
         {data.map((profile) => (
-          <div key={profile.id}>
-            <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
-              {(profile.avatar === "" || profile.avatar === null) | null ? (
-                <img className="h-10 w-10 rounded-full" src={DefaultProfile} />
-              ) : (
-                <img className="h-10 w-10 rounded-full" src={profile.avatar} />
-              )}
-              <h3 className="text-xl font-bold">{profile.name}</h3>
-              <p>Email: {profile.email}</p>
-              <p>{profile.description}</p>
-              <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-                <Link to={`/profiles/${profile.name}`}>Read more</Link>
-              </button>
-            </li>
-          </div>
+          <li
+            key={profile.id}
+            className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+          >
+            {(profile.avatar === "" || profile.avatar === null) | null ? (
+              <img className="h-10 w-10 rounded-full" src={DefaultProfile} />
+            ) : (
+              <img className="h-10 w-10 rounded-full" src={profile.avatar} />
+            )}
+            <h3 className="text-xl font-bold">{profile.name}</h3>
+            <p>Email: {profile.email}</p>
+            <p>{profile.description}</p>
+            <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+              <Link to={`/profiles/${profile.name}`}>Read more</Link>
+            </button>
+          </li>
         ))}
       </ul>
     </>

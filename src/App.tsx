@@ -14,8 +14,6 @@ import { load } from "./components/Storage";
 export const venuesUrl: string = "/venues";
 export const url: string = "https://api.noroff.dev/api/v1/holidaze";
 
-const myProfileDetails = load("profile");
-
 export interface Venue {
   id: string;
   name: string;
@@ -162,7 +160,6 @@ function Header() {
   );
 }
 
-//Under Construction
 function LightDarkMode() {
   const [isChecked, setIsChecked] = useState(false);
 
@@ -221,7 +218,6 @@ function LightDarkMode() {
     </div>
   );
 }
-//Under Construction
 
 function Nav() {
   return (
@@ -297,6 +293,9 @@ function Layout() {
     </div>
   );
 }
+
+const myProfileDetails = load("profile");
+console.log(myProfileDetails);
 
 function App() {
   return (

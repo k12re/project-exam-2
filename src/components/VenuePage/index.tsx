@@ -7,6 +7,63 @@ import { Venue } from "../../App";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
+function MyCalendar() {
+  const [bookings, setBookings] = useState([]);
+  const [value, onChange] = useState(new Date());
+
+  let { id } = useParams();
+
+  useEffect(() => {
+    const fetchDates = async () => {
+      try {
+        const response = await fetch(
+          `${url}${venuesUrl}/${id}/?_owner=true&_bookings=true`
+        );
+        const data = await response.json();
+        setBookings(data.bookings);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDates();
+  }, []);
+
+  console.log(bookings);
+
+  function getDates(bookings) {
+    return bookings.map((booking) => ({
+      from: new Date(booking.dateFrom),
+      to: new Date(booking.dateTo),
+    }));
+  }
+  const dateRanges = getDates(bookings);
+
+  const tileClassName = ({ date }) => {
+    // const dateString = date.toISOString().split("T")[0];
+
+    for (const range of dateRanges) {
+      if (date >= range.from && date <= range.to) {
+        console.log(dateRanges);
+        return "unavailable-date";
+      }
+    }
+
+    return "available-date";
+  };
+
+  return (
+    <div>
+      <Calendar
+        className="rounded-xl green w-full"
+        onChange={onChange}
+        value={value}
+        tileClassName={tileClassName}
+      />
+    </div>
+  );
+}
+
 function VenuePage() {
   const [venue, setVenue] = useState<Venue | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,8 +85,6 @@ function VenuePage() {
 
     getData(`${url}${venuesUrl}/${id}/?_owner=true&_bookings=true`);
   }, [id]);
-
-  console.log(venue);
 
   if (isLoading || venue === null) {
     return <div>Loading...</div>;
@@ -103,7 +158,7 @@ function VenuePage() {
             See availability
             {/* <Link to={`/`}>See availability</Link> */}
           </button>
-          <Calendar className=" rounded-xl green" />
+          <MyCalendar />
         </div>
       </div>
     </div>
