@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { url, venuesUrl } from "../../App";
 import { useParams, Link } from "react-router-dom";
 import { Venue } from "../../App";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 function VenuePage() {
   const [venue, setVenue] = useState<Venue | null>(null);
@@ -101,6 +103,7 @@ function VenuePage() {
             See availability
             {/* <Link to={`/`}>See availability</Link> */}
           </button>
+          <Calendar className=" rounded-xl green" />
         </div>
       </div>
     </div>
