@@ -6,7 +6,7 @@ import GetProfiles, { profilesUrl } from "../Profiles";
 import LightArrow from "../../assets/light-left.svg";
 import Settings from "../../assets/settings.svg";
 import DefaultProfile from "../../assets/profile-circle.svg";
-import { load } from "../Storage";
+import { load, save } from "../Storage";
 // import { useLocation } from "react-router-dom";
 
 // const location = useLocation();
@@ -41,6 +41,15 @@ function ProfilePage() {
 
   const handleSubmitAvatar = async () => {
     try {
+      const existingProfileDetails = load("profile") || {};
+
+      const updatedProfileDetails = {
+        ...existingProfileDetails,
+        avatar: avatar,
+      };
+
+      save("profile", updatedProfileDetails);
+
       const response = await AuthFetch(`${url}${profilesUrl}/${name}/media`, {
         method: "PUT",
         body: JSON.stringify({ avatar }),
