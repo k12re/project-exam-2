@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
 import { url } from "../../App";
-import GetProfiles, { profilesUrl } from "../Profiles";
+import { profilesUrl } from "../Profiles";
 import LightArrow from "../../assets/light-left.svg";
 import Settings from "../../assets/settings.svg";
 import DefaultProfile from "../../assets/profile-circle.svg";

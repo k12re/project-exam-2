@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { url } from "../../App";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { save } from "../Storage";
 
 const schema = yup.object({
@@ -27,7 +27,6 @@ function useLoginUserAPI() {
       body: JSON.stringify(profile),
     };
     const registerUrl = url + authEndpoint + action;
-    console.log(profile);
 
     try {
       const response = await fetch(registerUrl, postData);
@@ -41,6 +40,7 @@ function useLoginUserAPI() {
         delete json.accessToken;
         save("profile", json);
       }
+      setProfileData(json);
     } catch (error) {
       console.log(error);
     }
@@ -50,17 +50,16 @@ function useLoginUserAPI() {
 }
 
 function LoginUserForm() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
+
   const { loginUser } = useLoginUserAPI();
 
   function onSubmit(profileData: object) {
     console.log(profileData);
     loginUser(profileData);
   }
-
-  const location = useLocation();
-
-  console.log(location.pathname);
 
   return (
     <div className="max-w-md mx-auto">

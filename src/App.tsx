@@ -8,11 +8,18 @@ import LoginUserForm from "./components/LoginUser";
 import ProfilePage from "./components/ProfilePage";
 import BookingPage from "./components/CreateBookingUser";
 import GetProfiles from "./components/Profiles";
-import DefaultProfile from "../src/assets/profile-circle.svg";
+// import DefaultProfile from "../src/assets/profile-circle.svg";
 import { load } from "./components/Storage";
+import LogoutUser from "./components/Logout";
+import { ProfileIcon } from "./components/Logout";
 
 export const venuesUrl: string = "/venues";
 export const url: string = "https://api.noroff.dev/api/v1/holidaze";
+
+const myProfileDetails = load("profile");
+const myToken = load("accessToken");
+console.log(myProfileDetails);
+console.log(myToken);
 
 export interface Venue {
   id: string;
@@ -251,26 +258,31 @@ function Nav() {
             Profiles
           </NavLink>
         </li>
-        <li key={"register"} className="group m-1 pt-5">
-          <NavLink
-            to="/register"
-            className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
-          >
-            {" "}
-            Login
-          </NavLink>
+        <li key={"login"} className="group m-1 pt-5">
+          {!myToken ? (
+            <NavLink
+              to="/login"
+              className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
+            >
+              {" "}
+              Login
+            </NavLink>
+          ) : (
+            <LogoutUser />
+          )}
         </li>
-        <li key={"profiles"} className="group m-3 p-3">
-          {myProfileDetails.avatar ? (
+        <ProfileIcon />
+        {/* <li key={"profiles"} className="group m-3 p-3">
+          {myProfileDetails?.avatar ? (
             <NavLink to={`/profiles/${myProfileDetails.name}`}>
               <img
-                src={myProfileDetails.avatar}
+                src={myProfileDetails?.avatar}
                 className="h-8 w-8 rounded-full object-cover"
-                alt={myProfileDetails.name}
+                alt={myProfileDetails?.name}
               ></img>
             </NavLink>
           ) : (
-            <NavLink to={`/profiles/${myProfileDetails.name}`}>
+            <NavLink to={`/profiles/${myProfileDetails?.name}`}>
               <svg
                 className="rounded-full"
                 width="32"
@@ -288,7 +300,7 @@ function Nav() {
               </svg>
             </NavLink>
           )}
-        </li>
+        </li> */}
       </ul>
       <LightDarkMode />
     </nav>
@@ -314,9 +326,6 @@ function Layout() {
     </div>
   );
 }
-
-const myProfileDetails = load("profile");
-console.log(myProfileDetails);
 
 function App() {
   return (
