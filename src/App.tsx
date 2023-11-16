@@ -1,4 +1,3 @@
-import HomeIcon from "../src/assets/home-fill.svg";
 import { useEffect, useState } from "react";
 import "./App.css";
 import { Outlet, Link, Route, Routes, NavLink } from "react-router-dom";
@@ -96,12 +95,23 @@ function GetVenues() {
 
   return (
     <>
-      <div className="max-w-md mx-auto">
-        <span className="flex px-4 my-3">
+      <div className="max-w-md mx-auto ">
+        <span className="flex px-4 my-3 text-dark-green dark:text-white-pink">
           <Link to={`/`}>
-            <img src={HomeIcon} alt="Home icon" className="h-8 w-8" />
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="currentColor"
+                d="M21 20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.489a1 1 0 0 1 .386-.79l8-6.222a1 1 0 0 1 1.228 0l8 6.222a1 1 0 0 1 .386.79v10.51Z"
+              />
+              <title>Home icon</title>
+            </svg>
           </Link>
-          <h1 className="text-2xl font-bold px-4 text-white-pink">
+          <h1 className="text-2xl font-bold px-4 dark:text-white-pink text-dark-green">
             Our venues
           </h1>
         </span>

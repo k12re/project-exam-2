@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { url } from "../../App";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { save } from "../Storage";
 
 const schema = yup.object({
@@ -50,7 +50,6 @@ function useLoginUserAPI() {
 }
 
 function LoginUserForm() {
-  const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
 
@@ -72,7 +71,7 @@ function LoginUserForm() {
         <span className="flex justify-center pt-6">
           <Link to={`/register`}>
             <div className="bg-white-pink rounded-l-full w-32">
-              <h1 className="text-xl font-bold mb-4 px-1 pt-1 pb-2">
+              <h1 className="text-xl font-bold mb-4 px-1 pt-1 pb-2 text-center">
                 Register
               </h1>
             </div>
@@ -80,8 +79,10 @@ function LoginUserForm() {
           <Link to={`/login`}>
             <div className="bg-white-pink rounded-r-full w-32 p-1">
               <h1
-                className={`text-xl font-bold px-4 pb-1 ${
-                  location.pathname === "/login" ? "bg-pink rounded-full" : ""
+                className={`text-xl font-bold px-4 pb-1 text-center text-white-pink dark:text-dark-green ${
+                  location.pathname === "/login"
+                    ? "bg-green dark:bg-pink rounded-full"
+                    : ""
                 }`}
               >
                 Login
@@ -91,29 +92,26 @@ function LoginUserForm() {
         </span>
         <form id="registerform" onSubmit={handleSubmit(onSubmit)}>
           <label className="block text-white-pink">
-            <label htmlFor="email" className="block ">
-              Email:{" "}
+            <label htmlFor="email" className="block">
+              <input
+                autoComplete="email"
+                type="text"
+                id="email"
+                placeholder="Please enter email..."
+                {...register("email")}
+                className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+              />
             </label>
-            <input
-              autoComplete="name"
-              type="text"
-              id="email"
-              {...register("email")}
-              className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
-            />
             <label htmlFor="password" className="block">
-              Password:{" "}
+              <input
+                type="password"
+                id="password"
+                placeholder="Please enter your password..."
+                {...register("password")}
+                className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+              />
             </label>
-            <input
-              type="password"
-              id="password"
-              {...register("password")}
-              className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
-            />
-
-            <button className="mt-2 mx-auto block bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-              Login
-            </button>
+            <button className="btn-primary">Login</button>
           </label>
         </form>
       </div>

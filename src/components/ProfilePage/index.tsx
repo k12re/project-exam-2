@@ -109,7 +109,9 @@ function ProfilePage() {
         <Link to={`/profiles`}>
           <img src={LightArrow} alt="Back arrow" className="h-10 w-10" />
         </Link>
-        <h1 className="text-2xl font-bold px-4">My profile</h1>
+        <h1 className="text-2xl font-bold px-4 text-dark-green dark:text-white-pink">
+          Profile
+        </h1>
       </span>
       <div className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green ">
         <div>

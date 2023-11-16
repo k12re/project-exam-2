@@ -41,7 +41,7 @@ function ProfileIcon() {
   }, [load("accessToken")]);
 
   return (
-    <li key={"profiles"} className="group m-3 p-3">
+    <li key={"profiles"} className="group m-3 p-3 ">
       {myProfileDetails?.avatar ? (
         <NavLink to={`/profiles/${myProfileDetails.name}`}>
           <img

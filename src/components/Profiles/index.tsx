@@ -46,7 +46,7 @@ function GetProfiles() {
             <h3 className="text-xl font-bold">{profile.name}</h3>
             <p>Email: {profile.email}</p>
             <p>{profile.description}</p>
-            <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+            <button className="btn-primary">
               <Link to={`/profiles/${profile.name}`}>Read more</Link>
             </button>
           </li>

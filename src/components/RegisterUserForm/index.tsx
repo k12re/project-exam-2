@@ -69,9 +69,9 @@ function RegisterUserForm() {
           <Link to={`/register`}>
             <div className="bg-white-pink rounded-l-full w-32 p-1">
               <h1
-                className={`text-xl font-bold px-4 pb-1 ${
+                className={`text-xl font-bold px-4 pb-1 text-center text-white-pink dark:text-dark-green ${
                   location.pathname === "/register"
-                    ? "bg-pink rounded-full"
+                    ? "bg-green dark:bg-pink rounded-full"
                     : ""
                 }`}
               >
@@ -81,62 +81,79 @@ function RegisterUserForm() {
           </Link>
           <Link to={`/login`}>
             <div className="bg-white-pink rounded-r-full w-32">
-              <h1 className="text-xl font-bold mb-4 px-1 pt-1 pb-2">Login</h1>
+              <h1 className="text-xl font-bold mb-4 px-1 pt-1 pb-2 text-center">
+                Login
+              </h1>
             </div>
           </Link>
         </span>
         <form id="registerform" onSubmit={handleSubmit(onSubmit)}>
           <label className="block text-white-pink">
             <label htmlFor="name" className="block">
-              Name:{" "}
+              <input
+                placeholder="Please enter username..."
+                autoComplete="name"
+                type="text"
+                id="name"
+                {...register("name")}
+                className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+              />
             </label>
-            <input
-              autoComplete="name"
-              type="text"
-              id="name"
-              {...register("name")}
-              className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
-            />
             <label htmlFor="email" className="block">
-              Email:{" "}
+              <input
+                placeholder="Please enter email..."
+                autoComplete="email"
+                type="text"
+                id="email"
+                {...register("email")}
+                className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+              />
             </label>
-            <input
-              autoComplete="name"
-              type="text"
-              id="email"
-              {...register("email")}
-              className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
-            />
             <label htmlFor="password" className="block">
-              Password:{" "}
+              <input
+                placeholder="Please enter your password..."
+                type="password"
+                id="password"
+                {...register("password")}
+                className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+              />
             </label>
-            <input
-              type="password"
-              id="password"
-              {...register("password")}
-              className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
-            />
             <label htmlFor="avatar" className="block">
-              Avatar URL
+              <input
+                placeholder="Please enter valid image url..."
+                type="text"
+                id="avatar"
+                {...register("avatarUrl")}
+                className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+              />
             </label>
-            <input
-              type="text"
-              id="avatar"
-              {...register("avatarUrl")}
-              className="mt-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
-            />
-            <label htmlFor="venueManager" className="block">
+            <label
+              htmlFor="venueManager"
+              className="inline-block ml-2 mb-6 text-dark-green dark:text-white-pink"
+            >
               Manager
             </label>
             <input
+              className="
+              form-checkbox ml-3 h-5 w-5 rounded-md
+              dark:border-pink
+              border-green
+              dark:checked:bg-pink
+              checked:bg-green
+              dark:bg-white
+              bg-white
+              active:bg-white-pink dark:active:bg-white-pink
+              hover:bg-white-pink checked:hover:bg-dark-green
+              dark:hover:bg-light-pink
+              focus:bg-white-pink dark:focus:bg-white-pink
+              checked:focus:bg-green dark:checked:focus:bg-pink dark:focus:ring-pink focus:ring-green
+            "
               type="checkbox"
               id="venueManager"
               {...register("venueManager")}
             ></input>
 
-            <button className="mt-2 mx-auto block bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-              Register
-            </button>
+            <button className="btn-primary">Register</button>
           </label>
         </form>
       </div>
