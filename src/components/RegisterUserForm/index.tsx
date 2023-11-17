@@ -5,7 +5,7 @@ import { useState } from "react";
 import { url } from "../../App";
 import { Link, useLocation } from "react-router-dom";
 
-const schema = yup.object({
+const registerSchema = yup.object({
   name: yup.string().required(),
   email: yup.string().required(),
   password: yup.string().required(),
@@ -45,7 +45,9 @@ function useRegisterUserAPI() {
 }
 
 function RegisterUserForm() {
-  const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
+  const { register, handleSubmit } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
   const { registerUser } = useRegisterUserAPI();
 
   function onSubmit(profileData: object) {

@@ -91,49 +91,58 @@ function VenuePage() {
   }
 
   return (
-    <div className="max-w-md mx-auto ">
+    <div className="max-w-6xl mx-auto ">
       <span className="flex px-4 my-3">
         <Link to={`/`}>
           <img src={LightArrow} alt="Back arrow" className="h-10 w-10 " />
         </Link>
         <h1 className="text-2xl font-bold px-4 dark:text-white-pink text-dark-green">
-          {venue.name}
+          Venue
         </h1>
       </span>
-      <div className="flex flex-row ">
-        <div className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green ">
-          <div className="flex flex-col">
-            <img
-              className="object-cover rounded-xl h-72 w-full mb-4"
-              src={venue.media[0]}
-              alt={venue.name}
-            />
-            <div className="flex flex-row flex-wrap gap-4 ">
-              {venue.media?.slice(1).map((imgUrl, index) => (
-                <img
-                  className="h-24 object-cover rounded-xl flex-grow"
-                  key={index}
-                  src={imgUrl}
-                  alt={venue.name}
-                />
-              ))}
+      {/* <div className="flex flex-row "> */}
+      <div className="">
+        <div className="grid grid-rows-1 md:grid-rows-3 grid-cols-3 grid-flow-col gap-4 mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
+          {/* LEFT */}
+          {/* <div className="flex flex-col"> */}
+          <div className="row-start-1 row-span-1 col-span-3 md:col-start-1 md:row-span-4 md:col-span-1">
+            <div className="h-full">
+              <img
+                className="object-cover rounded-xl h-96 w-full mb-4"
+                src={venue.media[0]}
+                alt={venue.name}
+              />
+              <div className="flex flex-row flex-wrap gap-4 ">
+                {venue.media?.slice(1).map((imgUrl, index) => (
+                  <img
+                    className="h-24 object-cover rounded-xl flex-grow"
+                    key={index}
+                    src={imgUrl}
+                    alt={venue.name}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-          <div className="flex flex-col">
+          {/* MIDDLE */}
+          {/* <div className="flex flex-col"> */}
+          <div className="row-start-2 row-span-1 md:col-start-2 md:row-span-1">
             <h3 className="text-xl font-bold">Venue name: {venue.name}</h3>
-            <p className="break-all">Description: {venue.description}</p>
+            <p className="break-all max-h-48 overflow-auto mb-8">
+              Description: {venue.description}
+            </p>
             <p>Max guests: {venue.maxGuests}</p>
             <p>Price: {venue.price}</p>
             <p>Rating: {venue.rating}</p>
           </div>
-          <div className="flex flex-col">
+          <div className="col-start-3 row-start-2 row-span-1 md:col-start-2 md:row-span-3 md:row-start-2">
             <h2 className="text-l font-bold">Location:</h2>
             <p>Country: {venue.location?.country}</p>
             <p>City: {venue.location?.city}</p>
             <p>Address: {venue.location?.address}</p>
             <p>Continent: {venue.location?.continent}</p>
           </div>
-          <div className="flex flex-col">
+          <div className="col-start-3 row-start-2 row-span-1 md:col-start-2 md:row-start-3 md:row-span-1">
             <Link to={`/profiles/${venue.owner?.name}`}>
               <div className="flex flex-row">
                 {(venue.owner.avatar === "" || venue.owner.avatar === null) |
@@ -153,12 +162,21 @@ function VenuePage() {
               </div>
             </Link>
           </div>
+          {/* RIGHT */}
+          {/* <div className="flex flex-col"> */}
+          <div className="row-start-4 col-span-4 md:col-start-3 md:row-span-3">
+            <h2 className="text-l font-bold">Includes:</h2>
+            <p>Dogs: Icon</p>
+            <p>Parking: Icon</p>
+            <p>Wifi: Icon</p>
+            <p>Breakfast: Icon</p>
 
-          <button className="btn-primary">
-            See availability
-            {/* <Link to={`/`}>See availability</Link> */}
-          </button>
-          <MyCalendar />
+            <MyCalendar />
+            <button className="btn-primary mt-8">
+              See availability
+              {/* <Link to={`/`}>See availability</Link> */}
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -188,47 +188,43 @@ function ProfilePage() {
 
         {/* <button className="btn-primary">Save changes</button> */}
       </div>
-      <h3 className="text-xl font-bold px-4 relative left-0">Venues:</h3>
-      <ul>
-        {profile.venues.map((venues) => (
-          <li
-            key={profile.name}
-            className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
-          >
-            <img
-              src={venues.media[0]}
-              alt={venues.name}
-              className="h-28 w-full object-cover rounded-xl"
-            />
-            <h3 className="text-xl font-bold">Venue: {venues.name}</h3>
-            <p>Description: {venues.description}</p>
-            {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+      <div key={profile.name}>
+        <h3 className="text-xl font-bold px-4 relative left-0">Venues:</h3>
+        <ul>
+          {profile.venues.map((venues) => (
+            <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
+              <img
+                src={venues.media[0]}
+                alt={venues.name}
+                className="h-28 w-full object-cover rounded-xl"
+              />
+              <h3 className="text-xl font-bold">Venue: {venues.name}</h3>
+              <p>Description: {venues.description}</p>
+              {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
                 <Link to={`/profiles/${profile.name}`}>Read more</Link>
               </button> */}
-          </li>
-        ))}
-      </ul>
-      <h3 className="text-xl font-bold px-4">Bookings:</h3>
-      <ul>
-        {profile.bookings.map((bookings) => (
-          <li
-            key={profile.name}
-            className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
-          >
-            <h2 className="font-bold">{bookings.venue.name}</h2>
-            <p className="font-bold">Booked from:</p>
-            <p>{bookings.dateFrom.substring(0, 10)}</p>
-            <p className="font-bold">Booked to:</p>
-            <p>{bookings.dateTo.substring(0, 10)}</p>
-            <p className="font-bold">Number of guests: </p>
-            <p>{bookings.guests}</p>
-            <p className="text-xs ">Id: {bookings.id}</p>
-            {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+            </li>
+          ))}
+        </ul>
+        <h3 className="text-xl font-bold px-4">Bookings:</h3>
+        <ul>
+          {profile.bookings.map((bookings) => (
+            <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
+              <h2 className="font-bold">{bookings.venue.name}</h2>
+              <p className="font-bold">Booked from:</p>
+              <p>{bookings.dateFrom.substring(0, 10)}</p>
+              <p className="font-bold">Booked to:</p>
+              <p>{bookings.dateTo.substring(0, 10)}</p>
+              <p className="font-bold">Number of guests: </p>
+              <p>{bookings.guests}</p>
+              <p className="text-xs ">Id: {bookings.id}</p>
+              {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
                 <Link to={`/profiles/${profile.name}`}>Read more</Link>
               </button> */}
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

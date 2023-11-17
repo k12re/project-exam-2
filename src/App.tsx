@@ -11,6 +11,7 @@ import GetProfiles from "./components/Profiles";
 import { load } from "./components/Storage";
 import LogoutUser from "./components/Logout";
 import { ProfileIcon } from "./components/Logout";
+import CreateVenue from "./components/CreateVenueAdmin";
 
 export const venuesUrl: string = "/venues";
 export const url: string = "https://api.noroff.dev/api/v1/holidaze";
@@ -95,7 +96,7 @@ function GetVenues() {
 
   return (
     <>
-      <div className="max-w-md mx-auto ">
+      <div className="max-w-6xl mx-auto ">
         <span className="flex px-4 my-3 text-dark-green dark:text-white-pink">
           <Link to={`/`}>
             <svg
@@ -115,11 +116,13 @@ function GetVenues() {
             Our venues
           </h1>
         </span>
-        <ul>
+        <ul className="flex flex-row flex-wrap mx-auto">
           {data.map((venue) => (
-            <div key={venue.id}>
-              <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
-                {/* {Array.isArray(venue.media) ? (
+            <li
+              key={venue.id}
+              className="xs:w-full sm:w-1/2 md:w-1/3 mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+            >
+              {/* {Array.isArray(venue.media) ? (
                   venue.media.map((imgUrl, index) => (
                     <img
                       className="h-72 w-full object-cover rounded-xl"
@@ -131,26 +134,37 @@ function GetVenues() {
                 ) : (
                   <img src={venue.media} alt={venue.name}  />
                 )} */}
-                <img
-                  src={venue.media}
-                  alt={venue.name}
-                  className="h-72 w-full object-cover rounded-xl"
-                />
-                <h3 className="text-xl font-bold">{venue.name}</h3>
-                <p>Max guests: {venue.maxGuests}</p>
-                <p className="break-all">{venue.description}</p>
-                <button className="btn-primary">
-                  <Link to={`/venues/${venue.id}`}>Read more</Link>
-                </button>
-              </li>
-            </div>
+              <img
+                src={venue.media}
+                alt={venue.name}
+                className="h-72 w-full object-cover rounded-xl"
+              />
+              <h3 className="text-xl font-bold">
+                {venue.name.substring(0, 36)}...
+              </h3>
+              <p>Max guests: {venue.maxGuests}</p>
+              <p className="break-words">
+                {venue.description.substring(0, 40)}...
+              </p>
+              <button className="btn-primary">
+                <Link to={`/venues/${venue.id}`}>Read more</Link>
+              </button>
+            </li>
           ))}
         </ul>
-        <div>
-          <button onClick={decreaseOffset} disabled={queryOffset === 0}>
+        <div className="flex justify-center space-x-4">
+          <button
+            className="btn-primary w-1/6"
+            onClick={decreaseOffset}
+            disabled={queryOffset === 0}
+          >
             Previous results
           </button>
-          <button onClick={addOffset} disabled={reachedLastPage === true}>
+          <button
+            className="btn-primary w-1/6"
+            onClick={addOffset}
+            disabled={reachedLastPage === true}
+          >
             Next results
           </button>
         </div>
@@ -256,7 +270,16 @@ function Nav() {
             className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
           >
             {" "}
-            Bookings
+            My bookings
+          </NavLink>
+        </li>
+        <li key={"createvenue"} className="group m-1 pt-5">
+          <NavLink
+            to="/createvenue"
+            className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
+          >
+            {" "}
+            Create venue
           </NavLink>
         </li>
         <li key={"profiles"} className="group m-1 pt-5">
@@ -319,7 +342,7 @@ function Nav() {
 
 function Footer() {
   return (
-    <footer className="text-white-pink backdrop-blur-lg backdrop-brightness-90 bg-white/30 p-6">
+    <footer className="text-white-pink text-center backdrop-blur-lg backdrop-brightness-90 bg-white/30 p-6">
       Ken Thore Bjerke Bøeng 2023
     </footer>
   );
@@ -346,6 +369,7 @@ function App() {
             <Route index element={<GetVenues />}></Route>
             <Route path="venues/:id" element={<VenuePage />}></Route>
             <Route path="bookings" element={<BookingPage />}></Route>
+            <Route path="createvenue" element={<CreateVenue />}></Route>
             <Route path="profiles" element={<GetProfiles />}></Route>
             <Route path="profiles/:name" element={<ProfilePage />}></Route>
             <Route path="register" element={<RegisterUserForm />}></Route>
