@@ -15,6 +15,7 @@ import CreateVenue from "./components/CreateVenueAdmin";
 import EditVenue from "./components/EditVenueAdmin";
 import Search from "./components/Search";
 
+export const bookingsUrl: string = "/bookings";
 export const venuesUrl: string = "/venues";
 export const url: string = "https://api.noroff.dev/api/v1/holidaze";
 

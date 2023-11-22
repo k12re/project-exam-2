@@ -133,9 +133,12 @@ p::selection {
   background-color: #fff6f8;
 }
 
-.react-calendar__tile:enabled:hover,
-.react-calendar__tile:enabled:focus {
+.react-calendar__tile:enabled:hover {
   background-color: #fff6f8;
+}
+
+.react-calendar__tile:enabled:focus {
+  background: #025e73;
 }
 
 .react-calendar__tile--active:enabled:hover,
@@ -153,4 +156,8 @@ p::selection {
 
 .unavailable-date {
   background-color: orange;
+}
+
+.selected-date {
+  background-color: cadetblue;
 }

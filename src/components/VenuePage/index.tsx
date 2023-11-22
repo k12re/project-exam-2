@@ -1,14 +1,17 @@
 import LightArrow from "../../assets/light-left.svg";
 import DefaultProfile from "../../assets/profile-circle.svg";
 import { useEffect, useState } from "react";
-import { url, venuesUrl } from "../../App";
+import { url, venuesUrl, bookingsUrl } from "../../App";
 import { useParams, Link } from "react-router-dom";
 import { Venue } from "../../App";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { AuthFetch } from "../AuthFetch";
 
 function MyCalendar() {
   const [bookings, setBookings] = useState([]);
+  const [selectedDate, setSelectedDate] = useState([]);
+  const [numberOfGuests, setNumberOfGuests] = useState(0);
   const [value, onChange] = useState(new Date());
 
   let { id } = useParams();
@@ -29,8 +32,6 @@ function MyCalendar() {
     fetchDates();
   }, []);
 
-  console.log(bookings);
-
   function getDates(bookings) {
     return bookings.map((booking) => ({
       from: new Date(booking.dateFrom),
@@ -40,26 +41,105 @@ function MyCalendar() {
   const dateRanges = getDates(bookings);
 
   const tileClassName = ({ date }) => {
-    // const dateString = date.toISOString().split("T")[0];
+    const isBooked = dateRanges.some(
+      (range) => date >= range.from && date <= range.to
+    );
 
-    for (const range of dateRanges) {
-      if (date >= range.from && date <= range.to) {
-        console.log(dateRanges);
-        return "unavailable-date";
-      }
+    const isSelected = selectedDate.some(
+      (selectedDate) => selectedDate.getDate() === date.getDate()
+    );
+
+    if (isBooked) {
+      return "unavailable-date";
+    } else if (isSelected) {
+      return "selected-date";
+    } else {
+      return "available-date";
+    }
+  };
+
+  const setDates = (selectedRange) => {
+    const { from, to } = selectedRange;
+
+    const fromDate = new Date(from);
+    const toDate = new Date(to);
+
+    const datesToSend = [];
+    let currentDate = new Date(fromDate);
+
+    while (currentDate <= toDate) {
+      datesToSend.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    return "available-date";
+    // const localDates = datesToSend.map((date) => new Date(date.toLocaleDateString))
+
+    setSelectedDate(datesToSend);
+
+    console.log("Selected date", selectedRange);
+    console.log("Dates to send", datesToSend);
+
+    console.log(datesToSend);
+    return datesToSend;
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate((prevDate) => {
+      if (prevDate.length === 0 || prevDate.length === 1) {
+        return [...prevDate, date];
+      }
+
+      return [date];
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const bookingData = {
+      dateFrom: selectedDate[0].toDateString(),
+      dateTo: selectedDate[1].toDateString(),
+
+      guests: Number(numberOfGuests),
+      venueId: id,
+    };
+
+    try {
+      const response = await AuthFetch(`${url}${bookingsUrl}`, {
+        method: "POST",
+        body: JSON.stringify(bookingData),
+      });
+      console.log(bookingData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div>
       <Calendar
-        className="rounded-xl green w-full"
-        onChange={onChange}
+        className="rounded-xl green w-full mb-4"
+        onChange={handleDateChange}
         value={value}
         tileClassName={tileClassName}
       />
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="numberOfGuests" className="block">
+          <input
+            placeholder="No of guests..."
+            type="number"
+            id="numberOfGuests"
+            name="guests"
+            onChange={(event) =>
+              setNumberOfGuests(parseInt(event.target.value, 10))
+            }
+            className="mt-2 mb-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+          />
+        </label>
+        <button type="submit" className="btn-primary">
+          Book dates
+        </button>
+      </form>
     </div>
   );
 }
@@ -180,10 +260,10 @@ function VenuePage() {
             </div>
             <div className="col-start-1 row-start-3 md:row-start-2 md:row-span-1">
               <MyCalendar />
-              <button className="btn-primary mt-8">
+              {/* <button className="btn-primary mt-8">
                 See availability
-                {/* <Link to={`/`}>See availability</Link> */}
-              </button>
+                <Link to={`/`}>See availability</Link>
+              </button> */}
             </div>
           </div>
         </div>
