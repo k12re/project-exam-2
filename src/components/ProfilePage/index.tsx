@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
 import { url } from "../../App";
 import { profilesUrl } from "../Profiles";
@@ -22,6 +22,10 @@ function ProfilePage() {
   const [venueManager, setVenueManager] = useState(false);
   const [avatar, setAvatar] = useState(null);
   let { name } = useParams();
+  const navigate = useNavigate();
+  const navigateVenue = (venues) => {
+    navigate(`/venues/${venues.id}`);
+  };
 
   const loggedInUser = load("profile");
   const user = loggedInUser.name;
@@ -192,7 +196,11 @@ function ProfilePage() {
         <h3 className="text-xl font-bold px-4 relative left-0">Venues:</h3>
         <ul>
           {profile.venues.map((venues) => (
-            <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
+            <li
+              key={venues.id}
+              onClick={() => navigateVenue(venues)}
+              className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+            >
               <img
                 src={venues.media[0]}
                 alt={venues.name}
