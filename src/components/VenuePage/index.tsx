@@ -156,6 +156,7 @@ function VenuePage() {
         const response = await fetch(url);
         const json = await response.json();
         setVenue(json);
+        console.log(venue);
       } catch (error) {
         console.log(error);
       } finally {
@@ -268,6 +269,24 @@ function VenuePage() {
           </div>
         </div>
       </div>
+      <h3 className="text-xl font-bold px-4">Bookings:</h3>
+      <ul>
+        {venue.bookings.map((bookings) => (
+          <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
+            {/* <h2 className="font-bold">{bookings.venue.name}</h2> */}
+            <p className="font-bold">Booked from:</p>
+            <p>{bookings.dateFrom.substring(0, 10)}</p>
+            <p className="font-bold">Booked to:</p>
+            <p>{bookings.dateTo.substring(0, 10)}</p>
+            <p className="font-bold">Number of guests: </p>
+            <p>{bookings.guests}</p>
+            <p className="text-xs ">Id: {bookings.id}</p>
+            {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+                <Link to={`/profiles/${profile.name}`}>Read more</Link>
+              </button> */}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -60,7 +60,7 @@ function GetVenues() {
   const [data, setData] = useState<Venue[]>([]);
   const [queryOffset, setQueryOffset] = useState(0);
   const [reachedLastPage, setReachedLastPage] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<Venue[]>([]);
 
   const offset = `?offset=${queryOffset}`;
 
