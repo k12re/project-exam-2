@@ -12,6 +12,7 @@ import { load } from "./components/Storage";
 import LogoutUser from "./components/Logout";
 import { ProfileIcon } from "./components/Logout";
 import CreateVenue from "./components/CreateVenueAdmin";
+import Search from "./components/Search";
 
 export const venuesUrl: string = "/venues";
 export const url: string = "https://api.noroff.dev/api/v1/holidaze";
@@ -57,6 +58,7 @@ function GetVenues() {
   const [data, setData] = useState<Venue[]>([]);
   const [queryOffset, setQueryOffset] = useState(0);
   const [reachedLastPage, setReachedLastPage] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
 
   const offset = `?offset=${queryOffset}`;
 
@@ -92,7 +94,7 @@ function GetVenues() {
     getData();
   }, [queryOffset]);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <>
@@ -112,17 +114,20 @@ function GetVenues() {
               <title>Home icon</title>
             </svg>
           </Link>
+
           <h1 className="text-2xl font-bold px-4 dark:text-white-pink text-dark-green">
             Our venues
           </h1>
+          <Search data={data} setSearchResults={setSearchResults} />
         </span>
-        <ul className="flex flex-row flex-wrap mx-auto">
-          {data.map((venue) => (
-            <li
-              key={venue.id}
-              className="xs:w-full sm:w-1/2 md:w-1/3 mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
-            >
-              {/* {Array.isArray(venue.media) ? (
+        <ul className="flex flex-row flex-wrap justify-center m-4">
+          {searchResults.length > 0
+            ? searchResults.map((venue) => (
+                <li
+                  key={venue.id}
+                  className="w-full md:w-1/2 lg:w-1/3 mx-auto ml-4 mr-4 mt-4 mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+                >
+                  {/* {Array.isArray(venue.media) ? (
                   venue.media.map((imgUrl, index) => (
                     <img
                       className="h-72 w-full object-cover rounded-xl"
@@ -134,23 +139,57 @@ function GetVenues() {
                 ) : (
                   <img src={venue.media} alt={venue.name}  />
                 )} */}
-              <img
-                src={venue.media}
-                alt={venue.name}
-                className="h-72 w-full object-cover rounded-xl"
-              />
-              <h3 className="text-xl font-bold">
-                {venue.name.substring(0, 36)}...
-              </h3>
-              <p>Max guests: {venue.maxGuests}</p>
-              <p className="break-words">
-                {venue.description.substring(0, 40)}...
-              </p>
-              <button className="btn-primary">
-                <Link to={`/venues/${venue.id}`}>Read more</Link>
-              </button>
-            </li>
-          ))}
+                  <img
+                    src={venue.media}
+                    alt={venue.name}
+                    className="h-72 w-full object-cover rounded-xl"
+                  />
+                  <h3 className="text-xl font-bold">
+                    {venue.name.substring(0, 36)}...
+                  </h3>
+                  <p>Max guests: {venue.maxGuests}</p>
+                  <p className="break-words">
+                    {venue.description.substring(0, 40)}...
+                  </p>
+                  <button className="btn-primary">
+                    <Link to={`/venues/${venue.id}`}>Read more</Link>
+                  </button>
+                </li>
+              ))
+            : data.map((venue) => (
+                <li
+                  key={venue.id}
+                  className="w-full md:w-1/2 lg:w-1/3 mx-auto ml-4 mr-4 mt-4 mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+                >
+                  {/* {Array.isArray(venue.media) ? (
+              venue.media.map((imgUrl, index) => (
+                <img
+                  className="h-72 w-full object-cover rounded-xl"
+                  key={index}
+                  src={imgUrl}
+                  alt={venue.name}
+                />
+              ))
+            ) : (
+              <img src={venue.media} alt={venue.name}  />
+            )} */}
+                  <img
+                    src={venue.media}
+                    alt={venue.name}
+                    className="h-72 w-full object-cover rounded-xl"
+                  />
+                  <h3 className="text-xl font-bold">
+                    {venue.name.substring(0, 36)}...
+                  </h3>
+                  <p>Max guests: {venue.maxGuests}</p>
+                  <p className="break-words">
+                    {venue.description.substring(0, 40)}...
+                  </p>
+                  <button className="btn-primary">
+                    <Link to={`/venues/${venue.id}`}>Read more</Link>
+                  </button>
+                </li>
+              ))}
         </ul>
         <div className="flex justify-center space-x-4">
           <button
