@@ -16,7 +16,7 @@ const venueSchema = yup.object({
   wifi: yup.boolean(),
   parking: yup.boolean(),
   breakfast: yup.boolean(),
-  pets: yup.boolean(),
+  petsAllowed: yup.boolean(),
 });
 
 const action = "/venues";
@@ -79,7 +79,7 @@ function CreateVenueForm() {
                   type="text"
                   id="name"
                   {...register("name")}
-                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
               </label>
               <label htmlFor="description" className="block">
@@ -89,7 +89,7 @@ function CreateVenueForm() {
                   rows={5}
                   id="description"
                   {...register("description")}
-                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
               </label>
               <label htmlFor="media" className="block">
@@ -98,7 +98,7 @@ function CreateVenueForm() {
                   type="url"
                   id="media"
                   {...register("media")}
-                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
               </label>
               <span className="flex gap-4">
@@ -108,7 +108,7 @@ function CreateVenueForm() {
                     type="number"
                     id="price"
                     {...register("price")}
-                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                   />
                 </label>
                 <label htmlFor="maxGuests" className="block">
@@ -117,7 +117,7 @@ function CreateVenueForm() {
                     type="number"
                     id="maxGuests"
                     {...register("maxGuests")}
-                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                   />
                 </label>
                 <label htmlFor="rating" className="block">
@@ -126,7 +126,7 @@ function CreateVenueForm() {
                     type="number"
                     id="rating"
                     {...register("rating")}
-                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                   />
                 </label>
               </span>

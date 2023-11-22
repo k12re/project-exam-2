@@ -1,10 +1,13 @@
 import { useState } from "react";
 
-export function Search(props) {
+export function Search(props: {
+  data: any[];
+  setSearchResults: (arg0: any) => void;
+}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearch = (event) => {
+  const handleSearch = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setSearchResults([]);
     const results = props.data.filter((venue) => {

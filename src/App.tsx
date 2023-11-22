@@ -12,6 +12,7 @@ import { load } from "./components/Storage";
 import LogoutUser from "./components/Logout";
 import { ProfileIcon } from "./components/Logout";
 import CreateVenue from "./components/CreateVenueAdmin";
+import EditVenue from "./components/EditVenueAdmin";
 import Search from "./components/Search";
 
 export const venuesUrl: string = "/venues";
@@ -409,6 +410,7 @@ function App() {
             <Route path="venues/:id" element={<VenuePage />}></Route>
             <Route path="bookings" element={<BookingPage />}></Route>
             <Route path="createvenue" element={<CreateVenue />}></Route>
+            <Route path="editvenue/:id" element={<EditVenue />}></Route>
             <Route path="profiles" element={<GetProfiles />}></Route>
             <Route path="profiles/:name" element={<ProfilePage />}></Route>
             <Route path="register" element={<RegisterUserForm />}></Route>

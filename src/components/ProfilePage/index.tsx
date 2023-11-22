@@ -140,7 +140,7 @@ function ProfilePage() {
                   />
                   <button
                     onClick={handleSubmitAvatar}
-                    className=" text-white-pink bg-green rounded-md ml-2 px-3"
+                    className=" text-white-pink bg-green dark:bg-pink rounded-md ml-2 px-3"
                   >
                     Submit
                   </button>
@@ -198,19 +198,25 @@ function ProfilePage() {
           {profile.venues.map((venues) => (
             <li
               key={venues.id}
-              onClick={() => navigateVenue(venues)}
               className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
             >
               <img
+                onClick={() => navigateVenue(venues)}
                 src={venues.media[0]}
                 alt={venues.name}
                 className="h-28 w-full object-cover rounded-xl"
               />
               <h3 className="text-xl font-bold">Venue: {venues.name}</h3>
-              <p>Description: {venues.description}</p>
-              {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-                <Link to={`/profiles/${profile.name}`}>Read more</Link>
-              </button> */}
+              <span className="flex justify-between">
+                <p>Description: {venues.description}</p>
+
+                <button
+                  onClick={() => navigate(`/editvenue/${venues.id}`)}
+                  className="text-white-pink bg-green dark:bg-pink rounded-md ml-2 px-3 py-1 w-20"
+                >
+                  Edit
+                </button>
+              </span>
             </li>
           ))}
         </ul>
