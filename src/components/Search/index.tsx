@@ -27,7 +27,7 @@ export function Search(props: {
             placeholder="Search..."
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
-            className=" mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+            className="mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
           />
         </label>
       </form>

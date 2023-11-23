@@ -79,7 +79,7 @@ function CreateVenueForm() {
                   type="text"
                   id="name"
                   {...register("name")}
-                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="form-input mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
               </label>
               <label htmlFor="description" className="block">

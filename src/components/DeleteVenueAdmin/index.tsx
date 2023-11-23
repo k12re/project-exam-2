@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
 import { url } from "../../App";
@@ -6,8 +5,6 @@ import { url } from "../../App";
 const action = "/venues";
 
 function useDeleteVenueAPI() {
-  //   const [venueData, setVenueData] = useState(null);
-
   let { id } = useParams();
 
   const deleteVenue = async (venue: object) => {
@@ -27,10 +24,6 @@ function useDeleteVenueAPI() {
 
 function DeleteVenue() {
   const { deleteVenue } = useDeleteVenueAPI();
-  function onClick(venueData: object) {
-    console.log(venueData);
-    deleteVenue(venueData);
-  }
 
   return (
     <span>

@@ -7,6 +7,7 @@ import LightArrow from "../../assets/light-left.svg";
 import Settings from "../../assets/settings.svg";
 import DefaultProfile from "../../assets/profile-circle.svg";
 import { load, save } from "../Storage";
+import { Profile } from "../Interfaces";
 // import { useLocation } from "react-router-dom";
 
 // const location = useLocation();
@@ -14,16 +15,16 @@ import { load, save } from "../Storage";
 // const myProfileDetails = load("profile");
 
 function ProfilePage() {
-  const [profile, setProfile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSettingsVisible, setIsSettingsVisible] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isOwnUser, setIsOwnUser] = useState();
-  const [venueManager, setVenueManager] = useState(false);
-  const [avatar, setAvatar] = useState(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSettingsVisible, setIsSettingsVisible] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isOwnUser, setIsOwnUser] = useState<boolean>();
+  const [venueManager, setVenueManager] = useState<boolean>(false);
+  const [avatar, setAvatar] = useState<string>("");
   let { name } = useParams();
   const navigate = useNavigate();
-  const navigateVenue = (venues) => {
+  const navigateVenue = (venues: { id: string }) => {
     navigate(`/venues/${venues.id}`);
   };
 
@@ -39,8 +40,10 @@ function ProfilePage() {
     // }
   }, []);
 
-  const handleAvatarUrlChange = (e) => {
-    setAvatar(e.target.value);
+  const handleAvatarUrlChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setAvatar(event.target.value);
   };
 
   const handleSubmitAvatar = async () => {
@@ -195,48 +198,53 @@ function ProfilePage() {
       <div key={profile.name}>
         <h3 className="text-xl font-bold px-4 relative left-0">Venues:</h3>
         <ul>
-          {profile.venues.map((venues) => (
-            <li
-              key={venues.id}
-              className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
-            >
-              <img
-                onClick={() => navigateVenue(venues)}
-                src={venues.media[0]}
-                alt={venues.name}
-                className="h-28 w-full object-cover rounded-xl"
-              />
-              <h3 className="text-xl font-bold">Venue: {venues.name}</h3>
-              <span className="flex justify-between">
-                <p>Description: {venues.description}</p>
+          {profile.venues &&
+            profile.venues.map((venues) => (
+              <li
+                key={venues.id}
+                className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+              >
+                <img
+                  onClick={() => navigateVenue(venues)}
+                  src={venues.media && venues.media[0]}
+                  alt={venues.name}
+                  className="h-28 w-full object-cover rounded-xl"
+                />
+                <h3 className="text-xl font-bold">Venue: {venues.name}</h3>
+                <span className="flex justify-between">
+                  <p>Description: {venues.description}</p>
 
-                <button
-                  onClick={() => navigate(`/editvenue/${venues.id}`)}
-                  className="text-white-pink bg-green dark:bg-pink rounded-md ml-2 px-3 py-1 w-20"
-                >
-                  Edit
-                </button>
-              </span>
-            </li>
-          ))}
+                  <button
+                    onClick={() => navigate(`/editvenue/${venues.id}`)}
+                    className="text-white-pink bg-green dark:bg-pink rounded-md ml-2 px-3 py-1 w-20"
+                  >
+                    Edit
+                  </button>
+                </span>
+              </li>
+            ))}
         </ul>
         <h3 className="text-xl font-bold px-4">Bookings:</h3>
         <ul>
-          {profile.bookings.map((bookings) => (
-            <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
-              <h2 className="font-bold">{bookings.venue.name}</h2>
-              <p className="font-bold">Booked from:</p>
-              <p>{bookings.dateFrom.substring(0, 10)}</p>
-              <p className="font-bold">Booked to:</p>
-              <p>{bookings.dateTo.substring(0, 10)}</p>
-              <p className="font-bold">Number of guests: </p>
-              <p>{bookings.guests}</p>
-              <p className="text-xs ">Id: {bookings.id}</p>
-              {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
+          {profile.bookings &&
+            profile.bookings.map((bookings) => (
+              <li
+                key={bookings.id}
+                className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+              >
+                <h2 className="font-bold">{bookings.venue.name}</h2>
+                <p className="font-bold">Booked from:</p>
+                <p>{bookings.dateFrom.substring(0, 10)}</p>
+                <p className="font-bold">Booked to:</p>
+                <p>{bookings.dateTo.substring(0, 10)}</p>
+                <p className="font-bold">Number of guests: </p>
+                <p>{bookings.guests}</p>
+                <p className="text-xs ">Id: {bookings.id}</p>
+                {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
                 <Link to={`/profiles/${profile.name}`}>Read more</Link>
               </button> */}
-            </li>
-          ))}
+              </li>
+            ))}
         </ul>
       </div>
     </div>

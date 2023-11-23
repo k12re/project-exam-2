@@ -3,10 +3,11 @@ import DefaultProfile from "../../assets/profile-circle.svg";
 import { useEffect, useState } from "react";
 import { url, venuesUrl, bookingsUrl } from "../../App";
 import { useParams, Link } from "react-router-dom";
-import { Venue } from "../../App";
+// import { Venue } from "../../App";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { AuthFetch } from "../AuthFetch";
+import { Venue } from "../Interfaces";
 
 function MyCalendar() {
   const [bookings, setBookings] = useState([]);
@@ -272,7 +273,10 @@ function VenuePage() {
       <h3 className="text-xl font-bold px-4">Bookings:</h3>
       <ul>
         {venue.bookings.map((bookings) => (
-          <li className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
+          <li
+            key={bookings.id}
+            className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+          >
             {/* <h2 className="font-bold">{bookings.venue.name}</h2> */}
             <p className="font-bold">Booked from:</p>
             <p>{bookings.dateFrom.substring(0, 10)}</p>
