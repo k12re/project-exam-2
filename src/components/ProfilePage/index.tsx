@@ -192,8 +192,6 @@ function ProfilePage() {
             </label>
           </fieldset>
         )}
-
-        {/* <button className="btn-primary">Save changes</button> */}
       </div>
       <div key={profile.name}>
         <h3 className="text-xl font-bold px-4 relative left-0">Venues:</h3>
@@ -206,7 +204,7 @@ function ProfilePage() {
               >
                 <img
                   onClick={() => navigateVenue(venues)}
-                  src={venues.media && venues.media[0]}
+                  src={venues.media?.[0]}
                   alt={venues.name}
                   className="h-36 w-full object-cover rounded-xl"
                 />
@@ -235,12 +233,12 @@ function ProfilePage() {
                 <div className="flex">
                   <div>
                     <h2 className="font-bold w-44">
-                      Venue: {bookings.venue.name}
+                      Venue: {bookings.venue?.name}
                     </h2>
                     <img
                       className="h-36 w-44 object-cover rounded-xl"
-                      src={bookings.venue.media[0]}
-                      alt={bookings.venue.name}
+                      src={bookings.venue?.media[0]}
+                      alt={bookings.venue?.name}
                     />
                   </div>
                   <div className="pl-8">
@@ -253,9 +251,6 @@ function ProfilePage() {
                     <p className="text-xs ">Id: {bookings.id}</p>
                   </div>
                 </div>
-                {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-                <Link to={`/profiles/${profile.name}`}>Read more</Link>
-              </button> */}
               </li>
             ))}
         </ul>

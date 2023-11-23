@@ -58,30 +58,30 @@ function MyCalendar() {
     }
   };
 
-  const setDates = (selectedRange) => {
-    const { from, to } = selectedRange;
+  // const setDates = (selectedRange) => {
+  //   const { from, to } = selectedRange;
 
-    const fromDate = new Date(from);
-    const toDate = new Date(to);
+  //   const fromDate = new Date(from);
+  //   const toDate = new Date(to);
 
-    const datesToSend = [];
-    let currentDate = new Date(fromDate);
+  //   const datesToSend = [];
+  //   let currentDate = new Date(fromDate);
 
-    while (currentDate <= toDate) {
-      datesToSend.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
+  //   while (currentDate <= toDate) {
+  //     datesToSend.push(new Date(currentDate));
+  //     currentDate.setDate(currentDate.getDate() + 1);
+  //   }
 
-    // const localDates = datesToSend.map((date) => new Date(date.toLocaleDateString))
+  //   // const localDates = datesToSend.map((date) => new Date(date.toLocaleDateString))
 
-    setSelectedDate(datesToSend);
+  //   setSelectedDate(datesToSend);
 
-    console.log("Selected date", selectedRange);
-    console.log("Dates to send", datesToSend);
+  //   console.log("Selected date", selectedRange);
+  //   console.log("Dates to send", datesToSend);
 
-    console.log(datesToSend);
-    return datesToSend;
-  };
+  //   console.log(datesToSend);
+  //   return datesToSend;
+  // };
 
   const handleDateChange = (date: Date) => {
     setSelectedDate((prevDate) => {
@@ -105,7 +105,7 @@ function MyCalendar() {
     };
 
     try {
-      const response = await AuthFetch(`${url}${bookingsUrl}`, {
+      await AuthFetch(`${url}${bookingsUrl}`, {
         method: "POST",
         body: JSON.stringify(bookingData),
       });
@@ -227,8 +227,7 @@ function VenuePage() {
             <div className="col-start-3 row-start-2 row-span-1 md:col-start-2 md:row-start-3 md:row-span-1">
               <Link to={`/profiles/${venue.owner?.name}`}>
                 <div className="flex flex-row">
-                  {(venue.owner.avatar === "" || venue.owner.avatar === null) |
-                  null ? (
+                  {!venue.owner?.avatar || venue.owner?.avatar === null ? (
                     <img
                       className="h-6 w-6 rounded-full flex-none"
                       src={DefaultProfile}

@@ -38,7 +38,7 @@ export interface Booking {
   dateTo: string;
   guests: number;
   id: string;
-  venue: {
+  venue?: {
     media: any;
     name: string;
   };
@@ -50,5 +50,5 @@ export interface Profile {
   venueManager: boolean;
   avatar?: string;
   venues?: Venue[];
-  bookings?: Bookings[];
+  bookings?: Booking[];
 }
