@@ -83,13 +83,13 @@ function MyCalendar() {
   //   return datesToSend;
   // };
 
-  const handleDateChange = (date: Date) => {
+  const handleDateChange = (value: any) => {
     setSelectedDate((prevDate) => {
       if (prevDate.length === 0 || prevDate.length === 1) {
-        return [...prevDate, date];
+        return [...prevDate, value];
       }
 
-      return [date];
+      return [value];
     });
   };
 
@@ -190,22 +190,27 @@ function VenuePage() {
             <div className="h-full">
               <img
                 className="object-cover rounded-xl h-96 w-full mb-4"
-                src={venue.media && venue.media[0]}
+                src={
+                  (venue.media && venue.media[0]) ||
+                  "https://source.unsplash.com/1600x900/?hotel"
+                }
                 alt={venue.name}
               />
-              <div className="flex flex-row flex-wrap gap-4 ">
-                {venue.media &&
-                  venue.media
-                    ?.slice(1)
-                    .map((imgUrl: string, index: number) => (
-                      <img
-                        className="h-24 object-cover rounded-xl flex-grow"
-                        key={index}
-                        src={imgUrl}
-                        alt={venue.name}
-                      />
-                    ))}
-              </div>
+              {Array.isArray(venue.media) && venue.media.length > 1 && (
+                <div className="flex flex-row flex-wrap gap-4 ">
+                  {venue.media &&
+                    (venue.media as string[])
+                      .slice(1)
+                      .map((imgUrl: string, index: number) => (
+                        <img
+                          className="h-24 object-cover rounded-xl flex-grow"
+                          key={index}
+                          src={imgUrl}
+                          alt={venue.name}
+                        />
+                      ))}
+                </div>
+              )}
             </div>
           </div>
           {/* MIDDLE */}

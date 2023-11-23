@@ -104,14 +104,19 @@ function GetVenues() {
                       src={venue.media[0]}
                       alt={venue.name}
                     />
+                  ) : venue.media &&
+                    typeof venue.media === "string" &&
+                    venue.media.trim() !== "" ? (
+                    <img
+                      src={venue.media.split(",")[0]}
+                      alt={venue.name}
+                      className="h-72 w-full object-cover rounded-xl"
+                    />
                   ) : (
                     <img
-                      src={
-                        venue.media && typeof venue.media === "string"
-                          ? venue.media.split(",")[0]
-                          : venue.media
-                      }
-                      alt={venue.name}
+                      src="https://source.unsplash.com/1600x900/?hotel"
+                      alt="Default Image"
+                      className="h-72 w-full object-cover rounded-xl"
                     />
                   )}
                   <h3 className="text-xl font-bold truncate">
