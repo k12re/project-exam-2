@@ -7,7 +7,6 @@ import LoginUserForm from "./components/LoginUser";
 import ProfilePage from "./components/ProfilePage";
 import BookingPage from "./components/CreateBookingUser";
 import GetProfiles from "./components/Profiles";
-// import DefaultProfile from "../src/assets/profile-circle.svg";
 import { load } from "./components/Storage";
 import LogoutUser from "./components/Logout";
 import { ProfileIcon } from "./components/Logout";
@@ -96,8 +95,6 @@ function GetVenues() {
     getData();
   }, [queryOffset]);
 
-  // console.log(data);
-
   return (
     <>
       <div className="max-w-6xl mx-auto ">
@@ -129,23 +126,22 @@ function GetVenues() {
                   key={venue.id}
                   className="w-full md:w-1/2 lg:w-1/3 mx-auto ml-4 mr-4 mt-4 mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
                 >
-                  {/* {Array.isArray(venue.media) ? (
-                  venue.media.map((imgUrl, index) => (
+                  {Array.isArray(venue.media) && venue.media.length > 0 ? (
                     <img
                       className="h-72 w-full object-cover rounded-xl"
-                      key={index}
-                      src={imgUrl}
+                      src={venue.media[0]}
                       alt={venue.name}
                     />
-                  ))
-                ) : (
-                  <img src={venue.media} alt={venue.name}  />
-                )} */}
-                  <img
-                    src={venue.media}
-                    alt={venue.name}
-                    className="h-72 w-full object-cover rounded-xl"
-                  />
+                  ) : (
+                    <img
+                      src={
+                        venue.media && typeof venue.media === "string"
+                          ? venue.media.split(",")[0]
+                          : venue.media
+                      }
+                      alt={venue.name}
+                    />
+                  )}
                   <h3 className="text-xl font-bold">
                     {venue.name.substring(0, 36)}...
                   </h3>
@@ -163,23 +159,22 @@ function GetVenues() {
                   key={venue.id}
                   className="w-full md:w-1/2 lg:w-1/3 mx-auto ml-4 mr-4 mt-4 mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
                 >
-                  {/* {Array.isArray(venue.media) ? (
-              venue.media.map((imgUrl, index) => (
-                <img
-                  className="h-72 w-full object-cover rounded-xl"
-                  key={index}
-                  src={imgUrl}
-                  alt={venue.name}
-                />
-              ))
-            ) : (
-              <img src={venue.media} alt={venue.name}  />
-            )} */}
-                  <img
-                    src={venue.media}
-                    alt={venue.name}
-                    className="h-72 w-full object-cover rounded-xl"
-                  />
+                  {Array.isArray(venue.media) && venue.media.length > 0 ? (
+                    <img
+                      className="h-72 w-full object-cover rounded-xl"
+                      src={venue.media[0]}
+                      alt={venue.name}
+                    />
+                  ) : (
+                    <img
+                      src={
+                        venue.media && typeof venue.media === "string"
+                          ? venue.media.split(",")[0]
+                          : venue.media
+                      }
+                      alt={venue.name}
+                    />
+                  )}
                   <h3 className="text-xl font-bold">
                     {venue.name.substring(0, 36)}...
                   </h3>
@@ -303,15 +298,6 @@ function Nav() {
           >
             {" "}
             Venues
-          </NavLink>
-        </li>
-        <li key={"bookings"} className="group m-1 pt-5">
-          <NavLink
-            to="/bookings"
-            className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
-          >
-            {" "}
-            My bookings
           </NavLink>
         </li>
         <li key={"createvenue"} className="group m-1 pt-5">
