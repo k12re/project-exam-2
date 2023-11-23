@@ -3,17 +3,16 @@ import DefaultProfile from "../../assets/profile-circle.svg";
 import { useEffect, useState } from "react";
 import { url, venuesUrl, bookingsUrl } from "../../App";
 import { useParams, Link } from "react-router-dom";
-// import { Venue } from "../../App";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { AuthFetch } from "../AuthFetch";
-import { Venue } from "../Interfaces";
+import { Booking, Bookings, Venue } from "../Interfaces";
 
 function MyCalendar() {
-  const [bookings, setBookings] = useState([]);
-  const [selectedDate, setSelectedDate] = useState([]);
+  const [bookings, setBookings] = useState<Bookings>([]);
+  const [selectedDate, setSelectedDate] = useState<Date[]>([]);
   const [numberOfGuests, setNumberOfGuests] = useState(0);
-  const [value, onChange] = useState(new Date());
+  const [value] = useState(new Date());
 
   let { id } = useParams();
 
@@ -33,7 +32,7 @@ function MyCalendar() {
     fetchDates();
   }, []);
 
-  function getDates(bookings) {
+  function getDates(bookings: Booking[]) {
     return bookings.map((booking) => ({
       from: new Date(booking.dateFrom),
       to: new Date(booking.dateTo),
@@ -41,7 +40,7 @@ function MyCalendar() {
   }
   const dateRanges = getDates(bookings);
 
-  const tileClassName = ({ date }) => {
+  const tileClassName = ({ date }: { date: Date }) => {
     const isBooked = dateRanges.some(
       (range) => date >= range.from && date <= range.to
     );
@@ -84,7 +83,7 @@ function MyCalendar() {
     return datesToSend;
   };
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Date) => {
     setSelectedDate((prevDate) => {
       if (prevDate.length === 0 || prevDate.length === 1) {
         return [...prevDate, date];
@@ -94,7 +93,7 @@ function MyCalendar() {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
     const bookingData = {
@@ -191,18 +190,21 @@ function VenuePage() {
             <div className="h-full">
               <img
                 className="object-cover rounded-xl h-96 w-full mb-4"
-                src={venue.media[0]}
+                src={venue.media && venue.media[0]}
                 alt={venue.name}
               />
               <div className="flex flex-row flex-wrap gap-4 ">
-                {venue.media?.slice(1).map((imgUrl, index) => (
-                  <img
-                    className="h-24 object-cover rounded-xl flex-grow"
-                    key={index}
-                    src={imgUrl}
-                    alt={venue.name}
-                  />
-                ))}
+                {venue.media &&
+                  venue.media
+                    ?.slice(1)
+                    .map((imgUrl: string, index: number) => (
+                      <img
+                        className="h-24 object-cover rounded-xl flex-grow"
+                        key={index}
+                        src={imgUrl}
+                        alt={venue.name}
+                      />
+                    ))}
               </div>
             </div>
           </div>
@@ -234,11 +236,15 @@ function VenuePage() {
                   ) : (
                     <img
                       className="h-6 w-6 rounded-full"
-                      src={venue.owner.avatar}
+                      src={venue.owner && venue.owner.avatar}
                     />
                   )}
-                  <p className="flex-auto">Owner: {venue.owner.name}</p>
-                  <p className="flex-auto">Email: {venue.owner.email}</p>
+                  <p className="flex-auto">
+                    Owner: {venue.owner && venue.owner.name}
+                  </p>
+                  <p className="flex-auto">
+                    Email: {venue.owner && venue.owner.email}
+                  </p>
                 </div>
               </Link>
             </div>
@@ -262,34 +268,28 @@ function VenuePage() {
             </div>
             <div className="col-start-1 row-start-3 md:row-start-2 md:row-span-1">
               <MyCalendar />
-              {/* <button className="btn-primary mt-8">
-                See availability
-                <Link to={`/`}>See availability</Link>
-              </button> */}
             </div>
           </div>
         </div>
       </div>
       <h3 className="text-xl font-bold px-4">Bookings:</h3>
       <ul>
-        {venue.bookings.map((bookings) => (
-          <li
-            key={bookings.id}
-            className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
-          >
-            {/* <h2 className="font-bold">{bookings.venue.name}</h2> */}
-            <p className="font-bold">Booked from:</p>
-            <p>{bookings.dateFrom.substring(0, 10)}</p>
-            <p className="font-bold">Booked to:</p>
-            <p>{bookings.dateTo.substring(0, 10)}</p>
-            <p className="font-bold">Number of guests: </p>
-            <p>{bookings.guests}</p>
-            <p className="text-xs ">Id: {bookings.id}</p>
-            {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
-                <Link to={`/profiles/${profile.name}`}>Read more</Link>
-              </button> */}
-          </li>
-        ))}
+        {venue.bookings &&
+          venue.bookings.map((bookings) => (
+            <li
+              key={bookings.id}
+              className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+            >
+              {/* <h2 className="font-bold">{bookings.venue.name}</h2> */}
+              <p className="font-bold">Booked from:</p>
+              <p>{bookings.dateFrom.substring(0, 10)}</p>
+              <p className="font-bold">Booked to:</p>
+              <p>{bookings.dateTo.substring(0, 10)}</p>
+              <p className="font-bold">Number of guests: </p>
+              <p>{bookings.guests}</p>
+              <p className="text-xs ">Id: {bookings.id}</p>
+            </li>
+          ))}
       </ul>
     </div>
   );

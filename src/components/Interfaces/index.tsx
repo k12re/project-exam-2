@@ -28,14 +28,20 @@ export interface Venue {
     email: string;
     name: string;
   };
+  bookings?: Bookings;
 }
 
-export interface Bookings {
+export type Bookings = Booking[];
+
+export interface Booking {
   dateFrom: string;
   dateTo: string;
   guests: number;
   id: string;
-  venue: { name: string };
+  venue: {
+    media: any;
+    name: string;
+  };
 }
 
 export interface Profile {

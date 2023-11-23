@@ -208,7 +208,7 @@ function ProfilePage() {
                   onClick={() => navigateVenue(venues)}
                   src={venues.media && venues.media[0]}
                   alt={venues.name}
-                  className="h-28 w-full object-cover rounded-xl"
+                  className="h-36 w-full object-cover rounded-xl"
                 />
                 <h3 className="text-xl font-bold">Venue: {venues.name}</h3>
                 <span className="flex justify-between">
@@ -232,14 +232,27 @@ function ProfilePage() {
                 key={bookings.id}
                 className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
               >
-                <h2 className="font-bold">{bookings.venue.name}</h2>
-                <p className="font-bold">Booked from:</p>
-                <p>{bookings.dateFrom.substring(0, 10)}</p>
-                <p className="font-bold">Booked to:</p>
-                <p>{bookings.dateTo.substring(0, 10)}</p>
-                <p className="font-bold">Number of guests: </p>
-                <p>{bookings.guests}</p>
-                <p className="text-xs ">Id: {bookings.id}</p>
+                <div className="flex">
+                  <div>
+                    <h2 className="font-bold w-44">
+                      Venue: {bookings.venue.name}
+                    </h2>
+                    <img
+                      className="h-36 w-44 object-cover rounded-xl"
+                      src={bookings.venue.media[0]}
+                      alt={bookings.venue.name}
+                    />
+                  </div>
+                  <div className="pl-8">
+                    <p className="font-bold">Booked from:</p>
+                    <p>{bookings.dateFrom.substring(0, 10)}</p>
+                    <p className="font-bold">Booked to:</p>
+                    <p>{bookings.dateTo.substring(0, 10)}</p>
+                    <p className="font-bold">Number of guests: </p>
+                    <p>{bookings.guests}</p>
+                    <p className="text-xs ">Id: {bookings.id}</p>
+                  </div>
+                </div>
                 {/* <button className="bg-light-pink hover:bg-pink w-full py-3 my-3 rounded-xl font-bold">
                 <Link to={`/profiles/${profile.name}`}>Read more</Link>
               </button> */}
