@@ -5,7 +5,6 @@ import VenuePage from "./components/VenuePage";
 import RegisterUserForm from "./components/RegisterUserForm";
 import LoginUserForm from "./components/LoginUser";
 import ProfilePage from "./components/ProfilePage";
-import BookingPage from "./components/CreateBookingUser";
 import GetProfiles from "./components/Profiles";
 import { load } from "./components/Storage";
 import LogoutUser from "./components/Logout";
@@ -318,7 +317,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<GetVenues />}></Route>
             <Route path="venues/:id" element={<VenuePage />}></Route>
-            <Route path="bookings" element={<BookingPage />}></Route>
+            {/* <Route path="bookings" element={<BookingPage />}></Route> */}
             <Route path="createvenue" element={<CreateVenue />}></Route>
             <Route path="editvenue/:id" element={<EditVenue />}></Route>
             <Route path="profiles" element={<GetProfiles />}></Route>
