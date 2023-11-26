@@ -1,4 +1,4 @@
-export function save(key: string, value: string) {
+export function save(key: string, value: Record<string, any>) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 

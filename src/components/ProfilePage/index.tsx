@@ -3,16 +3,15 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
 import { url } from "../../App";
 import { profilesUrl } from "../Profiles";
-// import LightArrow from "../../assets/light-left.svg";
 import DefaultProfile from "../../assets/profile-circle.svg";
 import { load, save } from "../Storage";
 import { Profile } from "../Interfaces";
-import { useAuth } from "../AuthContext";
+import { AuthContextType, useAuth } from "../AuthContext";
 
 const existingProfileDetails = load("profile") || {};
 
 function ProfilePage() {
-  const { updateVenueManager, profileDetails } = useAuth();
+  const { updateVenueManager } = useAuth() as AuthContextType;
   const [profile, setProfile] = useState<Profile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSettingsVisible, setIsSettingsVisible] = useState<boolean>(false);
@@ -49,12 +48,13 @@ function ProfilePage() {
 
       save("profile", updatedProfileDetails);
 
-      const response = await AuthFetch(`${url}${profilesUrl}/${name}/media`, {
+      // const response =
+      await AuthFetch(`${url}${profilesUrl}/${name}/media`, {
         method: "PUT",
         body: JSON.stringify({ avatar }),
       });
-      const json = await response.json();
-      console.log(json);
+      // const json = await response.json();
+      // console.log(json);
     } catch (error) {
       console.log(error);
     }
@@ -66,12 +66,13 @@ function ProfilePage() {
     updateVenueManager(updatedVenueManager);
 
     try {
-      const response = await AuthFetch(`${url}${profilesUrl}/${name}`, {
+      // const response =
+      await AuthFetch(`${url}${profilesUrl}/${name}`, {
         method: "PUT",
         body: JSON.stringify({ venueManager: updatedVenueManager }),
       });
-      const json = await response.json();
-      console.log(json);
+      // const json = await response.json();
+      // console.log(json);
     } catch (error) {
       console.log(error);
     }
@@ -106,7 +107,7 @@ function ProfilePage() {
   return (
     <div className="max-w-md mx-auto">
       <span className="flex my-3 text-dark-green dark:text-white-pink">
-        <Link to={`/profiles`}>
+        <Link to={`/`}>
           <svg
             width="32"
             height="36"

@@ -1,13 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { Logo } from "../../App";
-import { myProfileDetails, myToken } from "../../App";
+// import { myProfileDetails, myToken } from "../../App";
 import LogoutUser from "../Logout";
 import { ProfileIcon } from "../Logout";
 import LightDarkMode from "../LightDarkMode";
-import { useAuth } from "../AuthContext";
+import { AuthContextType, useAuth } from "../AuthContext";
 
 function Nav() {
-  const { isLoggedIn, profileDetails, logout, login } = useAuth();
+  const { isLoggedIn, profileDetails, venueManager } =
+    useAuth() as AuthContextType;
   return (
     <nav className="flex justify-between ">
       <Logo />
@@ -21,7 +22,7 @@ function Nav() {
             Venues
           </NavLink>
         </li>
-        {profileDetails && profileDetails.venueManager && isLoggedIn ? (
+        {profileDetails && venueManager && isLoggedIn ? (
           <li key={"createvenue"} className="group m-1 pt-5">
             <NavLink
               to="/createvenue"

@@ -1,20 +1,34 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { load, remove, save } from "../Storage";
+import { Profile } from "../Interfaces";
 
-const AuthContext = createContext();
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }) => {
+export interface AuthContextType {
+  isLoggedIn: boolean;
+  login: (profile: Profile) => void;
+  logout: () => void;
+  profileDetails: Profile | null;
+  venueManager: boolean;
+  updateVenueManager: (status: boolean) => void;
+}
+
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [profileDetails, setProfileDetails] = useState(null);
+  const [profileDetails, setProfileDetails] = useState<Profile | null>(null);
   const [venueManager, setVenueManager] = useState(false);
 
-  const login = (profileData) => {
+  const login = (profileData: Profile) => {
     setProfileDetails(profileData);
     setVenueManager(profileData?.venueManager);
     setIsLoggedIn(true);
   };
 
-  const logout = () => {
+  const logout = (): void => {
     remove("accessToken");
     remove("profile");
     setIsLoggedIn(false);
@@ -22,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     setVenueManager(false);
   };
 
-  const updateVenueManager = (status) => {
+  const updateVenueManager = (status: boolean) => {
     setVenueManager(status);
     save("profile", { ...profileDetails, venueManager: status });
   };

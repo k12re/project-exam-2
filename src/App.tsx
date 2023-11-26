@@ -5,7 +5,7 @@ import VenuePage from "./components/VenuePage";
 import RegisterUserForm from "./components/RegisterUserForm";
 import LoginUserForm from "./components/LoginUser";
 import ProfilePage from "./components/ProfilePage";
-import GetProfiles from "./components/Profiles";
+// import GetProfiles from "./components/Profiles";
 import { load } from "./components/Storage";
 // import LogoutUser from "./components/Logout";
 // import { ProfileIcon } from "./components/Logout";

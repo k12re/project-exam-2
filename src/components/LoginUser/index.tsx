@@ -6,7 +6,7 @@ import { url } from "../../App";
 import { Link, useLocation } from "react-router-dom";
 import { save } from "../Storage";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../AuthContext";
+import { AuthContextType, useAuth } from "../AuthContext";
 
 const schema = yup.object({
   email: yup.string().required(),
@@ -18,7 +18,7 @@ const action = "/login";
 const methodPOST = "POST";
 
 function useLoginUserAPI() {
-  const { login } = useAuth();
+  const { login } = useAuth() as AuthContextType;
   const [profileData, setProfileData] = useState(null);
 
   const loginUser = async (profile: object) => {
@@ -36,7 +36,6 @@ function useLoginUserAPI() {
       const json = await response.json();
       setProfileData(json);
 
-      console.log(json);
       login(json);
 
       if (response.ok) {
@@ -62,10 +61,7 @@ function LoginUserForm() {
   const { loginUser } = useLoginUserAPI();
 
   function onSubmit(profileData: object) {
-    // console.log(profileData);
     loginUser(profileData);
-
-    console.log(profileData);
     navigate("/");
   }
 

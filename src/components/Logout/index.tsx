@@ -1,28 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import { remove } from "../Storage";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { load } from "../Storage";
-import { useAuth } from "../AuthContext";
-
-// const myProfileDetails = load("profile");
-// const myToken = load("accessToken");
-// console.log(myProfileDetails);
-// console.log(myToken);
+import { AuthContextType, useAuth } from "../AuthContext";
 
 function LogoutUser() {
-  // const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout } = useAuth() as AuthContextType;
 
   const handleLogout = async () => {
     logout();
-
-    // navigate("/");
-
-    // remove("accessToken");
-    // remove("profile");
-    // setIsLoggedIn(false);
-    // setProfileDetails(null);
   };
 
   return (
@@ -40,11 +25,9 @@ export default LogoutUser;
 
 function ProfileIcon() {
   const [myProfileDetails, setMyProfileDetails] = useState(load("profile"));
-  //   const [myToken, setMyToken] = useState(load("accessToken"));
 
   useEffect(() => {
     setMyProfileDetails(load("profile"));
-    // setMyToken(load("accessToken"));
   }, [load("accessToken")]);
 
   return (
