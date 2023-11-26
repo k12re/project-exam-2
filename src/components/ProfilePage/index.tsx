@@ -7,8 +7,12 @@ import LightArrow from "../../assets/light-left.svg";
 import DefaultProfile from "../../assets/profile-circle.svg";
 import { load, save } from "../Storage";
 import { Profile } from "../Interfaces";
+import { useAuth } from "../AuthContext";
+
+const existingProfileDetails = load("profile") || {};
 
 function ProfilePage() {
+  const { updateVenueManager, profileDetails } = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSettingsVisible, setIsSettingsVisible] = useState<boolean>(false);
@@ -38,8 +42,6 @@ function ProfilePage() {
 
   const handleSubmitAvatar = async () => {
     try {
-      const existingProfileDetails = load("profile") || {};
-
       const updatedProfileDetails = {
         ...existingProfileDetails,
         avatar: avatar,
@@ -61,6 +63,7 @@ function ProfilePage() {
   const handleVenueManagerChange = async () => {
     const updatedVenueManager = !venueManager;
     setVenueManager(updatedVenueManager);
+    updateVenueManager(updatedVenueManager);
 
     try {
       const response = await AuthFetch(`${url}${profilesUrl}/${name}`, {
@@ -98,7 +101,7 @@ function ProfilePage() {
     return <div>Loading...</div>;
   }
 
-  console.log(profile);
+  // console.log(profile);
 
   return (
     <div className="max-w-md mx-auto">

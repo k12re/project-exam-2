@@ -3,6 +3,7 @@ import { remove } from "../Storage";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { load } from "../Storage";
+import { useAuth } from "../AuthContext";
 
 // const myProfileDetails = load("profile");
 // const myToken = load("accessToken");
@@ -10,12 +11,18 @@ import { load } from "../Storage";
 // console.log(myToken);
 
 function LogoutUser() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const { logout } = useAuth();
 
-  const handleLogout = () => {
-    remove("accessToken");
-    remove("profile");
-    navigate("/");
+  const handleLogout = async () => {
+    logout();
+
+    // navigate("/");
+
+    // remove("accessToken");
+    // remove("profile");
+    // setIsLoggedIn(false);
+    // setProfileDetails(null);
   };
 
   return (

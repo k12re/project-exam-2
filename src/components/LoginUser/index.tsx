@@ -5,6 +5,7 @@ import { useState } from "react";
 import { url } from "../../App";
 import { Link, useLocation } from "react-router-dom";
 import { save } from "../Storage";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
   email: yup.string().required(),
@@ -50,6 +51,7 @@ function useLoginUserAPI() {
 }
 
 function LoginUserForm() {
+  const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
 
@@ -58,6 +60,7 @@ function LoginUserForm() {
   function onSubmit(profileData: object) {
     console.log(profileData);
     loginUser(profileData);
+    navigate("/");
   }
 
   return (
