@@ -11,6 +11,8 @@ export interface AuthContextType {
   profileDetails: Profile | null;
   venueManager: boolean;
   updateVenueManager: (status: boolean) => void;
+  avatarChange: string;
+  updateAvatarChange: (newAvatar: string) => void;
 }
 
 interface AuthProviderProps {
@@ -21,10 +23,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profileDetails, setProfileDetails] = useState<Profile | null>(null);
   const [venueManager, setVenueManager] = useState(false);
+  const [avatarChange, setAvatarChange] = useState("");
+  const [avatar, setAvatar] = useState("");
 
   const login = (profileData: Profile) => {
     setProfileDetails(profileData);
     setVenueManager(profileData?.venueManager);
+    setAvatar(profileData?.avatar || "");
     setIsLoggedIn(true);
   };
 
@@ -41,18 +46,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     save("profile", { ...profileDetails, venueManager: status });
   };
 
+  const updateAvatarChange = (newAvatar: string) => {
+    setAvatarChange(newAvatar);
+    save("profile", { ...profileDetails, avatar: newAvatar });
+  };
+
   useEffect(() => {
-    console.log("Checking login status...");
+    const storedProfile = load("profile");
+    setAvatar(storedProfile?.avatar || "");
+  }, [avatarChange]);
+
+  useEffect(() => {
     const storedToken = load("accessToken");
     const storedProfile = load("profile");
 
     if (storedToken && storedProfile) {
-      console.log("Stored token and profile found. Logging in...");
       login(storedProfile);
-    }
-
-    if (!isLoggedIn) {
-      console.log("is not logged in");
     }
   }, [venueManager]);
 
@@ -65,6 +74,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         profileDetails,
         venueManager,
         updateVenueManager,
+        avatarChange,
+        updateAvatarChange,
       }}
     >
       {children}

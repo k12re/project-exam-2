@@ -8,10 +8,11 @@ import { load, save } from "../Storage";
 import { Profile } from "../Interfaces";
 import { AuthContextType, useAuth } from "../AuthContext";
 
-const existingProfileDetails = load("profile") || {};
+// const existingProfileDetails = load("profile") || {};
 
 function ProfilePage() {
-  const { updateVenueManager } = useAuth() as AuthContextType;
+  const { updateVenueManager, updateAvatarChange } =
+    useAuth() as AuthContextType;
   const [profile, setProfile] = useState<Profile | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSettingsVisible, setIsSettingsVisible] = useState<boolean>(false);
@@ -40,21 +41,14 @@ function ProfilePage() {
   };
 
   const handleSubmitAvatar = async () => {
+    const updatedAvatarChange = avatar;
+    updateAvatarChange(updatedAvatarChange);
+
     try {
-      const updatedProfileDetails = {
-        ...existingProfileDetails,
-        avatar: avatar,
-      };
-
-      save("profile", updatedProfileDetails);
-
-      // const response =
       await AuthFetch(`${url}${profilesUrl}/${name}/media`, {
         method: "PUT",
-        body: JSON.stringify({ avatar }),
+        body: JSON.stringify({ avatar: updatedAvatarChange }),
       });
-      // const json = await response.json();
-      // console.log(json);
     } catch (error) {
       console.log(error);
     }
@@ -66,13 +60,10 @@ function ProfilePage() {
     updateVenueManager(updatedVenueManager);
 
     try {
-      // const response =
       await AuthFetch(`${url}${profilesUrl}/${name}`, {
         method: "PUT",
         body: JSON.stringify({ venueManager: updatedVenueManager }),
       });
-      // const json = await response.json();
-      // console.log(json);
     } catch (error) {
       console.log(error);
     }
