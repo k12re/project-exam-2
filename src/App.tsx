@@ -242,7 +242,7 @@ function App() {
               {/* <Route path="bookings" element={<BookingPage />}></Route> */}
               <Route path="createvenue" element={<CreateVenue />}></Route>
               <Route path="editvenue/:id" element={<EditVenue />}></Route>
-              <Route path="profiles" element={<GetProfiles />}></Route>
+              {/* <Route path="profiles" element={<GetProfiles />}></Route> */}
               <Route path="profiles/:name" element={<ProfilePage />}></Route>
               <Route path="register" element={<RegisterUserForm />}></Route>
               <Route path="login" element={<LoginUserForm />}></Route>

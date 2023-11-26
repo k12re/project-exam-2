@@ -32,7 +32,7 @@ function Nav() {
             </NavLink>
           </li>
         ) : null}
-        <li key={"profiles"} className="group m-1 pt-5">
+        {/* <li key={"profiles"} className="group m-1 pt-5">
           <NavLink
             to="/profiles"
             className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
@@ -40,7 +40,7 @@ function Nav() {
             {" "}
             Profiles
           </NavLink>
-        </li>
+        </li> */}
         {/* <li key={"login"} className="group m-1 pt-5">
           {!isLoggedIn ? (
             <NavLink

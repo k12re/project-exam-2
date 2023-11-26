@@ -214,12 +214,14 @@ function ProfilePage() {
                 <span className="flex justify-between">
                   <p>Description: {venues.description}</p>
 
-                  <button
-                    onClick={() => navigate(`/editvenue/${venues.id}`)}
-                    className="text-white-pink bg-green dark:bg-pink rounded-md ml-2 px-3 py-1 w-20"
-                  >
-                    Edit
-                  </button>
+                  {isOwnUser && (
+                    <button
+                      onClick={() => navigate(`/editvenue/${venues.id}`)}
+                      className="text-white-pink bg-green dark:bg-pink rounded-md ml-2 px-3 py-1 w-20"
+                    >
+                      Edit
+                    </button>
+                  )}
                 </span>
               </li>
             ))}
