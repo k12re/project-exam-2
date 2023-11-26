@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { url } from "../../App";
 import { AuthFetch } from "../AuthFetch";
+import { Link } from "react-router-dom";
 // import { useLocation } from "react-router-dom";
 
 const venueSchema = yup.object({
@@ -66,7 +67,22 @@ function CreateVenueForm() {
   return (
     <>
       <div className="max-w-md mx-auto">
-        <h1 className="text-2xl font-bold px-4">Create Venue</h1>
+        <span className="flex my-3 text-dark-green dark:text-white-pink">
+          <Link to={`/`}>
+            <svg
+              width="32"
+              height="36"
+              viewBox="0 0 256 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="currentColor"
+                d="m31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+              />
+            </svg>
+          </Link>
+          <h1 className="text-2xl font-bold px-4">Create Venue</h1>
+        </span>
       </div>
       <div className="max-w-md mx-auto">
         <div className="mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">

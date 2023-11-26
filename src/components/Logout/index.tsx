@@ -48,12 +48,12 @@ function ProfileIcon() {
   }, [load("accessToken")]);
 
   return (
-    <li key={"profiles"} className="group m-3 p-3 ">
+    <li key={"profiles"} className="group m-5 hover:drop-shadow-lg hover:mt-4">
       {myProfileDetails?.avatar ? (
         <NavLink to={`/profiles/${myProfileDetails.name}`}>
           <img
             src={myProfileDetails?.avatar}
-            className="h-8 w-8 rounded-full object-cover"
+            className="h-8 w-8 rounded-full object-cover hover:h-10 hover:w-10"
             alt={myProfileDetails?.name}
           ></img>
         </NavLink>

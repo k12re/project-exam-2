@@ -15,7 +15,7 @@ function Nav() {
         <li key={"home"} className="group m-1 pt-5">
           <NavLink
             to="/"
-            className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
+            className="mx-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
           >
             {" "}
             Venues
@@ -25,7 +25,7 @@ function Nav() {
           <li key={"createvenue"} className="group m-1 pt-5">
             <NavLink
               to="/createvenue"
-              className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
+              className="mx-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
             >
               {" "}
               Create venue
@@ -61,7 +61,7 @@ function Nav() {
           ) : (
             <NavLink
               to="/login"
-              className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
+              className="mx-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
             >
               {" "}
               Login

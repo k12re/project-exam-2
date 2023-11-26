@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
 import { url } from "../../App";
 import { profilesUrl } from "../Profiles";
-import LightArrow from "../../assets/light-left.svg";
+// import LightArrow from "../../assets/light-left.svg";
 import DefaultProfile from "../../assets/profile-circle.svg";
 import { load, save } from "../Storage";
 import { Profile } from "../Interfaces";
@@ -105,9 +105,19 @@ function ProfilePage() {
 
   return (
     <div className="max-w-md mx-auto">
-      <span className="flex my-3">
+      <span className="flex my-3 text-dark-green dark:text-white-pink">
         <Link to={`/profiles`}>
-          <img src={LightArrow} alt="Back arrow" className="h-10 w-10" />
+          <svg
+            width="32"
+            height="36"
+            viewBox="0 0 256 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="currentColor"
+              d="m31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+            />
+          </svg>
         </Link>
         <h1 className="text-2xl font-bold px-4 text-dark-green dark:text-white-pink">
           Profile
