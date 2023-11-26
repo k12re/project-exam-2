@@ -9,9 +9,9 @@ export const AuthProvider = ({ children }) => {
   const [venueManager, setVenueManager] = useState(false);
 
   const login = (profileData) => {
-    setIsLoggedIn(true);
     setProfileDetails(profileData);
     setVenueManager(profileData?.venueManager);
+    setIsLoggedIn(true);
   };
 
   const logout = () => {
@@ -28,11 +28,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    console.log("Checking login status...");
     const storedToken = load("accessToken");
     const storedProfile = load("profile");
 
     if (storedToken && storedProfile) {
+      console.log("Stored token and profile found. Logging in...");
       login(storedProfile);
+    }
+
+    if (!isLoggedIn) {
+      console.log("is not logged in");
     }
   }, [venueManager]);
 

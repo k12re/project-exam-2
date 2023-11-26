@@ -7,7 +7,7 @@ import LightDarkMode from "../LightDarkMode";
 import { useAuth } from "../AuthContext";
 
 function Nav() {
-  const { isLoggedIn, profileDetails, logout } = useAuth();
+  const { isLoggedIn, profileDetails, logout, login } = useAuth();
   return (
     <nav className="flex justify-between ">
       <Logo />
@@ -41,7 +41,7 @@ function Nav() {
             Profiles
           </NavLink>
         </li>
-        <li key={"login"} className="group m-1 pt-5">
+        {/* <li key={"login"} className="group m-1 pt-5">
           {!isLoggedIn ? (
             <NavLink
               to="/login"
@@ -52,6 +52,20 @@ function Nav() {
             </NavLink>
           ) : (
             <LogoutUser />
+          )}
+        </li> */}
+
+        <li key={"login"} className="group m-1 pt-5">
+          {isLoggedIn ? (
+            <LogoutUser />
+          ) : (
+            <NavLink
+              to="/login"
+              className="m-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
+            >
+              {" "}
+              Login
+            </NavLink>
           )}
         </li>
         {isLoggedIn ? <ProfileIcon /> : null}
