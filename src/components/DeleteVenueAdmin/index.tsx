@@ -73,7 +73,7 @@ function DeleteVenue() {
         Delete venue
       </p>
       {showConfirm && (
-        <div className="modal max-w-md mx-auto mt-4 -ml-8 rounded-2xl p-4 absolute z-50 bg-white-pink border border-green ">
+        <div className="modal max-w-md mx-auto mt-4 -ml-8 rounded-2xl p-4 absolute z-50 bg-white-pink dark:bg-dark-green border border-green ">
           <div className="modal-content">
             <p className="pb-2 text-sm">Delete this venue?</p>
             <button
