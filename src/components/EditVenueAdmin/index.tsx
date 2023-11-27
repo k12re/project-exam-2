@@ -43,11 +43,14 @@ function useEditVenueAPI() {
       const response = await AuthFetch(venuesUrl, postData);
       const json = await response.json();
       setVenueData(json);
+      console.log(venueData);
       console.log(json);
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(venueData);
 
   return { editVenue, venueData };
 }
@@ -70,7 +73,7 @@ function EditVenueForm() {
 
         <DeleteVenue />
       </div>
-      <div className="max-w-md mx-auto">
+      <div className="max-w-md mx-auto z-40">
         <div className="mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
           <form id="venueform" onSubmit={handleSubmit(onSubmit)}>
             <label className="block text-white-pink">
