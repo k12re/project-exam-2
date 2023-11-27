@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
 import { url } from "../../App";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { load } from "../Storage";
 
 const action = "/venues";
 
@@ -26,7 +28,7 @@ function useDeleteVenueAPI() {
 
 function DeleteVenue() {
   const { deleteVenue } = useDeleteVenueAPI();
-  // let { id } = useParams();
+  const navigate = useNavigate();
 
   const [showMessage, setShowMessage] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -43,6 +45,11 @@ function DeleteVenue() {
     try {
       await deleteVenue();
       setShowMessage(true);
+
+      setTimeout(() => {
+        const myProfile = load("profile");
+        navigate(`/profiles/${myProfile?.name}`);
+      }, 400);
     } catch (error) {
       console.log(error);
     }
