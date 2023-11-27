@@ -31,6 +31,21 @@ export interface Venue {
   bookings?: Bookings;
 }
 
+export interface VenueData {
+  name: string;
+  description: string;
+  media?: string[];
+  price: number;
+  maxGuests: number;
+  rating?: number;
+  meta?: {
+    wifi: boolean;
+    parking: boolean;
+    breakfast: boolean;
+    pets: boolean;
+  };
+}
+
 export type Bookings = Booking[];
 
 export interface Booking {

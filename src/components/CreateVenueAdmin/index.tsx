@@ -5,25 +5,33 @@ import { useState } from "react";
 import { url } from "../../App";
 import { AuthFetch } from "../AuthFetch";
 import { Link } from "react-router-dom";
-// import { useLocation } from "react-router-dom";
+import { VenueData } from "../Interfaces";
 
-const venueSchema = yup.object({
-  name: yup.string().required(),
-  description: yup.string().required(),
-  media: yup.string(),
-  price: yup.number().required(),
-  maxGuests: yup.number().required(),
-  rating: yup.number(),
-  wifi: yup.boolean(),
-  parking: yup.boolean(),
-  breakfast: yup.boolean(),
-  petsAllowed: yup.boolean(),
-});
+const venueSchema = yup
+  .object({
+    name: yup.string().required("Name is required"),
+    description: yup.string().required("Please enter description of venue"),
+    media: yup.string(),
+    price: yup
+      .number()
+      .typeError("Please enter price")
+      .required("Please enter price"),
+    maxGuests: yup
+      .number()
+      .typeError("Please enter number of guests")
+      .required("Please enter no of guests"),
+    rating: yup.number(),
+    wifi: yup.boolean(),
+    parking: yup.boolean(),
+    breakfast: yup.boolean(),
+    petsAllowed: yup.boolean(),
+  })
+  .required();
 
 const action = "/venues";
 
 function useCreateVenueAPI() {
-  const [venueData, setVenueData] = useState(null);
+  const [venueData, setVenueData] = useState<VenueData | null>(null);
 
   const createVenue = async (venue: object) => {
     const postData = {
@@ -50,19 +58,48 @@ function useCreateVenueAPI() {
 }
 
 function CreateVenueForm() {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(venueSchema),
   });
   const { createVenue } = useCreateVenueAPI();
 
-  function onSubmit(venueData: object) {
-    console.log(venueData);
-    createVenue(venueData);
+  const [showMessage, setShowMessage] = useState(false);
+
+  function ShowSuccessMessage() {
+    return (
+      <div className="text-dark-green mx-auto"> Venue created successfully</div>
+    );
   }
 
-  //   const location = useLocation();
+  const onSubmit = async (venueData: any) => {
+    console.log(venueData);
 
-  //   console.log(location.pathname);
+    const formData: VenueData = {
+      ...venueData,
+      media: venueData.media
+        ? venueData.media.split(",").map((url: string) => url.trim())
+        : [],
+      meta: {
+        wifi: false,
+        parking: false,
+        breakfast: false,
+        pets: false,
+      },
+    };
+    await createVenue(formData);
+
+    reset();
+    setShowMessage(true);
+
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 3000);
+  };
 
   return (
     <>
@@ -95,8 +132,9 @@ function CreateVenueForm() {
                   type="text"
                   id="name"
                   {...register("name")}
-                  className="form-input mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="form-input mt-2 mb-1 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
+                <p className="text-dark-red pl-3">{errors.name?.message}</p>
               </label>
               <label htmlFor="description" className="block">
                 <textarea
@@ -105,16 +143,19 @@ function CreateVenueForm() {
                   rows={5}
                   id="description"
                   {...register("description")}
-                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
+                <p className="text-dark-red pl-3">
+                  {errors.description?.message}
+                </p>
               </label>
               <label htmlFor="media" className="block">
                 <input
                   placeholder="Please enter image urls..."
-                  type="url"
+                  type="text"
                   id="media"
                   {...register("media")}
-                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-4 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
               </label>
               <span className="flex gap-4">
@@ -126,6 +167,7 @@ function CreateVenueForm() {
                     {...register("price")}
                     className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                   />
+                  <p className="text-dark-red pl-3">{errors.price?.message}</p>
                 </label>
                 <label htmlFor="maxGuests" className="block">
                   <input
@@ -135,6 +177,9 @@ function CreateVenueForm() {
                     {...register("maxGuests")}
                     className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                   />
+                  <p className="text-dark-red pl-3">
+                    {errors.maxGuests?.message}
+                  </p>
                 </label>
                 <label htmlFor="rating" className="block">
                   <input
@@ -142,7 +187,9 @@ function CreateVenueForm() {
                     type="number"
                     id="rating"
                     {...register("rating")}
-                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-2 mb-6 mx-auto block w-24 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    min="0"
+                    max="5"
                   />
                 </label>
               </span>
@@ -248,6 +295,7 @@ function CreateVenueForm() {
               ></input>
 
               <button className="btn-primary">Save venue</button>
+              {showMessage && <ShowSuccessMessage />}
             </label>
           </form>
         </div>
