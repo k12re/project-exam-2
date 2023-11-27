@@ -42,6 +42,7 @@ function ProfilePage() {
 
   const handleSubmitAvatar = async () => {
     const updatedAvatarChange = avatar;
+    setAvatar(updatedAvatarChange);
     updateAvatarChange(updatedAvatarChange);
 
     try {

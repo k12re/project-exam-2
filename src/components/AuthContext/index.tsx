@@ -46,14 +46,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     save("profile", { ...profileDetails, venueManager: status });
   };
 
-  const updateAvatarChange = (newAvatar: string) => {
-    setAvatarChange(newAvatar);
-    save("profile", { ...profileDetails, avatar: newAvatar });
+  const updateAvatarChange = (avatarChange: string) => {
+    setAvatarChange(avatarChange);
+    save("profile", { ...profileDetails, avatar: avatarChange });
   };
 
   useEffect(() => {
-    const storedProfile = load("profile");
-    setAvatar(storedProfile?.avatar || "");
+    // const storedProfile = load("profile");
+    // setAvatar(storedProfile?.avatar || "");
   }, [avatarChange]);
 
   useEffect(() => {
