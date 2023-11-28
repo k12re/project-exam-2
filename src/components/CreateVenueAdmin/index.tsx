@@ -83,7 +83,7 @@ function CreateVenueForm() {
       ...venueData,
       media: venueData.media
         ? venueData.media.split(",").map((url: string) => url.trim())
-        : [],
+        : ["https://source.unsplash.com/1600x900/?hotel"],
       meta: {
         wifi: false,
         parking: false,

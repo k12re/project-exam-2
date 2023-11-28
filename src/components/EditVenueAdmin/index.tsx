@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { url } from "../../App";
 import { AuthFetch } from "../AuthFetch";
 import { Link, useParams } from "react-router-dom";
@@ -73,6 +73,26 @@ function EditVenueForm() {
     resolver: yupResolver(venueSchema),
   });
   const { editVenue } = useEditVenueAPI();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchStoredData = async () => {
+      const venuesUrl = url + action + `/${id}`;
+      try {
+        const response = await AuthFetch(venuesUrl);
+        const json = await response.json();
+
+        Object.keys(json).forEach((key) => {
+          const typedKey = key as keyof typeof venueSchema.fields;
+          setValue(typedKey, json[key]);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchStoredData();
+  }, [id, setValue]);
 
   const [showMessage, setShowMessage] = useState(false);
 
@@ -104,7 +124,7 @@ function EditVenueForm() {
 
     setTimeout(() => {
       setShowMessage(false);
-    }, 3000);
+    }, 2000);
   };
 
   return (
