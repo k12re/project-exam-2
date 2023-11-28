@@ -133,7 +133,7 @@ function MyCalendar() {
             onChange={(event) =>
               setNumberOfGuests(parseInt(event.target.value, 10))
             }
-            className="mt-2 mb-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+            className="mt-2 mb-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
           />
         </label>
         <button type="submit" className="btn-primary">

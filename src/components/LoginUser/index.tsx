@@ -68,11 +68,11 @@ function LoginUserForm() {
   return (
     <div className="max-w-md mx-auto">
       <span className="flex px-4 my-3">
-        <h1 className="text-2xl font-bold px-4 text-white-pink">
+        <h1 className="text-2xl font-bold px-4 dark:text-white-pink text-dark-green">
           Fill out to login
         </h1>
       </span>
-      <div className="mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
+      <div className="drop-shadow mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
         <span className="flex justify-center pt-6">
           <Link to={`/register`}>
             <div className="bg-white-pink rounded-l-full w-32">
@@ -104,7 +104,7 @@ function LoginUserForm() {
                 id="email"
                 placeholder="Please enter email..."
                 {...register("email")}
-                className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+                className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
               />
             </label>
             <label htmlFor="password" className="block">
@@ -113,7 +113,7 @@ function LoginUserForm() {
                 id="password"
                 placeholder="Please enter your password..."
                 {...register("password")}
-                className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+                className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
               />
             </label>
             <button className="btn-primary">Login</button>

@@ -70,7 +70,7 @@ function DeleteVenue() {
     <span>
       {showMessage && <ShowDeleteMessage />}
       <p
-        className="text-md font-bold px-4 pt-5 hover:cursor-pointer"
+        className="text-md font-bold px-4 pt-5 hover:cursor-pointer hover:text-dark-red dark:hover:text-red"
         onClick={openConfirm}
       >
         Delete venue

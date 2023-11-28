@@ -160,7 +160,7 @@ function EditVenueForm() {
                   type="text"
                   id="name"
                   {...register("name")}
-                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                 />
                 <p className="text-dark-red pl-3 pb-2">
                   {errors.name?.message}
@@ -174,7 +174,7 @@ function EditVenueForm() {
                   rows={5}
                   id="description"
                   {...register("description")}
-                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                 />
                 <p className="text-dark-red pl-3 pb-2">
                   {errors.description?.message}
@@ -187,7 +187,7 @@ function EditVenueForm() {
                   type="url"
                   id="media"
                   {...register("media")}
-                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                 />
               </label>
               <span className="flex gap-4">
@@ -198,7 +198,7 @@ function EditVenueForm() {
                     type="number"
                     id="price"
                     {...register("price")}
-                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                   />
                   <p className="text-dark-red pl-3 pb-2">
                     {errors.price?.message}
@@ -211,7 +211,7 @@ function EditVenueForm() {
                     type="number"
                     id="maxGuests"
                     {...register("maxGuests")}
-                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                   />
                   <p className="text-dark-red pl-3 pb-2">
                     {errors.maxGuests?.message}
@@ -224,7 +224,7 @@ function EditVenueForm() {
                     type="number"
                     id="rating"
                     {...register("rating")}
-                    className="mt-1 mb-4 mx-auto block w-24 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-24 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                     min="0"
                     max="5"
                   />

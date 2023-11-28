@@ -134,7 +134,7 @@ function ProfilePage() {
                 />
               </svg>
               {isSettingsVisible && isOwnUser && (
-                <label className="flex">
+                <label className="flex drop-shadow">
                   <input
                     type="text"
                     placeholder="Image url..."
@@ -142,7 +142,7 @@ function ProfilePage() {
                     name="avatar"
                     value={avatar}
                     onChange={handleAvatarUrlChange}
-                    className="w-full rounded-md ml-1 px-2 py-1 bg-white border border-green focus:outline-none focus:border-green focus:ring-green focus:ring-1 dark:border-pink dark:focus:border-pink dark:focus:ring-pink"
+                    className="w-full ml-1 px-2 py-1 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                   />
                   <button
                     onClick={handleSubmitAvatar}

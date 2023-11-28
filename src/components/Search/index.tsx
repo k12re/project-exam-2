@@ -19,7 +19,7 @@ export function Search(props: {
   };
 
   return (
-    <div className="mb-4 rounded-2xl">
+    <div className="mb-4 rounded-2xl drop-shadow">
       <form id="search-form" onKeyUp={handleSearch}>
         <label htmlFor="search">
           <input
@@ -27,7 +27,7 @@ export function Search(props: {
             placeholder="Search..."
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
-            className="mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink"
+            className="mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
           />
         </label>
       </form>

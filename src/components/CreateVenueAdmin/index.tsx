@@ -133,7 +133,7 @@ function CreateVenueForm() {
                   type="text"
                   id="name"
                   {...register("name")}
-                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                 />
                 <p className="text-dark-red pl-3 pb-2">
                   {errors.name?.message}
@@ -147,53 +147,57 @@ function CreateVenueForm() {
                   rows={5}
                   id="description"
                   {...register("description")}
-                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                 />
                 <p className="text-dark-red pl-3 pb-2">
                   {errors.description?.message}
                 </p>
               </label>
               <label htmlFor="media" className="block">
+                Media Url:
                 <input
                   placeholder="Please enter image urls..."
                   type="text"
                   id="media"
                   {...register("media")}
-                  className="mt-4 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                 />
               </label>
               <span className="flex gap-4">
                 <label htmlFor="price" className="block">
+                  Price:
                   <input
                     placeholder="Price..."
                     type="number"
                     id="price"
                     {...register("price")}
-                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                   />
                   <p className="text-dark-red pl-3 pb-2">
                     {errors.price?.message}
                   </p>
                 </label>
                 <label htmlFor="maxGuests" className="block">
+                  Guests:
                   <input
                     placeholder="No of guests..."
                     type="number"
                     id="maxGuests"
                     {...register("maxGuests")}
-                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                   />
                   <p className="text-dark-red pl-3 pb-2">
                     {errors.maxGuests?.message}
                   </p>
                 </label>
                 <label htmlFor="rating" className="block">
+                  Rating:
                   <input
                     placeholder="Rating..."
                     type="number"
                     id="rating"
                     {...register("rating")}
-                    className="mt-1 mb-4 mx-auto block w-24 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-24 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                     min="0"
                     max="5"
                   />
@@ -212,8 +216,8 @@ function CreateVenueForm() {
                 border-green
                 dark:checked:bg-pink
                 checked:bg-green
-                dark:bg-white
-                bg-white
+                dark:bg-white-pink
+                bg-white-pink
                 active:bg-white-pink dark:active:bg-white-pink
                 hover:bg-white-pink checked:hover:bg-dark-green
                 dark:hover:bg-light-pink
@@ -237,8 +241,8 @@ function CreateVenueForm() {
                 border-green
                 dark:checked:bg-pink
                 checked:bg-green
-                dark:bg-white
-                bg-white
+                dark:bg-white-pink
+                bg-white-pink
                 active:bg-white-pink dark:active:bg-white-pink
                 hover:bg-white-pink checked:hover:bg-dark-green
                 dark:hover:bg-light-pink
@@ -262,8 +266,8 @@ function CreateVenueForm() {
                 border-green
                 dark:checked:bg-pink
                 checked:bg-green
-                dark:bg-white
-                bg-white
+                dark:bg-white-pink
+                bg-white-pink
                 active:bg-white-pink dark:active:bg-white-pink
                 hover:bg-white-pink checked:hover:bg-dark-green
                 dark:hover:bg-light-pink
@@ -287,8 +291,8 @@ function CreateVenueForm() {
                 border-green
                 dark:checked:bg-pink
                 checked:bg-green
-                dark:bg-white
-                bg-white
+                dark:bg-white-pink
+                bg-white-pink
                 active:bg-white-pink dark:active:bg-white-pink
                 hover:bg-white-pink checked:hover:bg-dark-green
                 dark:hover:bg-light-pink
