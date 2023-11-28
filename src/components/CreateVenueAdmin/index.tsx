@@ -10,16 +10,16 @@ import { VenueData } from "../Interfaces";
 const venueSchema = yup
   .object({
     name: yup.string().required("Name is required"),
-    description: yup.string().required("Please enter description of venue"),
+    description: yup.string().required("Description is required"),
     media: yup.string(),
     price: yup
       .number()
-      .typeError("Please enter price")
-      .required("Please enter price"),
+      .typeError("Price is required")
+      .required("Price is required"),
     maxGuests: yup
       .number()
-      .typeError("Please enter number of guests")
-      .required("Please enter no of guests"),
+      .typeError("No of guests is required")
+      .required("No of guests is required"),
     rating: yup.number(),
     wifi: yup.boolean(),
     parking: yup.boolean(),
@@ -122,30 +122,34 @@ function CreateVenueForm() {
         </span>
       </div>
       <div className="max-w-md mx-auto">
-        <div className="mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
+        <div className="drop-shadow mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
           <form id="venueform" onSubmit={handleSubmit(onSubmit)}>
-            <label className="block text-white-pink">
+            <label className="block text-dark-green dark:text-white-pink text-xs">
               <label htmlFor="name" className="block">
+                Name:
                 <input
                   placeholder="Please enter venue name..."
                   autoComplete="name"
                   type="text"
                   id="name"
                   {...register("name")}
-                  className="form-input mt-2 mb-1 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
-                <p className="text-dark-red pl-3">{errors.name?.message}</p>
+                <p className="text-dark-red pl-3 pb-2">
+                  {errors.name?.message}
+                </p>
               </label>
               <label htmlFor="description" className="block">
+                Description:
                 <textarea
                   placeholder="Please enter description..."
                   autoComplete="text"
                   rows={5}
                   id="description"
                   {...register("description")}
-                  className="mt-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
-                <p className="text-dark-red pl-3">
+                <p className="text-dark-red pl-3 pb-2">
                   {errors.description?.message}
                 </p>
               </label>
@@ -165,9 +169,11 @@ function CreateVenueForm() {
                     type="number"
                     id="price"
                     {...register("price")}
-                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                   />
-                  <p className="text-dark-red pl-3">{errors.price?.message}</p>
+                  <p className="text-dark-red pl-3 pb-2">
+                    {errors.price?.message}
+                  </p>
                 </label>
                 <label htmlFor="maxGuests" className="block">
                   <input
@@ -175,9 +181,9 @@ function CreateVenueForm() {
                     type="number"
                     id="maxGuests"
                     {...register("maxGuests")}
-                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                   />
-                  <p className="text-dark-red pl-3">
+                  <p className="text-dark-red pl-3 pb-2">
                     {errors.maxGuests?.message}
                   </p>
                 </label>
@@ -187,7 +193,7 @@ function CreateVenueForm() {
                     type="number"
                     id="rating"
                     {...register("rating")}
-                    className="mt-2 mb-6 mx-auto block w-24 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-24 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                     min="0"
                     max="5"
                   />
@@ -195,7 +201,7 @@ function CreateVenueForm() {
               </span>
               <label
                 htmlFor="wifi"
-                className="inline-block ml-2 mb-6 text-dark-green dark:text-white-pink"
+                className="inline-block ml-2 mb-6 mt-4 text-dark-green dark:text-white-pink"
               >
                 Wifi
               </label>

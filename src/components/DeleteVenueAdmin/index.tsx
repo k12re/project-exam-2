@@ -35,7 +35,10 @@ function DeleteVenue() {
 
   function ShowDeleteMessage() {
     return (
-      <div className="text-dark-green mx-auto"> Venue deleted successfully</div>
+      <div className="text-dark-green mx-auto text-xs absolute -ml-20 mt-10">
+        {" "}
+        Venue deleted successfully, redirecting..
+      </div>
     );
   }
 
@@ -49,7 +52,7 @@ function DeleteVenue() {
       setTimeout(() => {
         const myProfile = load("profile");
         navigate(`/profiles/${myProfile?.name}`);
-      }, 400);
+      }, 2000);
     } catch (error) {
       console.log(error);
     }
@@ -67,13 +70,13 @@ function DeleteVenue() {
     <span>
       {showMessage && <ShowDeleteMessage />}
       <p
-        className="text-md font-bold px-4 pt-2 hover:cursor-pointer"
+        className="text-md font-bold px-4 pt-5 hover:cursor-pointer"
         onClick={openConfirm}
       >
         Delete venue
       </p>
       {showConfirm && (
-        <div className="modal max-w-md mx-auto mt-4 -ml-8 rounded-2xl p-4 absolute z-50 bg-white-pink dark:bg-dark-green border border-green ">
+        <div className="drop-shadow-lg modal max-w-md mx-auto mt-8 -ml-8 rounded-2xl p-4 absolute z-50 bg-white-pink dark:bg-dark-green border border-green ">
           <div className="modal-content">
             <p className="pb-2 text-sm">Delete this venue?</p>
             <button

@@ -4,22 +4,30 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { url } from "../../App";
 import { AuthFetch } from "../AuthFetch";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import DeleteVenue from "../DeleteVenueAdmin";
-// import { useLocation } from "react-router-dom";
+import { VenueData } from "../Interfaces";
 
-const venueSchema = yup.object({
-  name: yup.string().required(),
-  description: yup.string().required(),
-  media: yup.string(),
-  price: yup.number().required(),
-  maxGuests: yup.number().required(),
-  rating: yup.number(),
-  wifi: yup.boolean(),
-  parking: yup.boolean(),
-  breakfast: yup.boolean(),
-  petsAllowed: yup.boolean(),
-});
+const venueSchema = yup
+  .object({
+    name: yup.string().required("Name is required"),
+    description: yup.string().required("Description is required"),
+    media: yup.string(),
+    price: yup
+      .number()
+      .typeError("Price is required")
+      .required("Price is required"),
+    maxGuests: yup
+      .number()
+      .typeError("No of guests is required")
+      .required("No of guests is required"),
+    rating: yup.number(),
+    wifi: yup.boolean(),
+    parking: yup.boolean(),
+    breakfast: yup.boolean(),
+    petsAllowed: yup.boolean(),
+  })
+  .required();
 
 const action = "/venues";
 
@@ -56,88 +64,156 @@ function useEditVenueAPI() {
 }
 
 function EditVenueForm() {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(venueSchema),
   });
   const { editVenue } = useEditVenueAPI();
 
-  function onSubmit(venueData: object) {
-    console.log(venueData);
-    editVenue(venueData);
+  const [showMessage, setShowMessage] = useState(false);
+
+  function ShowSuccessMessage() {
+    return (
+      <div className="text-dark-green mx-auto"> Venue edited successfully</div>
+    );
   }
+
+  const onSubmit = async (venueData: any) => {
+    console.log(venueData);
+
+    const formData: VenueData = {
+      ...venueData,
+      media: venueData.media
+        ? venueData.media.split(",").map((url: string) => url.trim())
+        : [],
+      meta: {
+        wifi: false,
+        parking: false,
+        breakfast: false,
+        pets: false,
+      },
+    };
+
+    await editVenue(formData);
+
+    setShowMessage(true);
+
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 3000);
+  };
 
   return (
     <>
       <div className="max-w-md mx-auto flex justify-between text-dark-green dark:text-white-pink">
-        <h1 className="text-2xl font-bold px-4">Edit venue</h1>
-
+        <span className="flex my-3 text-dark-green dark:text-white-pink">
+          <Link to={`/`}>
+            <svg
+              width="32"
+              height="36"
+              viewBox="0 0 256 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="currentColor"
+                d="m31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+              />
+            </svg>
+          </Link>
+          <h1 className="text-2xl font-bold px-4">Edit venue</h1>
+        </span>
         <DeleteVenue />
       </div>
       <div className="max-w-md mx-auto z-40">
-        <div className="mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
+        <div className="drop-shadow mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
           <form id="venueform" onSubmit={handleSubmit(onSubmit)}>
-            <label className="block text-white-pink">
+            <label className="block text-dark-green dark:text-white-pink text-xs">
               <label htmlFor="name" className="block">
+                Name:
                 <input
                   placeholder="Please enter venue name..."
                   autoComplete="name"
                   type="text"
                   id="name"
                   {...register("name")}
-                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
+                <p className="text-dark-red pl-3 pb-2">
+                  {errors.name?.message}
+                </p>
               </label>
               <label htmlFor="description" className="block">
+                Description:
                 <textarea
                   placeholder="Please enter description..."
                   autoComplete="text"
                   rows={5}
                   id="description"
                   {...register("description")}
-                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
+                <p className="text-dark-red pl-3 pb-2">
+                  {errors.description?.message}
+                </p>
               </label>
               <label htmlFor="media" className="block">
+                Media Url:
                 <input
                   placeholder="Please enter image urls..."
                   type="url"
                   id="media"
                   {...register("media")}
-                  className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                  className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                 />
               </label>
               <span className="flex gap-4">
                 <label htmlFor="price" className="block">
+                  Price:
                   <input
                     placeholder="Price..."
                     type="number"
                     id="price"
                     {...register("price")}
-                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                   />
+                  <p className="text-dark-red pl-3 pb-2">
+                    {errors.price?.message}
+                  </p>
                 </label>
                 <label htmlFor="maxGuests" className="block">
+                  Guests:
                   <input
                     placeholder="No of guests..."
                     type="number"
                     id="maxGuests"
                     {...register("maxGuests")}
-                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
                   />
+                  <p className="text-dark-red pl-3 pb-2">
+                    {errors.maxGuests?.message}
+                  </p>
                 </label>
                 <label htmlFor="rating" className="block">
+                  Rating:
                   <input
                     placeholder="Rating..."
                     type="number"
                     id="rating"
                     {...register("rating")}
-                    className="mt-2 mb-6 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    className="mt-1 mb-4 mx-auto block w-24 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-pink text-dark-green"
+                    min="0"
+                    max="5"
                   />
                 </label>
               </span>
+
               <label
                 htmlFor="wifi"
-                className="inline-block ml-2 mb-6 text-dark-green dark:text-white-pink"
+                className="inline-block ml-2 mb-6 mt-4 text-dark-green dark:text-white-pink"
               >
                 Wifi
               </label>
@@ -237,6 +313,7 @@ function EditVenueForm() {
               ></input>
 
               <button className="btn-primary">Save changes</button>
+              {showMessage && <ShowSuccessMessage />}
             </label>
           </form>
         </div>
