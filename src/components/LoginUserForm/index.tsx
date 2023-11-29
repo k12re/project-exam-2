@@ -7,7 +7,11 @@ import useLoginUserAPI from "../LoginUserApi";
 function LoginUserForm() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(loginSchema),
   });
 
@@ -49,7 +53,7 @@ function LoginUserForm() {
           </Link>
         </span>
         <form id="registerform" onSubmit={handleSubmit(onSubmit)}>
-          <label className="block text-white-pink">
+          <label className="block text-white-pink text-xs">
             <label htmlFor="email" className="block">
               <input
                 autoComplete="email"
@@ -59,6 +63,7 @@ function LoginUserForm() {
                 {...register("email")}
                 className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
               />
+              <p className="text-dark-red pl-3 pb-2">{errors.email?.message}</p>
             </label>
             <label htmlFor="password" className="block">
               <input
@@ -68,6 +73,9 @@ function LoginUserForm() {
                 {...register("password")}
                 className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
               />
+              <p className="text-dark-red pl-3 pb-2">
+                {errors.password?.message}
+              </p>
             </label>
             <button className="btn-primary">Login</button>
           </label>

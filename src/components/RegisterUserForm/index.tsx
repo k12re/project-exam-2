@@ -5,19 +5,20 @@ import { registerSchema } from "../Schema";
 import useRegisterUserAPI from "../RegisterUserApi";
 
 function RegisterUserForm() {
-  const { register, handleSubmit } = useForm({
+  const location = useLocation();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(registerSchema),
   });
-  const { registerUser } = useRegisterUserAPI();
+  const { registerUser, profileData } = useRegisterUserAPI();
 
-  function onSubmit(profileData: object) {
+  async function onSubmit(profileFormData: object) {
+    await registerUser(profileFormData);
     console.log(profileData);
-    registerUser(profileData);
   }
-
-  const location = useLocation();
-
-  console.log(location.pathname);
 
   return (
     <div className="max-w-md mx-auto">
@@ -50,7 +51,7 @@ function RegisterUserForm() {
           </Link>
         </span>
         <form id="registerform" onSubmit={handleSubmit(onSubmit)}>
-          <label className="block text-white-pink">
+          <label className="block text-white-pink text-xs">
             <label htmlFor="name" className="block">
               <input
                 placeholder="Please enter username..."
@@ -60,6 +61,7 @@ function RegisterUserForm() {
                 {...register("name")}
                 className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
               />
+              <p className="text-dark-red pl-3 pb-2">{errors.name?.message}</p>
             </label>
             <label htmlFor="email" className="block">
               <input
@@ -70,6 +72,7 @@ function RegisterUserForm() {
                 {...register("email")}
                 className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
               />
+              <p className="text-dark-red pl-3 pb-2">{errors.email?.message}</p>
             </label>
             <label htmlFor="password" className="block">
               <input
@@ -79,6 +82,9 @@ function RegisterUserForm() {
                 {...register("password")}
                 className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
               />
+              <p className="text-dark-red pl-3 pb-2">
+                {errors.password?.message}
+              </p>
             </label>
             <label htmlFor="avatar" className="block">
               <input

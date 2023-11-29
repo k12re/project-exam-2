@@ -17,13 +17,11 @@ function useRegisterUserAPI() {
       body: JSON.stringify(profile),
     };
     const registerUrl = url + authEndpoint + action;
-    console.log(profile);
 
     try {
       const response = await fetch(registerUrl, postData);
       const json = await response.json();
       setProfileData(json);
-      console.log(json);
     } catch (error) {
       console.log(error);
     }
