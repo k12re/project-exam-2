@@ -1,4 +1,3 @@
-import LightArrow from "../../assets/light-left.svg";
 import DefaultProfile from "../../assets/profile-circle.svg";
 import { useEffect, useState } from "react";
 import { url, venuesUrl, bookingsUrl } from "../../App";

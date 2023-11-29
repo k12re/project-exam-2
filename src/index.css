@@ -118,6 +118,22 @@ p::selection {
     @apply font-btn;
     @apply w-full;
   }
+
+  .checkbox-primary {
+    @apply form-checkbox ml-3 h-5 w-5 rounded-md
+    dark:border-pink
+    border-green
+    dark:checked:bg-pink
+    checked:bg-green
+    dark:bg-white-pink
+    bg-white-pink
+    active:bg-white-pink dark:active:bg-white-pink
+    hover:bg-white-pink checked:hover:bg-dark-green
+    dark:hover:bg-light-pink
+    focus:bg-white-pink dark:focus:bg-white-pink
+    checked:focus:bg-green dark:checked:focus:bg-pink dark:focus:ring-pink focus:ring-green;
+  }
+
   .react-calendar__tile--active {
     @apply bg-green;
     /* @apply text-white-pink; */

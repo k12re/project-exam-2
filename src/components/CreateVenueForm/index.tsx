@@ -1,104 +1,27 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { url } from "../../App";
-import { AuthFetch } from "../AuthFetch";
-import { Link, useParams } from "react-router-dom";
-import DeleteVenue from "../DeleteVenueAdmin";
+import { useState } from "react";
+import { venueSchema } from "../Schema";
 import { VenueData } from "../Interfaces";
+import { Link } from "react-router-dom";
+import useCreateVenueAPI from "../CreateVenueApi";
 
-const venueSchema = yup
-  .object({
-    name: yup.string().required("Name is required"),
-    description: yup.string().required("Description is required"),
-    media: yup.string(),
-    price: yup
-      .number()
-      .typeError("Price is required")
-      .required("Price is required"),
-    maxGuests: yup
-      .number()
-      .typeError("No of guests is required")
-      .required("No of guests is required"),
-    rating: yup.number(),
-    wifi: yup.boolean(),
-    parking: yup.boolean(),
-    breakfast: yup.boolean(),
-    petsAllowed: yup.boolean(),
-  })
-  .required();
-
-const action = "/venues";
-
-function useEditVenueAPI() {
-  const [venueData, setVenueData] = useState(null);
-
-  let { id } = useParams();
-
-  const editVenue = async (venue: object) => {
-    const postData = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(venue),
-    };
-    const venuesUrl = url + action + `/${id}`;
-    console.log(venue);
-
-    try {
-      const response = await AuthFetch(venuesUrl, postData);
-      const json = await response.json();
-      setVenueData(json);
-      console.log(venueData);
-      console.log(json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  console.log(venueData);
-
-  return { editVenue, venueData };
-}
-
-function EditVenueForm() {
+function CreateVenueForm() {
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(venueSchema),
   });
-  const { editVenue } = useEditVenueAPI();
-  const { id } = useParams();
-
-  useEffect(() => {
-    const fetchStoredData = async () => {
-      const venuesUrl = url + action + `/${id}`;
-      try {
-        const response = await AuthFetch(venuesUrl);
-        const json = await response.json();
-
-        Object.keys(json).forEach((key) => {
-          const typedKey = key as keyof typeof venueSchema.fields;
-          setValue(typedKey, json[key]);
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchStoredData();
-  }, [id, setValue]);
+  const { createVenue } = useCreateVenueAPI();
 
   const [showMessage, setShowMessage] = useState(false);
 
   function ShowSuccessMessage() {
     return (
-      <div className="text-dark-green mx-auto"> Venue edited successfully</div>
+      <div className="text-dark-green mx-auto"> Venue created successfully</div>
     );
   }
 
@@ -109,7 +32,7 @@ function EditVenueForm() {
       ...venueData,
       media: venueData.media
         ? venueData.media.split(",").map((url: string) => url.trim())
-        : [],
+        : ["https://source.unsplash.com/1600x900/?hotel"],
       meta: {
         wifi: false,
         parking: false,
@@ -117,19 +40,19 @@ function EditVenueForm() {
         pets: false,
       },
     };
+    await createVenue(formData);
 
-    await editVenue(formData);
-
+    reset();
     setShowMessage(true);
 
     setTimeout(() => {
       setShowMessage(false);
-    }, 2000);
+    }, 3000);
   };
 
   return (
     <>
-      <div className="max-w-md mx-auto flex justify-between text-dark-green dark:text-white-pink">
+      <div className="max-w-md mx-auto">
         <span className="flex my-3 text-dark-green dark:text-white-pink">
           <Link to={`/`}>
             <svg
@@ -144,11 +67,10 @@ function EditVenueForm() {
               />
             </svg>
           </Link>
-          <h1 className="text-2xl font-bold px-4">Edit venue</h1>
+          <h1 className="text-2xl font-bold px-4">Create Venue</h1>
         </span>
-        <DeleteVenue />
       </div>
-      <div className="max-w-md mx-auto z-40">
+      <div className="max-w-md mx-auto">
         <div className="drop-shadow mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
           <form id="venueform" onSubmit={handleSubmit(onSubmit)}>
             <label className="block text-dark-green dark:text-white-pink text-xs">
@@ -184,7 +106,7 @@ function EditVenueForm() {
                 Media Url:
                 <input
                   placeholder="Please enter image urls..."
-                  type="url"
+                  type="text"
                   id="media"
                   {...register("media")}
                   className="mt-1 mb-4 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
@@ -230,7 +152,6 @@ function EditVenueForm() {
                   />
                 </label>
               </span>
-
               <label
                 htmlFor="wifi"
                 className="inline-block ml-2 mb-6 mt-4 text-dark-green dark:text-white-pink"
@@ -238,20 +159,7 @@ function EditVenueForm() {
                 Wifi
               </label>
               <input
-                className="
-                form-checkbox ml-3 h-5 w-5 rounded-md
-                dark:border-pink
-                border-green
-                dark:checked:bg-pink
-                checked:bg-green
-                dark:bg-white
-                bg-white
-                active:bg-white-pink dark:active:bg-white-pink
-                hover:bg-white-pink checked:hover:bg-dark-green
-                dark:hover:bg-light-pink
-                focus:bg-white-pink dark:focus:bg-white-pink
-                checked:focus:bg-green dark:checked:focus:bg-pink dark:focus:ring-pink focus:ring-green
-              "
+                className="checkbox-primary"
                 type="checkbox"
                 id="wifi"
                 {...register("wifi")}
@@ -263,20 +171,7 @@ function EditVenueForm() {
                 Parking
               </label>
               <input
-                className="
-                form-checkbox ml-3 h-5 w-5 rounded-md
-                dark:border-pink
-                border-green
-                dark:checked:bg-pink
-                checked:bg-green
-                dark:bg-white
-                bg-white
-                active:bg-white-pink dark:active:bg-white-pink
-                hover:bg-white-pink checked:hover:bg-dark-green
-                dark:hover:bg-light-pink
-                focus:bg-white-pink dark:focus:bg-white-pink
-                checked:focus:bg-green dark:checked:focus:bg-pink dark:focus:ring-pink focus:ring-green
-              "
+                className="checkbox-primary"
                 type="checkbox"
                 id="parking"
                 {...register("parking")}
@@ -288,20 +183,7 @@ function EditVenueForm() {
                 Breakfast
               </label>
               <input
-                className="
-                form-checkbox ml-3 h-5 w-5 rounded-md
-                dark:border-pink
-                border-green
-                dark:checked:bg-pink
-                checked:bg-green
-                dark:bg-white
-                bg-white
-                active:bg-white-pink dark:active:bg-white-pink
-                hover:bg-white-pink checked:hover:bg-dark-green
-                dark:hover:bg-light-pink
-                focus:bg-white-pink dark:focus:bg-white-pink
-                checked:focus:bg-green dark:checked:focus:bg-pink dark:focus:ring-pink focus:ring-green
-              "
+                className="checkbox-primary"
                 type="checkbox"
                 id="breakfast"
                 {...register("breakfast")}
@@ -313,26 +195,13 @@ function EditVenueForm() {
                 Pets allowed
               </label>
               <input
-                className="
-                form-checkbox ml-3 h-5 w-5 rounded-md
-                dark:border-pink
-                border-green
-                dark:checked:bg-pink
-                checked:bg-green
-                dark:bg-white
-                bg-white
-                active:bg-white-pink dark:active:bg-white-pink
-                hover:bg-white-pink checked:hover:bg-dark-green
-                dark:hover:bg-light-pink
-                focus:bg-white-pink dark:focus:bg-white-pink
-                checked:focus:bg-green dark:checked:focus:bg-pink dark:focus:ring-pink focus:ring-green
-              "
+                className="checkbox-primary"
                 type="checkbox"
                 id="petsAllowed"
                 {...register("petsAllowed")}
               ></input>
 
-              <button className="btn-primary">Save changes</button>
+              <button className="btn-primary">Save venue</button>
               {showMessage && <ShowSuccessMessage />}
             </label>
           </form>
@@ -342,4 +211,4 @@ function EditVenueForm() {
   );
 }
 
-export default EditVenueForm;
+export default CreateVenueForm;

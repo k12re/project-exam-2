@@ -67,3 +67,18 @@ export interface Profile {
   venues?: Venue[];
   bookings?: Booking[];
 }
+
+export interface AuthContextType {
+  isLoggedIn: boolean;
+  login: (profile: Profile) => void;
+  logout: () => void;
+  profileDetails: Profile | null;
+  venueManager: boolean;
+  updateVenueManager: (status: boolean) => void;
+  avatarChange: string;
+  updateAvatarChange: (newAvatar: string) => void;
+}
+
+export interface AuthProviderProps {
+  children: React.ReactNode;
+}

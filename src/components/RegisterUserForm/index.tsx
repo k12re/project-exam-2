@@ -1,48 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { url } from "../../App";
 import { Link, useLocation } from "react-router-dom";
-
-const registerSchema = yup.object({
-  name: yup.string().required(),
-  email: yup.string().required(),
-  password: yup.string().required(),
-  avatarUrl: yup.string(),
-  venueManager: yup.boolean(),
-});
-
-const authEndpoint = "/auth";
-const action = "/register";
-const methodPOST = "POST";
-
-function useRegisterUserAPI() {
-  const [profileData, setProfileData] = useState(null);
-
-  const registerUser = async (profile: object) => {
-    const postData = {
-      method: methodPOST,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(profile),
-    };
-    const registerUrl = url + authEndpoint + action;
-    console.log(profile);
-
-    try {
-      const response = await fetch(registerUrl, postData);
-      const json = await response.json();
-      setProfileData(json);
-      console.log(json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return { registerUser, profileData };
-}
+import { registerSchema } from "../Schema";
+import useRegisterUserAPI from "../RegisterUserApi";
 
 function RegisterUserForm() {
   const { register, handleSubmit } = useForm({
@@ -136,20 +96,7 @@ function RegisterUserForm() {
               Manager
             </label>
             <input
-              className="
-              form-checkbox ml-3 h-5 w-5 rounded-md
-              dark:border-pink
-              border-green
-              dark:checked:bg-pink
-              checked:bg-green
-              dark:bg-white
-              bg-white
-              active:bg-white-pink dark:active:bg-white-pink
-              hover:bg-white-pink checked:hover:bg-dark-green
-              dark:hover:bg-light-pink
-              focus:bg-white-pink dark:focus:bg-white-pink
-              checked:focus:bg-green dark:checked:focus:bg-pink dark:focus:ring-pink focus:ring-green
-            "
+              className="checkbox-primary"
               type="checkbox"
               id="venueManager"
               {...register("venueManager")}

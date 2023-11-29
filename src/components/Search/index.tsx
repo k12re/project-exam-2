@@ -14,8 +14,6 @@ export function Search(props: {
       return venue.name.toLowerCase().includes(searchQuery.toLowerCase());
     });
     props.setSearchResults(results);
-
-    console.log(results);
   };
 
   return (

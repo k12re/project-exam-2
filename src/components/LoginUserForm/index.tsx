@@ -1,62 +1,15 @@
-import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
-import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { url } from "../../App";
-import { Link, useLocation } from "react-router-dom";
-import { save } from "../Storage";
-import { useNavigate } from "react-router-dom";
-import { AuthContextType, useAuth } from "../AuthContext";
-
-const schema = yup.object({
-  email: yup.string().required(),
-  password: yup.string().required(),
-});
-
-const authEndpoint = "/auth";
-const action = "/login";
-const methodPOST = "POST";
-
-function useLoginUserAPI() {
-  const { login } = useAuth() as AuthContextType;
-  const [profileData, setProfileData] = useState(null);
-
-  const loginUser = async (profile: object) => {
-    const postData = {
-      method: methodPOST,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(profile),
-    };
-    const registerUrl = url + authEndpoint + action;
-
-    try {
-      const response = await fetch(registerUrl, postData);
-      const json = await response.json();
-      setProfileData(json);
-
-      login(json);
-
-      if (response.ok) {
-        const accessToken = json.accessToken;
-        save("accessToken", accessToken);
-        delete json.accessToken;
-        save("profile", json);
-      }
-      setProfileData(json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return { loginUser, profileData };
-}
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { loginSchema } from "../Schema";
+import useLoginUserAPI from "../LoginUserApi";
 
 function LoginUserForm() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { register, handleSubmit } = useForm({ resolver: yupResolver(schema) });
+  const { register, handleSubmit } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
 
   const { loginUser } = useLoginUserAPI();
 

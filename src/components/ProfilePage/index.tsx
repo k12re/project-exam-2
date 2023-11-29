@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
 import { url } from "../../App";
-import { profilesUrl } from "../Profiles";
 import DefaultProfile from "../../assets/profile-circle.svg";
-import { load, save } from "../Storage";
+import { load } from "../Storage";
 import { Profile } from "../Interfaces";
-import { AuthContextType, useAuth } from "../AuthContext";
-
-// const existingProfileDetails = load("profile") || {};
+import { AuthContextType } from "../Interfaces";
+import { useAuth } from "../AuthContext";
 
 function ProfilePage() {
   const { updateVenueManager, updateAvatarChange } =
@@ -46,7 +44,7 @@ function ProfilePage() {
     updateAvatarChange(updatedAvatarChange);
 
     try {
-      await AuthFetch(`${url}${profilesUrl}/${name}/media`, {
+      await AuthFetch(`${url}/profiles/${name}/media`, {
         method: "PUT",
         body: JSON.stringify({ avatar: updatedAvatarChange }),
       });
@@ -61,7 +59,7 @@ function ProfilePage() {
     updateVenueManager(updatedVenueManager);
 
     try {
-      await AuthFetch(`${url}${profilesUrl}/${name}`, {
+      await AuthFetch(`${url}/profiles/${name}`, {
         method: "PUT",
         body: JSON.stringify({ venueManager: updatedVenueManager }),
       });
@@ -87,7 +85,7 @@ function ProfilePage() {
       }
     }
 
-    getData(`${url}${profilesUrl}/${name}/?_venues=true&_bookings=true`);
+    getData(`${url}/profiles/${name}/?_venues=true&_bookings=true`);
   }, [name]);
 
   if (isLoading || profile === null) {

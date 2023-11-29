@@ -1,23 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { load, remove, save } from "../Storage";
-import { Profile } from "../Interfaces";
+import { AuthContextType, AuthProviderProps, Profile } from "../Interfaces";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export interface AuthContextType {
-  isLoggedIn: boolean;
-  login: (profile: Profile) => void;
-  logout: () => void;
-  profileDetails: Profile | null;
-  venueManager: boolean;
-  updateVenueManager: (status: boolean) => void;
-  avatarChange: string;
-  updateAvatarChange: (newAvatar: string) => void;
-}
-
-interface AuthProviderProps {
-  children: React.ReactNode;
-}
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,6 +40,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // const storedProfile = load("profile");
     // setAvatar(storedProfile?.avatar || "");
   }, [avatarChange]);
+
+  console.log(avatarChange);
 
   useEffect(() => {
     const storedToken = load("accessToken");
