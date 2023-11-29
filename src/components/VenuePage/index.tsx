@@ -13,6 +13,7 @@ function MyCalendar() {
   const [selectedDate, setSelectedDate] = useState<Date[]>([]);
   const [numberOfGuests, setNumberOfGuests] = useState(0);
   const [value] = useState(new Date());
+  const [maxGuests, setMaxGuests] = useState();
 
   let { id } = useParams();
 
@@ -24,6 +25,7 @@ function MyCalendar() {
         );
         const data = await response.json();
         setBookings(data.bookings);
+        setMaxGuests(data.maxGuests);
       } catch (error) {
         console.log(error);
       }
@@ -134,6 +136,8 @@ function MyCalendar() {
               setNumberOfGuests(parseInt(event.target.value, 10))
             }
             className="mt-2 mb-2 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
+            max={maxGuests}
+            min="0"
           />
         </label>
         <button type="submit" className="btn-primary">
@@ -156,7 +160,6 @@ function VenuePage() {
         const response = await fetch(url);
         const json = await response.json();
         setVenue(json);
-        console.log(venue);
       } catch (error) {
         console.log(error);
       } finally {
@@ -171,11 +174,23 @@ function VenuePage() {
     return <div>Loading...</div>;
   }
 
+  console.log(venue);
+
   return (
     <div className="max-w-6xl mx-auto ">
-      <span className="flex px-4 my-3">
+      <span className="flex px-4 my-3 text-dark-green dark:text-white-pink">
         <Link to={`/`}>
-          <img src={LightArrow} alt="Back arrow" className="h-10 w-10 " />
+          <svg
+            width="32"
+            height="36"
+            viewBox="0 0 256 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="currentColor"
+              d="m31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+            />
+          </svg>
         </Link>
         <h1 className="text-2xl font-bold px-4 dark:text-white-pink text-dark-green">
           Venue
