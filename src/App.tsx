@@ -1,34 +1,41 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import { load } from "./components/Storage";
+import { AuthProvider } from "./components/AuthContext";
+import { Layout } from "./components/Layout";
+import VenuePage from "./components/VenuePage";
+import RegisterUserForm from "./components/RegisterUserForm";
+import LoginUserForm from "./components/LoginUserForm";
+import ProfilePage from "./components/ProfilePage";
+import GetVenues from "./components/GetVenues";
+import EditVenueForm from "./components/EditVenueForm";
+import CreateVenueForm from "./components/CreateVenueForm";
+
+export const bookingsUrl: string = "/bookings";
+export const venuesUrl: string = "/venues";
+export const url: string = "https://api.noroff.dev/api/v1/holidaze";
+
+export const myProfileDetails = load("profile");
+export const myToken = load("accessToken");
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <h2 className="text-2xl font-bold underline">Tailwind</h2>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <AuthProvider>
+        <div>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<GetVenues />}></Route>
+              <Route path="venues/:id" element={<VenuePage />}></Route>
+              <Route path="createvenue" element={<CreateVenueForm />}></Route>
+              <Route path="editvenue/:id" element={<EditVenueForm />}></Route>
+              <Route path="profiles/:name" element={<ProfilePage />}></Route>
+              <Route path="register" element={<RegisterUserForm />}></Route>
+              <Route path="login" element={<LoginUserForm />}></Route>
+            </Route>
+          </Routes>
+        </div>
+      </AuthProvider>
     </>
   );
 }
