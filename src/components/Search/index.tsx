@@ -5,11 +5,9 @@ export function Search(props: {
   setSearchResults: (arg0: any) => void;
 }) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    setSearchResults([]);
     const results = props.data.filter((venue) => {
       return venue.name.toLowerCase().includes(searchQuery.toLowerCase());
     });
