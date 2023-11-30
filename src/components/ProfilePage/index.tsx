@@ -40,14 +40,19 @@ function ProfilePage() {
 
   const handleSubmitAvatar = async () => {
     const updatedAvatarChange = avatar;
-    setAvatar(updatedAvatarChange);
-    updateAvatarChange(updatedAvatarChange);
 
     try {
       await AuthFetch(`${url}${profilesUrl}/${name}/media`, {
         method: "PUT",
         body: JSON.stringify({ avatar: updatedAvatarChange }),
       });
+
+      updateAvatarChange(updatedAvatarChange);
+
+      setProfile((prevProfile) => ({
+        ...((prevProfile || {}) as Profile),
+        avatar: updatedAvatarChange,
+      }));
     } catch (error) {
       console.log(error);
     }

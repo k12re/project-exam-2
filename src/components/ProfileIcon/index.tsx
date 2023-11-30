@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { load } from "../Storage";
+import { useAuth } from "../AuthContext";
+import { AuthContextType } from "../Interfaces";
 
 function ProfileIcon() {
   const [myProfileDetails, setMyProfileDetails] = useState(load("profile"));
 
+  const { avatarChange } = useAuth() as AuthContextType;
+
   useEffect(() => {
     setMyProfileDetails(load("profile"));
-  }, [load("accessToken")]);
+  }, [load("accessToken"), avatarChange]);
 
   return (
     <li key={"profiles"} className="group m-5 hover:drop-shadow-lg hover:mt-4">
