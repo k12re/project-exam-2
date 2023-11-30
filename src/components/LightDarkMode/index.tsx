@@ -13,15 +13,15 @@ function LightDarkMode() {
     document.documentElement.classList.toggle("dark", isChecked);
 
     if (rootElement) {
-      rootElement.style.backgroundImage =
-        "url(../src/assets/background-dark.jpg)";
+      // rootElement.style.backgroundImage =
+      //   "url(../src/assets/background-dark.jpg)";
       rootElement.style.backgroundColor = "#022626";
       rootElement.style.backgroundBlendMode = "overlay";
     }
   } else if (rootElement && isChecked === false) {
     document.documentElement.classList.remove("dark");
-    rootElement.style.backgroundImage =
-      "url(../src/assets/background-dark.jpg)";
+    // rootElement.style.backgroundImage =
+    //   "url(../src/assets/background-dark.jpg)";
     rootElement.style.backgroundColor = "rgba(255, 246, 248, 0.9)";
     rootElement.style.backgroundBlendMode = "overlay";
   }
