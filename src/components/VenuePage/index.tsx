@@ -2,14 +2,16 @@ import DefaultProfile from "../../assets/profile-circle.svg";
 import { useEffect, useState } from "react";
 import { url, venuesUrl } from "../../components/Constants";
 import { useParams, Link } from "react-router-dom";
-import { Venue } from "../Interfaces";
+import { AuthContextType, Venue } from "../Interfaces";
 import MyCalendar from "../MyCalendar";
 import "react-calendar/dist/Calendar.css";
+import { useAuth } from "../AuthContext";
 
 function VenuePage() {
   const [venue, setVenue] = useState<Venue | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   let { id } = useParams();
+  const { isLoggedIn } = useAuth() as AuthContextType;
 
   useEffect(() => {
     async function getData(url: string) {
@@ -101,27 +103,29 @@ function VenuePage() {
               <p>Continent: {venue.location?.continent}</p>
             </div>
             <div className="col-start-3 row-start-2 row-span-1 md:col-start-2 md:row-start-3 md:row-span-1">
-              <Link to={`/profiles/${venue.owner?.name}`}>
-                <div className="flex flex-row">
-                  {!venue.owner?.avatar || venue.owner?.avatar === null ? (
-                    <img
-                      className="h-6 w-6 rounded-full flex-none"
-                      src={DefaultProfile}
-                    />
-                  ) : (
-                    <img
-                      className="h-6 w-6 rounded-full"
-                      src={venue.owner && venue.owner.avatar}
-                    />
-                  )}
-                  <p className="flex-auto">
-                    Owner: {venue.owner && venue.owner.name}
-                  </p>
-                  <p className="flex-auto">
-                    Email: {venue.owner && venue.owner.email}
-                  </p>
-                </div>
-              </Link>
+              {isLoggedIn ? (
+                <Link to={`/profiles/${venue.owner?.name}`}>
+                  <div className="flex flex-row">
+                    {!venue.owner?.avatar || venue.owner?.avatar === null ? (
+                      <img
+                        className="h-6 w-6 rounded-full flex-none"
+                        src={DefaultProfile}
+                      />
+                    ) : (
+                      <img
+                        className="h-6 w-6 rounded-full"
+                        src={venue.owner && venue.owner.avatar}
+                      />
+                    )}
+                    <p className="flex-auto">
+                      Owner: {venue.owner && venue.owner.name}
+                    </p>
+                    <p className="flex-auto">
+                      Email: {venue.owner && venue.owner.email}
+                    </p>
+                  </div>
+                </Link>
+              ) : null}
             </div>
           </div>
           {/* RIGHT */}
