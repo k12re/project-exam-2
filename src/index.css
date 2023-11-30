@@ -19,7 +19,7 @@
   /* text-align: center; */
   /*  */
   /* background-color: #022626; */
-  background-image: url(../src/assets/background-dark.jpg);
+  background-image: url(/background-dark.jpg);
   background-blend-mode: overlay;
   background-attachment: fixed;
   background-position: center;
