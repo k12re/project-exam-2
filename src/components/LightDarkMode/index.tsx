@@ -8,8 +8,6 @@ function LightDarkMode() {
     setIsChecked((prev) => !prev);
   };
 
-  // const rootElement = document.getElementById("root");
-
   useEffect(() => {
     const rootElement = document.getElementById("root");
 
@@ -22,10 +20,6 @@ function LightDarkMode() {
       rootElement.style.setProperty("background-blend-mode", "overlay");
     } else if (rootElement) {
       rootElement.classList.remove("dark");
-      // rootElement.style.setProperty(
-      //   "background-image",
-      //   "url('../src/assets/background-light.jpg')"
-      // );
       rootElement.style.setProperty(
         "background-color",
         "rgba(255, 246, 248, 0.9)"
@@ -33,23 +27,6 @@ function LightDarkMode() {
       rootElement.style.setProperty("background-blend-mode", "overlay");
     }
   }, [isChecked]);
-
-  // if (isChecked === true) {
-  //   document.documentElement.classList.toggle("dark", isChecked);
-
-  //   if (rootElement) {
-  //     rootElement.style.backgroundImage =
-  //       "url(../src/assets/background-dark.jpg)";
-  //     rootElement.style.backgroundColor = "#022626";
-  //     rootElement.style.backgroundBlendMode = "overlay";
-  //   }
-  // } else if (rootElement && isChecked === false) {
-  //   document.documentElement.classList.remove("dark");
-  //   rootElement.style.backgroundImage =
-  //     "url(../src/assets/background-dark.jpg)";
-  //   rootElement.style.backgroundColor = "rgba(255, 246, 248, 0.9)";
-  //   rootElement.style.backgroundBlendMode = "overlay";
-  // }
 
   return (
     <div className="flex p-3 m-3">
