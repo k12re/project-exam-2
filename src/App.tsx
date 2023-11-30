@@ -1,6 +1,5 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-// import { load } from "./components/Storage";
 import { AuthProvider } from "./components/AuthContext";
 import { Layout } from "./components/Layout";
 import VenuePage from "./components/VenuePage";
@@ -10,9 +9,6 @@ import ProfilePage from "./components/ProfilePage";
 import GetVenues from "./components/GetVenues";
 import EditVenueForm from "./components/EditVenueForm";
 import CreateVenueForm from "./components/CreateVenueForm";
-
-// export const myProfileDetails = load("profile");
-// export const myToken = load("accessToken");
 
 function App() {
   return (
