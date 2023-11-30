@@ -11,6 +11,7 @@ function MyCalendar() {
   const [numberOfGuests, setNumberOfGuests] = useState(0);
   const [value] = useState(new Date());
   const [maxGuests, setMaxGuests] = useState();
+  const [bookingError, setBookingError] = useState<string | null>(null);
 
   let { id } = useParams();
 
@@ -29,7 +30,7 @@ function MyCalendar() {
     };
 
     fetchDates();
-  }, []);
+  }, [bookingError]);
 
   function getDates(bookings: Booking[]) {
     return bookings.map((booking) => ({
@@ -79,12 +80,23 @@ function MyCalendar() {
     };
 
     try {
-      await AuthFetch(`${url}${bookingsUrl}`, {
+      const response = await AuthFetch(`${url}${bookingsUrl}`, {
         method: "POST",
         body: JSON.stringify(bookingData),
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setBookingError(errorData.errors[0].message);
+      } else {
+        setBookingError("Booking successful");
+        setTimeout(() => {
+          setBookingError(null);
+        }, 2000);
+      }
     } catch (error) {
       console.log(error);
+      setBookingError("An error occurred");
     }
   };
 
@@ -108,9 +120,10 @@ function MyCalendar() {
             }
             className="mt-2 mb-2 mx-auto block w-full drop-shadow bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
             max={maxGuests}
-            min="0"
+            min="1"
           />
         </label>
+        <p className="text-dark-red pl-3 pb-2">{bookingError}</p>
         <button type="submit" className="btn-primary">
           Book dates
         </button>
