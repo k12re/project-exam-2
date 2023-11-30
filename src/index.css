@@ -1,61 +1,4 @@
-/* :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -68,19 +11,6 @@ button:focus-visible {
   }
 } */
 
-/* h1::selection,
-h2::selection,
-h3::selection,
-h4::selection,
-p::selection {
-  background-color: pink;
-} */
-
-/* .react-calendar__tile--active {
-  background: #006edc;
-  color: white;
-} */
-
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -89,11 +19,11 @@ p::selection {
   /* text-align: center; */
   /*  */
   /* background-color: #022626; */
-  /* background-image: url(../src/assets/background-dark.jpg); */
+  background-image: url(../src/assets/background-dark.jpg);
+  background-blend-mode: overlay;
   background-attachment: fixed;
   background-position: center;
   background-size: auto;
-  /* background-blend-mode: overlay; */
   background-repeat: no-repeat;
   min-height: 100vh;
   min-width: 100%;
@@ -105,18 +35,18 @@ p::selection {
 
 @layer components {
   .btn-primary {
-    @apply bg-green;
-    @apply hover:bg-dark-green;
-    @apply dark:bg-pink;
-    @apply dark:hover:bg-light-pink;
-    @apply text-white-pink;
-    @apply w-48;
-    @apply py-3;
-    @apply my-3;
-    @apply rounded-xl;
-    @apply font-bold;
-    @apply font-btn;
-    @apply w-full;
+    @apply bg-green
+     hover:bg-dark-green
+     dark:bg-pink
+     dark:hover:bg-light-pink
+     text-white-pink py-3 my-3 rounded-xl font-bold font-btn w-full;
+  }
+
+  .btn-small {
+    @apply bg-green
+    hover:bg-dark-green
+    dark:bg-pink
+    dark:hover:bg-light-pink text-white-pink rounded-md ml-2 px-3;
   }
 
   .checkbox-primary {
@@ -136,12 +66,12 @@ p::selection {
 
   .react-calendar__tile--active {
     @apply bg-green;
-    /* @apply text-white-pink; */
   }
 }
 
 .react-calendar__tile--now {
   background: #f2bbc9;
+  font-weight: 900;
 }
 
 .react-calendar__navigation button:enabled:hover,
@@ -150,7 +80,7 @@ p::selection {
 }
 
 .react-calendar__tile:enabled:hover {
-  background-color: #fff6f8;
+  background-color: #d97e96;
 }
 
 .react-calendar__tile:enabled:focus {

@@ -139,10 +139,7 @@ function ProfilePage() {
                     onChange={handleAvatarUrlChange}
                     className="w-full ml-1 px-2 py-1 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                   />
-                  <button
-                    onClick={handleSubmitAvatar}
-                    className=" text-white-pink bg-green dark:bg-pink rounded-md ml-2 px-3"
-                  >
+                  <button onClick={handleSubmitAvatar} className="btn-small ">
                     Submit
                   </button>
                 </label>
@@ -215,7 +212,7 @@ function ProfilePage() {
                   {isOwnUser && (
                     <button
                       onClick={() => navigate(`/editvenue/${venues.id}`)}
-                      className="text-white-pink bg-green dark:bg-pink rounded-md ml-2 px-3 py-1 w-20"
+                      className="btn-small py-1 w-20"
                     >
                       Edit
                     </button>
