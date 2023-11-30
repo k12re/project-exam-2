@@ -14,7 +14,10 @@ export const registerSchema = yup.object({
     .string()
     .required("Email is required")
     .email("Please enter a valid email address"),
-  password: yup.string().required("Password is required"),
+  password: yup
+    .string()
+    // .min(8, "Must be at least 8 characters")
+    .required("Password is required"),
   avatarUrl: yup.string(),
   venueManager: yup.boolean(),
 });

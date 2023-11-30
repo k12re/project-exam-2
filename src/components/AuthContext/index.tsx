@@ -36,10 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     save("profile", { ...profileDetails, avatar: avatarChange });
   };
 
-  useEffect(() => {
-    // const storedProfile = load("profile");
-    // setAvatar(storedProfile?.avatar || "");
-  }, [avatarChange, avatar]);
+  useEffect(() => {}, [avatarChange, avatar]);
 
   useEffect(() => {
     const storedToken = load("accessToken");

@@ -1,151 +1,10 @@
 import DefaultProfile from "../../assets/profile-circle.svg";
 import { useEffect, useState } from "react";
-import { url, venuesUrl, bookingsUrl } from "../../App";
+import { url, venuesUrl } from "../../components/Constants";
 import { useParams, Link } from "react-router-dom";
-import Calendar from "react-calendar";
+import { Venue } from "../Interfaces";
+import MyCalendar from "../MyCalendar";
 import "react-calendar/dist/Calendar.css";
-import { AuthFetch } from "../AuthFetch";
-import { Booking, Bookings, Venue } from "../Interfaces";
-
-function MyCalendar() {
-  const [bookings, setBookings] = useState<Bookings>([]);
-  const [selectedDate, setSelectedDate] = useState<Date[]>([]);
-  const [numberOfGuests, setNumberOfGuests] = useState(0);
-  const [value] = useState(new Date());
-  const [maxGuests, setMaxGuests] = useState();
-
-  let { id } = useParams();
-
-  useEffect(() => {
-    const fetchDates = async () => {
-      try {
-        const response = await fetch(
-          `${url}${venuesUrl}/${id}/?_owner=true&_bookings=true`
-        );
-        const data = await response.json();
-        setBookings(data.bookings);
-        setMaxGuests(data.maxGuests);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchDates();
-  }, []);
-
-  function getDates(bookings: Booking[]) {
-    return bookings.map((booking) => ({
-      from: new Date(booking.dateFrom),
-      to: new Date(booking.dateTo),
-    }));
-  }
-  const dateRanges = getDates(bookings);
-
-  const tileClassName = ({ date }: { date: Date }) => {
-    const isBooked = dateRanges.some(
-      (range) => date >= range.from && date <= range.to
-    );
-
-    const isSelected = selectedDate.some(
-      (selectedDate) => selectedDate.getDate() === date.getDate()
-    );
-
-    if (isBooked) {
-      return "unavailable-date";
-    } else if (isSelected) {
-      return "selected-date";
-    } else {
-      return "available-date";
-    }
-  };
-
-  // const setDates = (selectedRange) => {
-  //   const { from, to } = selectedRange;
-
-  //   const fromDate = new Date(from);
-  //   const toDate = new Date(to);
-
-  //   const datesToSend = [];
-  //   let currentDate = new Date(fromDate);
-
-  //   while (currentDate <= toDate) {
-  //     datesToSend.push(new Date(currentDate));
-  //     currentDate.setDate(currentDate.getDate() + 1);
-  //   }
-
-  //   // const localDates = datesToSend.map((date) => new Date(date.toLocaleDateString))
-
-  //   setSelectedDate(datesToSend);
-
-  //   console.log("Selected date", selectedRange);
-  //   console.log("Dates to send", datesToSend);
-
-  //   console.log(datesToSend);
-  //   return datesToSend;
-  // };
-
-  const handleDateChange = (value: any) => {
-    setSelectedDate((prevDate) => {
-      if (prevDate.length === 0 || prevDate.length === 1) {
-        return [...prevDate, value];
-      }
-
-      return [value];
-    });
-  };
-
-  const handleSubmit = async (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-
-    const bookingData = {
-      dateFrom: selectedDate[0].toDateString(),
-      dateTo: selectedDate[1].toDateString(),
-
-      guests: Number(numberOfGuests),
-      venueId: id,
-    };
-
-    try {
-      await AuthFetch(`${url}${bookingsUrl}`, {
-        method: "POST",
-        body: JSON.stringify(bookingData),
-      });
-      console.log(bookingData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return (
-    <div>
-      <Calendar
-        className="rounded-xl green w-full mb-4"
-        onChange={handleDateChange}
-        value={value}
-        tileClassName={tileClassName}
-      />
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="numberOfGuests" className="block">
-          <input
-            placeholder="No of guests..."
-            type="number"
-            id="numberOfGuests"
-            name="guests"
-            onChange={(event) =>
-              setNumberOfGuests(parseInt(event.target.value, 10))
-            }
-            className="mt-2 mb-2 mx-auto block w-full drop-shadow bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
-            max={maxGuests}
-            min="0"
-          />
-        </label>
-        <button type="submit" className="btn-primary">
-          Book dates
-        </button>
-      </form>
-    </div>
-  );
-}
 
 function VenuePage() {
   const [venue, setVenue] = useState<Venue | null>(null);
@@ -172,8 +31,6 @@ function VenuePage() {
   if (isLoading || venue === null) {
     return <div>Loading...</div>;
   }
-
-  console.log(venue);
 
   return (
     <div className="max-w-6xl mx-auto ">

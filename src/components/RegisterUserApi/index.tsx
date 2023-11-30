@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { url } from "../../App";
+import { authEndpoint, url } from "../Constants";
 
-const authEndpoint = "/auth";
 const action = "/register";
-const methodPOST = "POST";
 
 function useRegisterUserAPI() {
   const [profileData, setProfileData] = useState(null);
 
   const registerUser = async (profile: object) => {
     const postData = {
-      method: methodPOST,
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },

@@ -16,9 +16,38 @@ function RegisterUserForm() {
   const { registerUser, profileData } = useRegisterUserAPI();
 
   async function onSubmit(profileFormData: object) {
-    await registerUser(profileFormData);
-    console.log(profileData);
+    try {
+      await registerUser(profileFormData);
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+  type ErrorObject = { path: string[]; message: string };
+
+  const hasErrors = (data: any): data is { errors: ErrorObject[] } => {
+    return (
+      data &&
+      "errors" in data &&
+      Array.isArray(data.errors) &&
+      data.errors.length > 0
+    );
+  };
+
+  const findErrorMessage = (data: { errors: ErrorObject[] }, path: string) => {
+    const error = data.errors.find((e) => e.path.includes(path));
+    return error ? error.message : "";
+  };
+
+  const usernameError = hasErrors(profileData)
+    ? findErrorMessage(profileData, "name")
+    : "";
+  const emailError = hasErrors(profileData)
+    ? findErrorMessage(profileData, "email")
+    : "";
+  const passwordError = hasErrors(profileData)
+    ? findErrorMessage(profileData, "password")
+    : "";
 
   return (
     <div className="max-w-md mx-auto">
@@ -62,6 +91,7 @@ function RegisterUserForm() {
                 className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
               />
               <p className="text-dark-red pl-3 pb-2">{errors.name?.message}</p>
+              <p className="text-dark-red pl-3 pb-2">{usernameError}</p>
             </label>
             <label htmlFor="email" className="block">
               <input
@@ -73,6 +103,7 @@ function RegisterUserForm() {
                 className="mt-2 mb-8 mx-auto block w-full bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
               />
               <p className="text-dark-red pl-3 pb-2">{errors.email?.message}</p>
+              <p className="text-dark-red pl-3 pb-2">{emailError}</p>
             </label>
             <label htmlFor="password" className="block">
               <input
@@ -85,6 +116,7 @@ function RegisterUserForm() {
               <p className="text-dark-red pl-3 pb-2">
                 {errors.password?.message}
               </p>
+              <p className="text-dark-red pl-3 pb-2">{passwordError}</p>
             </label>
             <label htmlFor="avatar" className="block">
               <input

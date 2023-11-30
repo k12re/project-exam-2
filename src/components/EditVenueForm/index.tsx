@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { venueSchema } from "../Schema";
-import { url } from "../../App";
+import { url } from "../Constants";
 import { AuthFetch } from "../AuthFetch";
 import { VenueData } from "../Interfaces";
 import useEditVenueAPI from "../EditVenueApi";
