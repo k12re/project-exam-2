@@ -13,13 +13,11 @@ function LightDarkMode() {
   useEffect(() => {
     const rootElement = document.getElementById("root");
 
+    rootElement &&
+      rootElement.style.setProperty("background-image", `url(${background})`);
+
     if (isChecked && rootElement) {
       rootElement.classList.add("dark");
-      rootElement.style.setProperty(
-        "background-image",
-        // "url(../../src/assets/background-dark.jpg)"
-        `url(${background})`
-      );
       rootElement.style.setProperty("background-color", "#022626");
       rootElement.style.setProperty("background-blend-mode", "overlay");
     } else if (rootElement) {
