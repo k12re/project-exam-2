@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
-import { url } from "../../App";
+import { url } from "../Constants";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { load } from "../Storage";
@@ -11,9 +11,7 @@ function useDeleteVenueAPI() {
   let { id } = useParams();
 
   const deleteVenue = async () => {
-    // let { id } = useParams();
     const venuesUrl = url + action + `/${id}`;
-    console.log("Deleteing venue");
 
     try {
       const response = await AuthFetch(venuesUrl, { method: "DELETE" });

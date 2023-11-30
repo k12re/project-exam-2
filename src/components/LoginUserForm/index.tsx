@@ -21,7 +21,6 @@ function LoginUserForm() {
   }
 
   type ErrorObject = { path: string[]; message: string };
-
   type ErrorResponse = { errors: ErrorObject[] };
 
   const errorResponse = (data: any): data is { errors: ErrorResponse } => {

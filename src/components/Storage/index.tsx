@@ -14,3 +14,6 @@ export function load(key: string) {
 export function remove(key: string) {
   localStorage.removeItem(key);
 }
+
+export const myProfileDetails = load("profile");
+export const myToken = load("accessToken");

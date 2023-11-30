@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
-import { url } from "../../App";
-import DefaultProfile from "../../assets/profile-circle.svg";
+import { profilesUrl, url } from "../Constants";
 import { load } from "../Storage";
 import { Profile } from "../Interfaces";
 import { AuthContextType } from "../Interfaces";
 import { useAuth } from "../AuthContext";
+import DefaultProfile from "../../assets/profile-circle.svg";
 
 function ProfilePage() {
   const { updateVenueManager, updateAvatarChange } =
@@ -21,7 +21,7 @@ function ProfilePage() {
   let { name } = useParams();
   const navigate = useNavigate();
   const navigateVenue = (venues: { id: string }) => {
-    navigate(`/venues/${venues.id}`);
+    navigate(`${profilesUrl}/${venues.id}`);
   };
 
   const loggedInUser = load("profile");
@@ -44,7 +44,7 @@ function ProfilePage() {
     updateAvatarChange(updatedAvatarChange);
 
     try {
-      await AuthFetch(`${url}/profiles/${name}/media`, {
+      await AuthFetch(`${url}${profilesUrl}/${name}/media`, {
         method: "PUT",
         body: JSON.stringify({ avatar: updatedAvatarChange }),
       });
@@ -59,7 +59,7 @@ function ProfilePage() {
     updateVenueManager(updatedVenueManager);
 
     try {
-      await AuthFetch(`${url}/profiles/${name}`, {
+      await AuthFetch(`${url}${profilesUrl}/${name}`, {
         method: "PUT",
         body: JSON.stringify({ venueManager: updatedVenueManager }),
       });
@@ -75,7 +75,6 @@ function ProfilePage() {
         const response = await AuthFetch(url);
         const json = await response.json();
         setProfile(json);
-        // console.log(json);
         setVenueManager(json.venueManager);
         setIsOwnUser(user === json.name);
       } catch (error) {
@@ -85,14 +84,12 @@ function ProfilePage() {
       }
     }
 
-    getData(`${url}/profiles/${name}/?_venues=true&_bookings=true`);
+    getData(`${url}${profilesUrl}/${name}/?_venues=true&_bookings=true`);
   }, [name]);
 
   if (isLoading || profile === null) {
     return <div>Loading...</div>;
   }
-
-  // console.log(profile);
 
   return (
     <div className="max-w-md mx-auto">

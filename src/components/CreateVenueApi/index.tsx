@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { url } from "../../App";
+import { url } from "../Constants";
 import { AuthFetch } from "../AuthFetch";
 import { VenueData } from "../Interfaces";
 

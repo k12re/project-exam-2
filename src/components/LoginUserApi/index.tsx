@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { url } from "../../App";
+import { authEndpoint, url } from "../Constants";
 import { save } from "../Storage";
 import { useAuth } from "../AuthContext";
 import { AuthContextType } from "../Interfaces";
 import { useNavigate } from "react-router";
 
-const authEndpoint = "/auth";
 const action = "/login";
-const methodPOST = "POST";
 
 function useLoginUserAPI() {
   const { login } = useAuth() as AuthContextType;
@@ -16,7 +14,7 @@ function useLoginUserAPI() {
 
   const loginUser = async (profile: object) => {
     const postData = {
-      method: methodPOST,
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },

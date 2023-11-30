@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { url, venuesUrl } from "../../App";
+import { url, venuesUrl } from "../Constants";
 import { Venue } from "../Interfaces";
 import Search from "../Search";
 
@@ -37,8 +37,6 @@ function GetVenues() {
         }
       } catch (error) {
         console.log(error);
-      } finally {
-        console.log(data);
       }
     }
     getData();
