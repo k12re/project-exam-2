@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import background from "../../assets/background-dark.jpg";
 
 function LightDarkMode() {
   const [isChecked, setIsChecked] = useState(false);
@@ -16,7 +17,8 @@ function LightDarkMode() {
       rootElement.classList.add("dark");
       rootElement.style.setProperty(
         "background-image",
-        "url(/assets/background-dark.jpg)"
+        // "url(../../src/assets/background-dark.jpg)"
+        `url(${background})`
       );
       rootElement.style.setProperty("background-color", "#022626");
       rootElement.style.setProperty("background-blend-mode", "overlay");
