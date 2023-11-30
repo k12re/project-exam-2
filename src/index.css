@@ -1,25 +1,6 @@
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
-
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  /* padding: 2rem; */
-  /*  */
-  /* text-align: center; */
-  /*  */
-  /* background-color: #022626; */
-  background-image: url(../src/assets/background-dark.jpg);
   background-blend-mode: overlay;
   background-attachment: fixed;
   background-position: center;
@@ -63,10 +44,10 @@
     focus:bg-white-pink dark:focus:bg-white-pink
     checked:focus:bg-green dark:checked:focus:bg-pink dark:focus:ring-pink focus:ring-green;
   }
+}
 
-  .react-calendar__tile--active {
-    @apply bg-green;
-  }
+.react-calendar__tile--active {
+  background: #025e73;
 }
 
 .react-calendar__tile--now {

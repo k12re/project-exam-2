@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import background from "../../assets/background-dark.jpg";
 
 function LightDarkMode() {
   const [isChecked, setIsChecked] = useState(false);
@@ -7,24 +8,25 @@ function LightDarkMode() {
     setIsChecked((prev) => !prev);
   };
 
-  const rootElement = document.getElementById("root");
+  useEffect(() => {
+    const rootElement = document.getElementById("root");
 
-  if (isChecked === true) {
-    document.documentElement.classList.toggle("dark", isChecked);
+    rootElement &&
+      rootElement.style.setProperty("background-image", `url(${background})`);
 
-    if (rootElement) {
-      rootElement.style.backgroundImage =
-        "url(../src/assets/background-dark.jpg)";
-      rootElement.style.backgroundColor = "#022626";
-      rootElement.style.backgroundBlendMode = "overlay";
+    if (isChecked && rootElement) {
+      rootElement.classList.add("dark");
+      rootElement.style.setProperty("background-color", "#022626");
+      rootElement.style.setProperty("background-blend-mode", "overlay");
+    } else if (rootElement) {
+      rootElement.classList.remove("dark");
+      rootElement.style.setProperty(
+        "background-color",
+        "rgba(255, 246, 248, 0.9)"
+      );
+      rootElement.style.setProperty("background-blend-mode", "overlay");
     }
-  } else if (rootElement && isChecked === false) {
-    document.documentElement.classList.remove("dark");
-    rootElement.style.backgroundImage =
-      "url(../src/assets/background-dark.jpg)";
-    rootElement.style.backgroundColor = "rgba(255, 246, 248, 0.9)";
-    rootElement.style.backgroundBlendMode = "overlay";
-  }
+  }, [isChecked]);
 
   return (
     <div className="flex p-3 m-3">
