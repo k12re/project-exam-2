@@ -103,7 +103,7 @@ function MyCalendar() {
   return (
     <div>
       <Calendar
-        className="rounded-xl green w-full mb-4"
+        className="rounded-xl green w-full mb-4 dark:bg-dark-green dark:border-green"
         onChange={handleDateChange}
         value={value}
         tileClassName={tileClassName}
