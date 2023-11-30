@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Booking, Bookings } from "../Interfaces";
+import { AuthContextType, Booking, Bookings } from "../Interfaces";
 import { AuthFetch } from "../AuthFetch";
 import Calendar from "react-calendar";
 import { bookingsUrl, url, venuesUrl } from "../Constants";
+import { useAuth } from "../AuthContext";
 
 function MyCalendar() {
   const [bookings, setBookings] = useState<Bookings>([]);
@@ -12,6 +13,7 @@ function MyCalendar() {
   const [value] = useState(new Date());
   const [maxGuests, setMaxGuests] = useState();
   const [bookingError, setBookingError] = useState<string | null>(null);
+  const { isLoggedIn } = useAuth() as AuthContextType;
 
   let { id } = useParams();
 
@@ -108,26 +110,28 @@ function MyCalendar() {
         value={value}
         tileClassName={tileClassName}
       />
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="numberOfGuests" className="block">
-          <input
-            placeholder="No of guests..."
-            type="number"
-            id="numberOfGuests"
-            name="guests"
-            onChange={(event) =>
-              setNumberOfGuests(parseInt(event.target.value, 10))
-            }
-            className="mt-2 mb-2 mx-auto block w-full drop-shadow bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
-            max={maxGuests}
-            min="1"
-          />
-        </label>
-        <p className="text-dark-red pl-3 pb-2">{bookingError}</p>
-        <button type="submit" className="btn-primary">
-          Book dates
-        </button>
-      </form>
+      {isLoggedIn ? (
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="numberOfGuests" className="block">
+            <input
+              placeholder="No of guests..."
+              type="number"
+              id="numberOfGuests"
+              name="guests"
+              onChange={(event) =>
+                setNumberOfGuests(parseInt(event.target.value, 10))
+              }
+              className="mt-2 mb-2 mx-auto block w-full drop-shadow bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
+              max={maxGuests}
+              min="1"
+            />
+          </label>
+          <p className="text-dark-red pl-3 pb-2">{bookingError}</p>
+          <button type="submit" className="btn-primary">
+            Book dates
+          </button>
+        </form>
+      ) : null}
     </div>
   );
 }
