@@ -59,31 +59,6 @@ function MyCalendar() {
     }
   };
 
-  // const setDates = (selectedRange) => {
-  //   const { from, to } = selectedRange;
-
-  //   const fromDate = new Date(from);
-  //   const toDate = new Date(to);
-
-  //   const datesToSend = [];
-  //   let currentDate = new Date(fromDate);
-
-  //   while (currentDate <= toDate) {
-  //     datesToSend.push(new Date(currentDate));
-  //     currentDate.setDate(currentDate.getDate() + 1);
-  //   }
-
-  //   // const localDates = datesToSend.map((date) => new Date(date.toLocaleDateString))
-
-  //   setSelectedDate(datesToSend);
-
-  //   console.log("Selected date", selectedRange);
-  //   console.log("Dates to send", datesToSend);
-
-  //   console.log(datesToSend);
-  //   return datesToSend;
-  // };
-
   const handleDateChange = (value: any) => {
     setSelectedDate((prevDate) => {
       if (prevDate.length === 0 || prevDate.length === 1) {

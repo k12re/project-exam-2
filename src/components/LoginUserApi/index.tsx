@@ -3,6 +3,7 @@ import { url } from "../../App";
 import { save } from "../Storage";
 import { useAuth } from "../AuthContext";
 import { AuthContextType } from "../Interfaces";
+import { useNavigate } from "react-router";
 
 const authEndpoint = "/auth";
 const action = "/login";
@@ -11,6 +12,7 @@ const methodPOST = "POST";
 function useLoginUserAPI() {
   const { login } = useAuth() as AuthContextType;
   const [profileData, setProfileData] = useState(null);
+  const navigate = useNavigate();
 
   const loginUser = async (profile: object) => {
     const postData = {
@@ -27,13 +29,15 @@ function useLoginUserAPI() {
       const json = await response.json();
       setProfileData(json);
 
-      login(json);
-
       if (response.ok) {
         const accessToken = json.accessToken;
         save("accessToken", accessToken);
         delete json.accessToken;
         save("profile", json);
+        login(json);
+        navigate("/");
+      } else {
+        console.log("Login failed:", json.errors);
       }
       setProfileData(json);
     } catch (error) {

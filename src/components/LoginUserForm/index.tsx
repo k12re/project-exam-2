@@ -1,11 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { loginSchema } from "../Schema";
 import useLoginUserAPI from "../LoginUserApi";
 
 function LoginUserForm() {
-  const navigate = useNavigate();
   const location = useLocation();
   const {
     register,
@@ -15,12 +14,30 @@ function LoginUserForm() {
     resolver: yupResolver(loginSchema),
   });
 
-  const { loginUser } = useLoginUserAPI();
+  const { loginUser, profileData } = useLoginUserAPI();
 
   function onSubmit(profileData: object) {
     loginUser(profileData);
-    navigate("/");
   }
+
+  type ErrorObject = { path: string[]; message: string };
+
+  type ErrorResponse = { errors: ErrorObject[] };
+
+  const errorResponse = (data: any): data is { errors: ErrorResponse } => {
+    return (
+      data &&
+      "errors" in data &&
+      Array.isArray(data.errors) &&
+      data.errors.length > 0
+    );
+  };
+
+  const hasErrors = (data: ErrorResponse | null) => {
+    return errorResponse(data) ? data.errors[0].message : "";
+  };
+
+  const loginError = hasErrors(profileData);
 
   return (
     <div className="max-w-md mx-auto">
@@ -76,6 +93,7 @@ function LoginUserForm() {
               <p className="text-dark-red pl-3 pb-2">
                 {errors.password?.message}
               </p>
+              <p className="text-dark-red pl-3 pb-2">{loginError}</p>
             </label>
             <button className="btn-primary">Login</button>
           </label>
