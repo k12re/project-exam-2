@@ -16,7 +16,7 @@ function LightDarkMode() {
       rootElement.classList.add("dark");
       rootElement.style.setProperty(
         "background-image",
-        "url('../src/assets/background-dark.jpg')"
+        "url(../src/assets/background-dark.jpg)"
       );
       rootElement.style.setProperty("background-color", "#022626");
       rootElement.style.setProperty("background-blend-mode", "overlay");
