@@ -14,12 +14,14 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
+
   /* padding: 2rem; */
   /*  */
   /* text-align: center; */
   /*  */
   /* background-color: #022626; */
-  background-image: url(/background-dark.jpg);
+  /* background-image: url(../src/assets/background-dark.jpg); */
+
   background-blend-mode: overlay;
   background-attachment: fixed;
   background-position: center;
