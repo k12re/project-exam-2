@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { AuthFetch } from "../AuthFetch";
-import { profilesUrl, url } from "../Constants";
+import { profilesUrl, url, venuesUrl } from "../Constants";
 import { load } from "../Storage";
 import { Profile } from "../Interfaces";
 import { AuthContextType } from "../Interfaces";
@@ -21,7 +21,7 @@ function ProfilePage() {
   let { name } = useParams();
   const navigate = useNavigate();
   const navigateVenue = (venues: { id: string }) => {
-    navigate(`${profilesUrl}/${venues.id}`);
+    navigate(`${venuesUrl}/${venues.id}`);
   };
 
   const loggedInUser = load("profile");
