@@ -21,7 +21,7 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="text-white-pink text-center backdrop-blur-lg backdrop-brightness-90 bg-white/30 p-6">
+    <footer className="text-dark-green dark:text-white-pink text-center backdrop-blur-lg backdrop-brightness-90 bg-white/30 p-6">
       Ken Thore Bjerke Bøeng 2023
     </footer>
   );

@@ -8,6 +8,7 @@
   background-repeat: no-repeat;
   min-height: 100vh;
   min-width: 100%;
+  font-family: "Anek Latin", "sans";
 }
 
 @tailwind base;
@@ -16,18 +17,23 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-green
+    @apply text-lg
+    bg-green
      hover:bg-dark-green
      dark:bg-pink
      dark:hover:bg-light-pink
-     text-white-pink py-3 my-3 rounded-xl font-bold font-btn w-full;
+     text-white-pink dark:text-dark-green py-3 my-3 rounded-xl font-bold font-btn w-full;
   }
 
   .btn-small {
-    @apply bg-green
+    @apply font-btn bg-green
     hover:bg-dark-green
     dark:bg-pink
-    dark:hover:bg-light-pink text-white-pink rounded-md ml-2 px-3;
+    dark:hover:bg-light-pink text-white-pink dark:text-dark-green rounded-md ml-2 px-3;
+  }
+
+  .bean-selector {
+    @apply font-btn;
   }
 
   .checkbox-primary {
