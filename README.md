@@ -22,7 +22,7 @@
 - You can view venue bookings on venues
 - You can book dates via a calendar
 - You can view your bookings on your profile page
-- You can search by any search term and filter by tag
+- You can search by name via search term
 
 ## Built With
 
