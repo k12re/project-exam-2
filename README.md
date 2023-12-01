@@ -2,6 +2,9 @@
 
 
 
+
+![image](https://github.com/k12re/project-exam-2/assets/83732570/a638023b-73c0-41b7-8c47-7170c19d996e)
+
 - A new React front-end client for an existing holiday booking application. The client application is responsive and has dark and light mode.
 
 - Using the provided API and API documentation, a user can interact with several endpoints.
