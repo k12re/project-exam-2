@@ -50,13 +50,13 @@ function RegisterUserForm() {
     : "";
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto mt-16">
       <span className="flex px-4 my-3">
         <h1 className="text-2xl font-bold px-4 dark:text-white-pink text-dark-green">
           Fill out to register
         </h1>
       </span>
-      <div className="drop-shadow mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
+      <div className="drop-shadow m-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
         <span className="flex justify-center pt-6">
           <Link to={`/register`}>
             <div className="bg-white-pink rounded-l-full w-32 p-1">
