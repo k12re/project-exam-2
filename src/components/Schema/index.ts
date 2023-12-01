@@ -26,7 +26,7 @@ export const venueSchema = yup
   .object({
     name: yup.string().required("Name is required"),
     description: yup.string().required("Description is required"),
-    media: yup.string(),
+    media: yup.string().optional(),
     price: yup
       .number()
       .typeError("Price is required")
@@ -36,9 +36,9 @@ export const venueSchema = yup
       .typeError("No of guests is required")
       .required("No of guests is required"),
     rating: yup.number(),
-    wifi: yup.boolean(),
-    parking: yup.boolean(),
-    breakfast: yup.boolean(),
-    petsAllowed: yup.boolean(),
+    "meta.wifi": yup.boolean(),
+    "meta.parking": yup.boolean(),
+    "meta.breakfast": yup.boolean(),
+    "meta.pets": yup.boolean(),
   })
   .required();

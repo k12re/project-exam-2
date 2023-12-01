@@ -34,7 +34,7 @@ export interface Venue {
 export interface VenueData {
   name: string;
   description: string;
-  media?: string[];
+  media?: string;
   price: number;
   maxGuests: number;
   rating?: number;

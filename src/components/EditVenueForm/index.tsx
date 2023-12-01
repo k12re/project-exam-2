@@ -15,7 +15,7 @@ function EditVenueForm() {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({
+  } = useForm<VenueData>({
     resolver: yupResolver(venueSchema),
   });
   const { editVenue } = useEditVenueAPI();
@@ -49,19 +49,11 @@ function EditVenueForm() {
   }
 
   const onSubmit = async (venueData: any) => {
-    console.log(venueData);
-
     const formData: VenueData = {
       ...venueData,
       media: venueData.media
         ? venueData.media.split(",").map((url: string) => url.trim())
         : [],
-      meta: {
-        wifi: false,
-        parking: false,
-        breakfast: false,
-        pets: false,
-      },
     };
 
     await editVenue(formData);
@@ -187,7 +179,7 @@ function EditVenueForm() {
                 className="checkbox-primary"
                 type="checkbox"
                 id="wifi"
-                {...register("wifi")}
+                {...register("meta.wifi")}
               ></input>
               <label
                 htmlFor="parking"
@@ -199,7 +191,7 @@ function EditVenueForm() {
                 className="checkbox-primary"
                 type="checkbox"
                 id="parking"
-                {...register("parking")}
+                {...register("meta.parking")}
               ></input>
               <label
                 htmlFor="breakfast"
@@ -211,7 +203,7 @@ function EditVenueForm() {
                 className="checkbox-primary"
                 type="checkbox"
                 id="breakfast"
-                {...register("breakfast")}
+                {...register("meta.breakfast")}
               ></input>
               <label
                 htmlFor="petsAllowed"
@@ -222,8 +214,8 @@ function EditVenueForm() {
               <input
                 className="checkbox-primary"
                 type="checkbox"
-                id="petsAllowed"
-                {...register("petsAllowed")}
+                id="pets"
+                {...register("meta.pets")}
               ></input>
 
               <button className="btn-primary">Save changes</button>

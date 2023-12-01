@@ -21,8 +21,6 @@ function useEditVenueAPI() {
       const response = await AuthFetch(venuesUrl, postData);
       const json = await response.json();
       setVenueData(json);
-      console.log(venueData);
-      console.log(json);
     } catch (error) {
       console.log(error);
     }
