@@ -54,11 +54,9 @@ function VenuePage() {
           Venue
         </h1>
       </span>
-      {/* <div className="flex flex-row "> */}
       <div className="m-4">
         <div className="grid grid-cols-3 gap-4 mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
           {/* LEFT */}
-          {/* <div className="flex flex-col"> */}
           <div className="row-start-1 row-span-1 col-span-3 md:col-start-1 md:col-span-5 md:row-span-3 lg:col-span-1 lg:row-span-3 ">
             <div className="h-full">
               <img
@@ -87,7 +85,6 @@ function VenuePage() {
             </div>
           </div>
           {/* MIDDLE */}
-          {/* <div className="flex flex-col"> */}
           <div className="row-start-2 col-span-3 row-span-1 md:col-start-1 md:col-span-2 md:row-span-3 lg:col-start-2 lg:row-span-1 lg:col-span-1">
             <div className=" mb-4">
               <h3 className="text-xl font-bold">Venue name: {venue.name}</h3>
@@ -110,7 +107,7 @@ function VenuePage() {
                         src={venue.owner && venue.owner.avatar}
                       />
                     )}
-                    <p className="flex-auto">
+                    <p className="flex-auto ml-2">
                       Owner: {venue.owner && venue.owner.name}
                     </p>
                     <p className="flex-auto">
@@ -129,7 +126,6 @@ function VenuePage() {
             </div>
           </div>
           {/* RIGHT */}
-          {/* <div className="flex flex-col"> */}
           <div className="row-start-3 col-span-3 row-span-1 md:col-start-3 md:row-span-3 lg:col-start-3 lg:row-span-3">
             <div className="flex justify-between">
               <div className=" mb-4">
@@ -162,7 +158,6 @@ function VenuePage() {
               key={bookings.id}
               className="w-full mx-auto rounded-2xl p-5 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
             >
-              {/* <h2 className="font-bold">{bookings.venue.name}</h2> */}
               <p className="font-bold">Booked from:</p>
               <p>{bookings.dateFrom.substring(0, 10)}</p>
               <p className="font-bold">Booked to:</p>

@@ -6,13 +6,13 @@ import { VenueData } from "../Interfaces";
 import { Link } from "react-router-dom";
 import useCreateVenueAPI from "../CreateVenueApi";
 
-function CreateVenueForm() {
+const CreateVenueForm: React.FC = () => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<VenueData>({
     resolver: yupResolver(venueSchema),
   });
   const { createVenue } = useCreateVenueAPI();
@@ -33,12 +33,6 @@ function CreateVenueForm() {
       media: venueData.media
         ? venueData.media.split(",").map((url: string) => url.trim())
         : ["https://source.unsplash.com/1600x900/?hotel"],
-      meta: {
-        wifi: false,
-        parking: false,
-        breakfast: false,
-        pets: false,
-      },
     };
     await createVenue(formData);
 
@@ -162,7 +156,7 @@ function CreateVenueForm() {
                 className="checkbox-primary"
                 type="checkbox"
                 id="wifi"
-                {...register("wifi")}
+                {...register("meta.wifi")}
               ></input>
               <label
                 htmlFor="parking"
@@ -174,7 +168,7 @@ function CreateVenueForm() {
                 className="checkbox-primary"
                 type="checkbox"
                 id="parking"
-                {...register("parking")}
+                {...register("meta.parking")}
               ></input>
               <label
                 htmlFor="breakfast"
@@ -186,7 +180,7 @@ function CreateVenueForm() {
                 className="checkbox-primary"
                 type="checkbox"
                 id="breakfast"
-                {...register("breakfast")}
+                {...register("meta.breakfast")}
               ></input>
               <label
                 htmlFor="petsAllowed"
@@ -198,7 +192,7 @@ function CreateVenueForm() {
                 className="checkbox-primary"
                 type="checkbox"
                 id="petsAllowed"
-                {...register("petsAllowed")}
+                {...register("meta.pets")}
               ></input>
 
               <button className="btn-primary">Save venue</button>
@@ -209,6 +203,6 @@ function CreateVenueForm() {
       </div>
     </>
   );
-}
+};
 
 export default CreateVenueForm;
