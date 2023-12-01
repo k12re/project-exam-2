@@ -82,3 +82,7 @@ export interface AuthContextType {
 export interface AuthProviderProps {
   children: React.ReactNode;
 }
+
+export interface ClickProps {
+  onClick?: () => void;
+}

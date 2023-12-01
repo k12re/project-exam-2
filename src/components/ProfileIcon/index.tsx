@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { load } from "../Storage";
 import { useAuth } from "../AuthContext";
-import { AuthContextType } from "../Interfaces";
+import { AuthContextType, ClickProps } from "../Interfaces";
 
-function ProfileIcon() {
+const ProfileIcon: React.FC<ClickProps> = ({ onClick = () => {} }) => {
   const [myProfileDetails, setMyProfileDetails] = useState(load("profile"));
-
   const { avatarChange } = useAuth() as AuthContextType;
+
+  const handleClick = () => {
+    onClick();
+  };
 
   useEffect(() => {
     setMyProfileDetails(load("profile"));
@@ -16,7 +19,10 @@ function ProfileIcon() {
   return (
     <li key={"profiles"} className="group m-5 hover:drop-shadow-lg hover:mt-4">
       {myProfileDetails?.avatar ? (
-        <NavLink to={`/profiles/${myProfileDetails.name}`}>
+        <NavLink
+          to={`/profiles/${myProfileDetails.name}`}
+          onClick={handleClick}
+        >
           <img
             src={myProfileDetails?.avatar}
             className="h-8 w-8 rounded-full object-cover hover:h-10 hover:w-10"
@@ -24,7 +30,10 @@ function ProfileIcon() {
           ></img>
         </NavLink>
       ) : (
-        <NavLink to={`/profiles/${myProfileDetails?.name}`}>
+        <NavLink
+          to={`/profiles/${myProfileDetails?.name}`}
+          onClick={handleClick}
+        >
           <svg
             className="rounded-full"
             width="32"
@@ -44,6 +53,6 @@ function ProfileIcon() {
       )}
     </li>
   );
-}
+};
 
 export default ProfileIcon;

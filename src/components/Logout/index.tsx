@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../AuthContext";
-import { AuthContextType } from "../Interfaces";
+import { AuthContextType, ClickProps } from "../Interfaces";
 
-function LogoutUser() {
+const LogoutUser: React.FC<ClickProps> = ({ onClick = () => {} }) => {
   const { logout } = useAuth() as AuthContextType;
 
   const handleLogout = async () => {
     logout();
+    onClick();
   };
 
   return (
@@ -18,6 +19,6 @@ function LogoutUser() {
       Logout
     </NavLink>
   );
-}
+};
 
 export default LogoutUser;

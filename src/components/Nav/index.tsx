@@ -17,6 +17,10 @@ function Nav() {
     setMenuOpen(!menuOpen);
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <nav className="flex justify-between">
       <Logo />
@@ -72,6 +76,7 @@ function Nav() {
         <li key={"home"} className="group m-1 pt-5">
           <NavLink
             to="/"
+            onClick={closeMenu}
             className="mx-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
           >
             {" "}
@@ -82,6 +87,7 @@ function Nav() {
           <li key={"createvenue"} className="group m-1 pt-5">
             <NavLink
               to="/createvenue"
+              onClick={closeMenu}
               className="mx-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
             >
               {" "}
@@ -91,10 +97,11 @@ function Nav() {
         ) : null}
         <li key={"login"} className="group m-1 pt-5">
           {isLoggedIn ? (
-            <LogoutUser />
+            <LogoutUser onClick={closeMenu} />
           ) : (
             <NavLink
               to="/login"
+              onClick={closeMenu}
               className="mx-3 p-3 dark:text-pink text-green dark:hover:text-white-pink hover:bg-green dark:hover:bg-pink hover:text-white-pink"
             >
               {" "}
@@ -102,7 +109,7 @@ function Nav() {
             </NavLink>
           )}
         </li>
-        {isLoggedIn ? <ProfileIcon /> : null}
+        {isLoggedIn && <ProfileIcon onClick={closeMenu} />}
         <LightDarkMode />
       </ul>
     </nav>
