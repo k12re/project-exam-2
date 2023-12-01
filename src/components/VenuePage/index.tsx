@@ -35,7 +35,7 @@ function VenuePage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto ">
+    <div className="max-w-6xl mx-auto">
       <span className="flex px-4 my-3 text-dark-green dark:text-white-pink">
         <Link to={`/`}>
           <svg
@@ -55,11 +55,11 @@ function VenuePage() {
         </h1>
       </span>
       {/* <div className="flex flex-row "> */}
-      <div className="m-6">
-        <div className="grid grid-rows-1 md:grid-rows-3 grid-cols-3 grid-flow-row gap-4 mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
+      <div className="m-4">
+        <div className="grid grid-cols-3 gap-4 mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green">
           {/* LEFT */}
           {/* <div className="flex flex-col"> */}
-          <div className="row-start-1 row-span-1 col-span-3 md:col-start-1 md:row-span-3 md:col-span-1">
+          <div className="row-start-1 row-span-1 col-span-3 md:col-start-1 md:col-span-5 md:row-span-3 lg:col-span-1 lg:row-span-3 ">
             <div className="h-full">
               <img
                 className="object-cover rounded-xl h-96 w-full mb-4"
@@ -88,21 +88,14 @@ function VenuePage() {
           </div>
           {/* MIDDLE */}
           {/* <div className="flex flex-col"> */}
-          <div className="row-start-2 row-span-1 col-span-1 md:col-start-2 md:row-span-1">
-            <div className="col-span-2">
+          <div className="row-start-2 col-span-3 row-span-1 md:col-start-1 md:col-span-2 md:row-span-3 lg:col-start-2 lg:row-span-1 lg:col-span-1">
+            <div className=" mb-4">
               <h3 className="text-xl font-bold">Venue name: {venue.name}</h3>
-              <p className="break-all max-h-48 overflow-auto mb-8">
+              <p className="break-words max-h-56 overflow-auto">
                 Description: {venue.description}
               </p>
             </div>
-            <div className="col-start-3 row-start-2 row-span-1 md:col-start-2 md:row-span-1 md:row-start-2">
-              <h2 className="text-l font-bold">Location:</h2>
-              <p>Country: {venue.location?.country}</p>
-              <p>City: {venue.location?.city}</p>
-              <p>Address: {venue.location?.address}</p>
-              <p>Continent: {venue.location?.continent}</p>
-            </div>
-            <div className="col-start-3 row-start-2 row-span-1 md:col-start-2 md:row-start-3 md:row-span-1">
+            <div className="mb-4">
               {isLoggedIn ? (
                 <Link to={`/profiles/${venue.owner?.name}`}>
                   <div className="flex flex-row">
@@ -127,22 +120,30 @@ function VenuePage() {
                 </Link>
               ) : null}
             </div>
+            <div className="mb-4">
+              <h2 className="text-l font-bold">Location:</h2>
+              <p>Country: {venue.location?.country}</p>
+              <p>City: {venue.location?.city}</p>
+              <p>Address: {venue.location?.address}</p>
+              <p>Continent: {venue.location?.continent}</p>
+            </div>
           </div>
           {/* RIGHT */}
           {/* <div className="flex flex-col"> */}
-          <div className="row-start-3 col-span-3 md:col-start-3 md:row-span-3">
+          <div className="row-start-3 col-span-3 row-span-1 md:col-start-3 md:row-span-3 lg:col-start-3 lg:row-span-3">
             <div className="flex justify-between">
-              <div>
+              <div className=" mb-4">
+                <h2 className="text-l font-bold">Details:</h2>
+                <p>Max guests: {venue.maxGuests}</p>
+                <p>Price: {venue.price}</p>
+                <p>Rating: {venue.rating}</p>
+              </div>
+              <div className="mb-4">
                 <h2 className="text-l font-bold">Includes:</h2>
                 <p>Dogs: Icon</p>
                 <p>Parking: Icon</p>
                 <p>Wifi: Icon</p>
                 <p>Breakfast: Icon</p>
-              </div>
-              <div className="md:row-start-2 md:row-span-1">
-                <p>Max guests: {venue.maxGuests}</p>
-                <p>Price: {venue.price}</p>
-                <p>Rating: {venue.rating}</p>
               </div>
             </div>
             <div className="col-start-1 row-start-3 md:row-start-2 md:row-span-1">
@@ -151,13 +152,15 @@ function VenuePage() {
           </div>
         </div>
       </div>
-      <h3 className="text-xl font-bold px-4">Bookings:</h3>
-      <ul>
+      <h3 className="text-xl font-bold px-4 text-dark-green dark:text-white-pink mb-4 ml-4">
+        Bookings:
+      </h3>
+      <ul className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 auto-cols-auto m-4">
         {venue.bookings &&
           venue.bookings.map((bookings) => (
             <li
               key={bookings.id}
-              className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+              className="w-full mx-auto rounded-2xl p-5 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
             >
               {/* <h2 className="font-bold">{bookings.venue.name}</h2> */}
               <p className="font-bold">Booked from:</p>
