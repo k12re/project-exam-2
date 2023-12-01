@@ -29,7 +29,7 @@ function LightDarkMode() {
   }, [isChecked]);
 
   return (
-    <div className="flex p-3 m-3">
+    <div className="flex p-3 m-3 items-center">
       <input
         id="lightdarkmode"
         type="checkbox"
@@ -39,7 +39,7 @@ function LightDarkMode() {
       ></input>
       <label
         htmlFor="lightdarkmode"
-        className="ps-2 cursor-pointer w-24 text-green dark:text-pink"
+        className="ps-2 cursor-pointer text-green dark:text-pink"
       >
         {isChecked ? "Dark mode" : "Light mode "}
       </label>

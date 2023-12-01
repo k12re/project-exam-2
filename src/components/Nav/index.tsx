@@ -65,7 +65,7 @@ function Nav() {
       <ul
         className={`${
           menuOpen
-            ? "flex flex-col right-0 top-0 z-40  backdrop-blur-lg bg-white-pink bg-opacity-80 inset-1/3 h-full text-2xl fixed"
+            ? "flex flex-col right-0 top-0 z-40 backdrop-blur-lg dark:backdrop-blur-lg dark:bg-dark-green bg-white-pink dark:bg-opacity-80 bg-opacity-80 inset-1/3 h-full text-2xl fixed"
             : "hidden"
         } lg:flex lg:flex-row mx-auto dark:text-pink text-green`}
       >
