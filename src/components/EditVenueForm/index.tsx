@@ -94,8 +94,8 @@ function EditVenueForm() {
         </span>
         <DeleteVenue />
       </div>
-      <div className="max-w-md mx-auto ml-4 mr-4 z-40">
-        <div className="drop-shadow mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
+      <div className="max-w-md mx-auto z-40">
+        <div className="drop-shadow mx-4 mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
           <form id="venueform" onSubmit={handleSubmit(onSubmit)}>
             <label className="block text-dark-green dark:text-white-pink text-xs">
               <label htmlFor="name" className="block">

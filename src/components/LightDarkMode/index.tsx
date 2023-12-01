@@ -29,7 +29,7 @@ function LightDarkMode() {
   }, [isChecked]);
 
   return (
-    <div className="flex p-3 m-3 items-center">
+    <div className="flex p-3 m-3 pt-0 items-center">
       <input
         id="lightdarkmode"
         type="checkbox"
