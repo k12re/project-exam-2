@@ -5,14 +5,70 @@ import { AuthContextType } from "../Interfaces";
 import ProfileIcon from "../ProfileIcon";
 import LogoutUser from "../Logout";
 import LightDarkMode from "../LightDarkMode";
+import { useState } from "react";
 
 function Nav() {
   const { isLoggedIn, profileDetails, venueManager } =
     useAuth() as AuthContextType;
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
-    <nav className="flex justify-between ">
+    <nav className="flex justify-between">
       <Logo />
-      <ul className="flex flex-row flex-wrap mx-auto dark:text-pink text-green ">
+
+      <button
+        className="lg:hidden focus:outline-none right-0 top-0 p-4 z-50 dark:text-pink text-green absolute"
+        onClick={toggleMenu}
+        aria-label="Toggle menu"
+      >
+        {menuOpen ? (
+          <svg
+            className="fixed right-0 pt-0 mr-4"
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="m18 18l-6-6m0 0L6 6m6 6l6-6m-6 6l-6 6"
+            />
+          </svg>
+        ) : (
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5 17h14M5 12h14M5 7h14"
+            ></path>
+          </svg>
+        )}
+      </button>
+      {/* "flex flex-row flex-wrap mx-auto dark:text-pink text-green" */}
+      <ul
+        className={`${
+          menuOpen
+            ? "flex flex-col right-0 top-0 z-40  backdrop-blur-lg bg-white-pink bg-opacity-80 inset-1/3 h-full text-2xl fixed"
+            : "hidden"
+        } lg:flex lg:flex-row mx-auto dark:text-pink text-green`}
+      >
         <li key={"home"} className="group m-1 pt-5">
           <NavLink
             to="/"
@@ -47,8 +103,8 @@ function Nav() {
           )}
         </li>
         {isLoggedIn ? <ProfileIcon /> : null}
+        <LightDarkMode />
       </ul>
-      <LightDarkMode />
     </nav>
   );
 }

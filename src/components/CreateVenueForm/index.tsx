@@ -70,7 +70,7 @@ function CreateVenueForm() {
           <h1 className="text-2xl font-bold px-4">Create Venue</h1>
         </span>
       </div>
-      <div className="max-w-md mx-auto">
+      <div className="max-w-md mx-auto ml-4 mr-4">
         <div className="drop-shadow mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 border border-green">
           <form id="venueform" onSubmit={handleSubmit(onSubmit)}>
             <label className="block text-dark-green dark:text-white-pink text-xs">

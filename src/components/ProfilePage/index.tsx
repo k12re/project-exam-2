@@ -116,7 +116,7 @@ function ProfilePage() {
           Profile
         </h1>
       </span>
-      <div className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green ">
+      <div className="max-w-md mx-auto ml-4 mr-4 mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green ">
         <div>
           {isLoggedIn && isOwnUser && (
             <div className="absolute flex pl-2 left-20 ">
@@ -144,7 +144,10 @@ function ProfilePage() {
                     onChange={handleAvatarUrlChange}
                     className="w-full ml-1 px-2 py-1 bg-white-pink border border-white-pink rounded-md focus:outline-none focus:border-green dark:focus:border-pink text-dark-green dark:bg-dark-green dark:text-white-pink dark:border-green dark:placeholder-white-pink focus:ring-green dark:focus:ring-pink"
                   />
-                  <button onClick={handleSubmitAvatar} className="btn-small ">
+                  <button
+                    onClick={handleSubmitAvatar}
+                    className="btn-small mr-3"
+                  >
                     Submit
                   </button>
                 </label>
@@ -194,7 +197,7 @@ function ProfilePage() {
         )}
       </div>
       <div key={profile.name}>
-        <h3 className="text-xl font-bold px-4 relative left-0 dark:text-white-pink text-dark-green">
+        <h3 className="text-xl font-bold px-4 relative left-0 dark:text-white-pink text-dark-green mb-4">
           Venues:
         </h3>
         <ul>
@@ -202,7 +205,7 @@ function ProfilePage() {
             profile.venues.map((venues) => (
               <li
                 key={venues.id}
-                className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+                className="max-w-md mx-auto ml-4 mr-4 mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
               >
                 <img
                   onClick={() => navigateVenue(venues)}
@@ -212,12 +215,12 @@ function ProfilePage() {
                 />
                 <h3 className="text-xl font-bold">Venue: {venues.name}</h3>
                 <span className="flex justify-between">
-                  <p>Description: {venues.description}</p>
+                  <p>Description: {venues.description.substring(0, 30)}</p>
 
                   {isOwnUser && (
                     <button
                       onClick={() => navigate(`/editvenue/${venues.id}`)}
-                      className="btn-small py-1 w-20"
+                      className="btn-small py-1 w-20 flex-shrink"
                     >
                       Edit
                     </button>
@@ -226,7 +229,7 @@ function ProfilePage() {
               </li>
             ))}
         </ul>
-        <h3 className="text-xl font-bold px-4 dark:text-white-pink text-dark-green">
+        <h3 className="text-xl font-bold px-4 relative left-0 dark:text-white-pink text-dark-green mb-4">
           Bookings:
         </h3>
         <ul>
@@ -234,7 +237,7 @@ function ProfilePage() {
             profile.bookings.map((bookings) => (
               <li
                 key={bookings.id}
-                className="max-w-md mx-auto mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+                className="max-w-md mx-auto ml-4 mr-4 mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
               >
                 <div className="flex">
                   <div>

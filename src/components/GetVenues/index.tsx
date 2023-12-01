@@ -44,8 +44,8 @@ function GetVenues() {
 
   return (
     <>
-      <div className="max-w-6xl mx-auto ">
-        <span className="flex px-4 my-3 text-dark-green dark:text-white-pink">
+      <div className="max-w-6xl mx-auto">
+        <span className="flex px-4 my-3 text-dark-green dark:text-white-pink justify-center w-full">
           <Link to={`/`}>
             <svg
               width="32"
@@ -60,18 +60,17 @@ function GetVenues() {
               <title>Home icon</title>
             </svg>
           </Link>
-
           <h1 className="text-2xl font-bold px-4 dark:text-white-pink text-dark-green">
             Our venues
           </h1>
           <Search data={data} setSearchResults={setSearchResults} />
         </span>
-        <ul className="flex flex-row flex-wrap justify-center m-4">
+        <ul className="flex flex-row flex-wrap justify-center">
           {searchResults.length > 0
             ? searchResults.map((venue) => (
                 <li
                   key={venue.id}
-                  className="w-full md:w-1/2 lg:w-1/3 mx-auto ml-4 mr-4 mt-4 mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+                  className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 ml-4 mr-4 mt-5 mb-5 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
                 >
                   {Array.isArray(venue.media) && venue.media.length > 0 ? (
                     <img
@@ -109,7 +108,7 @@ function GetVenues() {
             : data.map((venue) => (
                 <li
                   key={venue.id}
-                  className="w-full md:w-1/2 lg:w-1/3 mx-auto ml-4 mr-4 mt-4 mb-4 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
+                  className="w-full sm:w-1/2  md:w-1/3 lg:w-1/4 mx-auto ml-4 mr-4 mt-5 mb-5 rounded-2xl p-4 backdrop-blur-lg bg-black/30 inset-0 dark:text-white-pink text-dark-green border border-green"
                 >
                   {Array.isArray(venue.media) && venue.media.length > 0 ? (
                     <img
@@ -145,7 +144,7 @@ function GetVenues() {
                 </li>
               ))}
         </ul>
-        <div className="flex justify-center space-x-4">
+        <div className="flex justify-evenly space-x-8">
           <button
             className="btn-primary w-1/6"
             onClick={decreaseOffset}
