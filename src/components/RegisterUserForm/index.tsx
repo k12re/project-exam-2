@@ -61,7 +61,7 @@ function RegisterUserForm() {
           <Link to={`/register`}>
             <div className="bg-white-pink rounded-l-full w-32 p-1">
               <h1
-                className={`text-xl font-bold px-4 pb-1 text-center text-white-pink dark:text-dark-green ${
+                className={`bean-selector text-md px-4 pb-1 text-center text-white-pink dark:text-dark-green ${
                   location.pathname === "/register"
                     ? "bg-green dark:bg-pink rounded-full"
                     : ""
@@ -73,7 +73,7 @@ function RegisterUserForm() {
           </Link>
           <Link to={`/login`}>
             <div className="bg-white-pink rounded-r-full w-32">
-              <h1 className="text-xl font-bold mb-4 px-1 pt-1 pb-2 text-center">
+              <h1 className="bean-selector text-md mb-4 px-1 pt-1 pb-2 text-center">
                 Login
               </h1>
             </div>

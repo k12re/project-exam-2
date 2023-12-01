@@ -18,10 +18,14 @@ export default {
     },
     fontFamily: {
       logo: ["Inspiration", "cursive"],
-      btn: ["Geologica"],
-      // "AR One Sans", "Anek Latin", "Geologica", "Lexend", "Signika",
+      btn: ["Geologica", "sans"],
+      root: ["Anek Latin", "sans"],
     },
-    extend: {},
+    extend: {
+      spacing: {
+        174: "174px",
+      },
+    },
   },
 
   plugins: [formPlugin],
