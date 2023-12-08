@@ -35,8 +35,11 @@
 
 1. Clone the repo:
 
+```
+git clone https://github.com/k12re/project-exam-2.git
+```
 
-2. Install the dependencies:
+3. Install the dependencies:
 
 ```
 npm install
@@ -48,6 +51,14 @@ To run the app, run the following commands:
 
 ```bash
 npm run dev
+```
+
+### Build
+
+To run the app, run the following commands:
+
+```bash
+npm run build
 ```
 
 
